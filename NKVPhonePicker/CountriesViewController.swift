@@ -12,7 +12,7 @@ public protocol CountriesViewControllerDelegate: class {
     func countriesViewController(_ sender: CountriesViewController, didSelectCountry country: Country)
 }
 
-public final class CountriesViewController:UIViewController {
+public final class CountriesViewController: UIViewController {
     // MARK: - API
     
     /// A class function for retrieving standart controller for picking countries.
@@ -24,14 +24,17 @@ public final class CountriesViewController:UIViewController {
     
     /// Cancel bar button Item (thank you CAP :).
     @IBOutlet weak public var cancelBarButtonItem: UIBarButtonItem!
+    
     /// You can choose to hide or show a cancel button with this property.
     public var shouldHideCancelButton: Bool = false { didSet { updateCancelButton() } }
     
     /// A delegate for <CountriesViewControllerDelegate>
     public weak var delegate: CountriesViewControllerDelegate?
 
-    public var unfilteredCountries: [[Country]]! { didSet { filteredCountries = unfilteredCountries } }
+    @IBOutlet public weak var countriesVCNavigationItem: UINavigationItem!
+    
     public var filteredCountries: [[Country]]!
+    public var unfilteredCountries: [[Country]]! { didSet { filteredCountries = unfilteredCountries } }
     public var selectedCountry: Country?
     public var majorCountryLocaleIdentifiers: [String] = []
     
@@ -41,12 +44,19 @@ public final class CountriesViewController:UIViewController {
         updateCancelButton()
         setupCountries()
         setupSearchController()
+        setupTableView()
     }
     
     // MARK: - Private
-    private var searchController = UISearchController(searchResultsController: nil)
+    fileprivate var searchController = UISearchController(searchResultsController: nil)
+    
     @IBOutlet fileprivate weak var tableView: UITableView!
-
+    
+    @IBAction private func cancel(sender: UIBarButtonItem) {
+        delegate?.countriesViewControllerDidCancel(self)
+        self.dismiss(animated: true, completion: nil)
+    }
+    
     private func updateCancelButton() {
         if let cancelBarButtonItem = cancelBarButtonItem {
             navigationItem.leftBarButtonItem = shouldHideCancelButton ? nil: cancelBarButtonItem
@@ -60,7 +70,6 @@ public final class CountriesViewController:UIViewController {
         searchController.searchBar.delegate = self
         searchController.searchBar.sizeToFit()
         
-      
         definesPresentationContext = true
     }
     
@@ -71,59 +80,52 @@ public final class CountriesViewController:UIViewController {
         tableView.tableFooterView = UIView(frame: CGRect.zero)
     }
     
-    //MARK: Viewing Countries
     private func setupCountries() {
-        
-        unfilteredCountries = partioned(array: Countries.countries, usingSelector: Selector("name"))
-        unfilteredCountries.insert(Countries.countriesFromCountryCodes(countryCodes: majorCountryLocaleIdentifiers), at: 0)
+        unfilteredCountries = partioned(array: Countries.countries, usingSelector: #selector(getter: Country.name))
+        unfilteredCountries.insert(Countries.countriesFrom(countryCodes: majorCountryLocaleIdentifiers), at: 0)
         tableView.reloadData()
         
         if let selectedCountry = selectedCountry {
-            for (index, countries) in unfilteredCountries.enumerate() {
-                if let countryIndex = countries.indexOf(selectedCountry) {
-                    let indexPath = NSIndexPath(forRow: countryIndex, inSection: index)
-                    tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .Middle, animated: true)
+            for (index, countries) in unfilteredCountries.enumerated() {
+                if let countryIndex = countries.index(of: selectedCountry) {
+                    let indexPath = NSIndexPath(row: countryIndex, section: index) as IndexPath
+                    tableView.scrollToRow(at: indexPath, at: .middle, animated: true)
                     break
                 }
             }
         }
     }
     
-    @IBAction private func cancel(sender: UIBarButtonItem) {
-        delegate?.countriesViewControllerDidCancel(self)
+    fileprivate func partioned<T: AnyObject>(array: [T], usingSelector selector: Selector) -> [[T]] {
+        let collation = UILocalizedIndexedCollation.current()
+        let numberOfSectionTitles = collation.sectionTitles.count
+        
+        var unsortedSections: [[T]] = Array(repeating: [], count: numberOfSectionTitles)
+        for object in array {
+            let sectionIndex = collation.section(for: object, collationStringSelector: selector)
+            unsortedSections[sectionIndex].append(object)
+        }
+        
+        var sortedSections: [[T]] = []
+        for section in unsortedSections {
+            let sortedSection = collation.sortedArray(from: section, collationStringSelector: selector) as! [T]
+            sortedSections.append(sortedSection)
+        }
+        return sortedSections
     }
-}
-
-private func partioned<T: AnyObject>(array: [T], usingSelector selector: Selector) -> [[T]] {
-    let collation = UILocalizedIndexedCollation.current()
-    let numberOfSectionTitles = collation.sectionTitles.count
-    
-    var unsortedSections: [[T]] = Array(repeating: [], count: numberOfSectionTitles)
-    for object in array {
-        let sectionIndex = collation.section(for: object, collationStringSelector: selector)
-        unsortedSections[sectionIndex].append(object)
-    }
-    
-    var sortedSections: [[T]] = []
-    for section in unsortedSections {
-        let sortedSection = collation.sortedArray(from: section, collationStringSelector: selector) as! [T]
-        sortedSections.append(sortedSection)
-    }
-    return sortedSections
 }
 
 // MARK: - Table View
 extension CountriesViewController: UITableViewDataSource {
     public func numberOfSections(in tableView: UITableView) -> Int {
         return filteredCountries.count
-
     }
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return filteredCountries[section].count
     }
     
-    public  func tableView(_ tableView: UITableView, cellForRowAt indexPath: NSIndexPath) -> UITableViewCell {
+    public  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = self.tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath as IndexPath)
         
         let country = filteredCountries[indexPath.section][indexPath.row]
@@ -131,16 +133,22 @@ extension CountriesViewController: UITableViewDataSource {
         cell.textLabel?.text = country.name
         cell.detailTextLabel?.text = "+" + country.phoneExtension
         
-        cell.accessoryType = .None
+        let flag = UIImage(named: "CountryPicker.bundle/Images/\(country.countryCode.uppercased())", in: Bundle(for: type(of: self)), compatibleWith: nil)
+        cell.imageView?.image = flag
+        cell.imageView?.contentMode = .scaleAspectFit
+        cell.imageView?.clipsToBounds = true
+        cell.imageView?.layer.cornerRadius = 3
+        cell.imageView?.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
         
-        if let selectedCountry = selectedCountry where country == selectedCountry {
-            cell.accessoryType = .Checkmark
+        cell.accessoryType = .none
+        if let selectedCountry = selectedCountry, country == selectedCountry {
+            cell.accessoryType = .checkmark
         }
         
         return cell
     }
     
-    public func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    public func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         let countries = filteredCountries[section]
         if countries.isEmpty {
             return nil
@@ -148,22 +156,23 @@ extension CountriesViewController: UITableViewDataSource {
         if section == 0 {
             return ""
         }
-        return UILocalizedIndexedCollation.currentCollation().sectionTitles[section - 1]
+        return UILocalizedIndexedCollation.current().sectionTitles[section - 1]
     }
     
-    public override func sectionIndexTitlesForTableView(tableView: UITableView) -> [String]? {
-        return searchController.active ? nil : UILocalizedIndexedCollation.currentCollation().sectionTitles
+    public func sectionIndexTitlesForTableView(tableView: UITableView) -> [String]? {
+        return searchController.isActive ? nil : UILocalizedIndexedCollation.current().sectionTitles
     }
     
-    public override func tableView(tableView: UITableView, sectionForSectionIndexTitle title: String, atIndex index: Int) -> Int {
-        return UILocalizedIndexedCollation.currentCollation().sectionForSectionIndexTitleAtIndex(index + 1)
+    public func tableView(_ tableView: UITableView, sectionForSectionIndexTitle title: String, at index: Int) -> Int {
+        return UILocalizedIndexedCollation.current().section(forSectionIndexTitle: index + 1)
     }
 }
 
 extension CountriesViewController: UITableViewDelegate {
-    public func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         delegate?.countriesViewController(self, didSelectCountry: filteredCountries[indexPath.section][indexPath.row])
+        self.dismiss(animated: true, completion: nil)
     }
 }
 
@@ -189,7 +198,7 @@ extension CountriesViewController: UISearchResultsUpdating {
             filteredCountries = unfilteredCountries
         } else {
             let allCountriesArray: [Country] = Countries.countries.filter { $0.name.range(of: text) != nil }
-            filteredCountries = partioned(array: allCountriesArray, usingSelector: Selector("name"))
+            filteredCountries = partioned(array: allCountriesArray, usingSelector: #selector(getter: Country.name))
             filteredCountries.insert([], at: 0) //Empty section for our favorites
         }
         tableView.reloadData()

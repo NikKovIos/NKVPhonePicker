@@ -24,7 +24,7 @@
                                 <rect key="frame" x="0.0" y="22" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Wlz-Sp-gIv" id="fRd-0D-xR3">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="8nn-Js-dfr">
@@ -52,14 +52,16 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Your Country" id="i1L-5U-721">
                         <barButtonItem key="leftBarButtonItem" title="Cancel" id="cMT-A6-qS7">
+                            <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
-                                <action selector="cancel:" destination="Fi1-xo-fj1" id="c2t-qq-TFG"/>
+                                <action selector="cancelWithSender:" destination="Fi1-xo-fj1" id="an2-dl-7rP"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="cancelBarButtonItem" destination="cMT-A6-qS7" id="3Yb-Ve-o0s"/>
+                        <outlet property="countriesVCNavigationItem" destination="i1L-5U-721" id="aW8-cK-roB"/>
                         <outlet property="tableView" destination="TG3-bR-HZb" id="gyT-Z8-dbP"/>
                     </connections>
                 </tableViewController>

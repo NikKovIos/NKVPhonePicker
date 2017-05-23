@@ -14,3 +14,12 @@ class ExampleViewController: UIViewController {
     }
 }
 
+//extension ExampleViewController: CountriesViewControllerDelegate {
+//    func countriesViewControllerDidCancel(_ sender: CountriesViewController) {
+//        
+//    }
+//    func countriesViewController(_ sender: CountriesViewController, didSelectCountry country: Country) {
+//        
+//    }
+//}
+

@@ -8,7 +8,7 @@
 //
 
 import UIKit
-
+/*
 public protocol PhoneNumberViewControllerDelegate {
     func phoneNumberViewController(phoneNumberViewController: PhoneNumberViewController, didEnterPhoneNumber phoneNumber: String)
     func phoneNumberViewControllerDidCancel(phoneNumberViewController: PhoneNumberViewController)
@@ -169,3 +169,4 @@ private extension String {
         return utf16.count
     }
 }
+ */

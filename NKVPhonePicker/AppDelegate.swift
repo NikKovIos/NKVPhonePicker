@@ -17,7 +17,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // TODO: Change top description everywhere
         // TODO: Tell, that is Swift 3.0
         // TODO: Tell, that is documented
-
+// https://github.com/Serheo/SHSPhoneComponent
+ //       https://github.com/hughbe/phone-number-picker
+  //      https://github.com/pradyumnad/Country-List
         return true
     }
 }
