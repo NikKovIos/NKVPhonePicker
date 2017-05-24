@@ -82,7 +82,7 @@ public final class CountriesViewController: UIViewController {
     
     private func setupCountries() {
         unfilteredCountries = partioned(array: NKVSourcesHelper.countries, usingSelector: #selector(getter: Country.name))
-        unfilteredCountries.insert(Countries.countriesFrom(countryCodes: majorCountryLocaleIdentifiers), at: 0)
+        unfilteredCountries.insert(Countries.countries(by: majorCountryLocaleIdentifiers), at: 0)
         tableView.reloadData()
         
         if let selectedCountry = selectedCountry {
@@ -131,6 +131,7 @@ extension CountriesViewController: UITableViewDataSource {
         let country = filteredCountries[indexPath.section][indexPath.row]
         
         cell.textLabel?.text = country.name
+        cell.textLabel?.minimumScaleFactor = 0.5
         cell.detailTextLabel?.text = "+" + country.phoneExtension
         
         let flag = NKVSourcesHelper.getFlagImage(by: country.countryCode)

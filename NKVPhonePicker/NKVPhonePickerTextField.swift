@@ -9,13 +9,22 @@ import UIKit
 
 public class NKVPhonePickerTextField: UITextField {
     // MARK: - Interface
+    /// Set this property in order to present the Country Picker ViewController
+    /// when user clicks on the flag button
     @IBOutlet weak var phonePickerDelegate: UIViewController?
 
-    /// - Returns: Current phone number in textField. Ex: +79997773344
-    public private(set) var phoneNumber: String?
+    /// - Returns: Current phone number in textField with spaces. Ex: +7 999 777 33 44
+    public var rawPhoneNumber: String {
+        return self.text ?? ""
+    }
     
-    /// - Returns: Current phone number in textField without code. Ex: 9997773344
-    public private(set) var phoneNumberWithoutCode: String?
+    /// - Returns: Current phone number in textField. Ex: +79997773344.
+    public var phoneNumber: String {
+        return self.text?.replacingOccurrences(of: " ", with: "") ?? ""
+    }
+    
+    /// - Returns: Current phone number in textField without code. Ex: 9997773344.
+    public var phoneNumberWithoutCode: String?
     
     /// - Returns: Current phone code without +. Ex: 7
     public private(set) var code: String?
@@ -35,6 +44,7 @@ public class NKVPhonePickerTextField: UITextField {
     public var flagSize: CGSize?         { didSet { customizeSelf() } }
     
     var flagView: NKVFlagView!
+    var currentCountry: Country! { didSet { setCode(with: currentCountry) } }
     
     // MARK: - Implementation
     // MARK: Initialization
@@ -54,7 +64,13 @@ public class NKVPhonePickerTextField: UITextField {
         flagView = NKVFlagView(with: self)
         self.leftView = flagView
         
+        currentCountry = Country.currentCountry
+        
         flagView.flagButton.addTarget(self, action: #selector(presentCountriesViewController), for: .touchUpInside)
+    }
+    
+    func setCode(with country: Country) {
+        self.text = "+\(country.phoneExtension) "
     }
     
     /// Presents a view controller to choose a country code.
@@ -108,6 +124,7 @@ public class NKVPhonePickerTextField: UITextField {
 extension NKVPhonePickerTextField: CountriesViewControllerDelegate {
     public func countriesViewController(_ sender: CountriesViewController, didSelectCountry country: Country) {
         flagView.setFlagWith(country: country)
+        self.setCode(with: country)
     }
     public func countriesViewControllerDidCancel(_ sender: CountriesViewController) {
         /// Do nothing yet

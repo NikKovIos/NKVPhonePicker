@@ -17,7 +17,6 @@ struct NKVLocalizationHelper {
     static var currentCode: String {
         let currentLocale = Locale.current
         let regionCode = currentLocale.regionCode?.uppercased()
-        print(regionCode ?? "NO CODE AVAILABLE")
         return regionCode ?? "JM"
     }
 }

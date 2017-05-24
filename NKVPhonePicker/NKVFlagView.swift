@@ -46,7 +46,7 @@ final class NKVFlagView: UIView {
         // Adding flag button to flag's view
         flagButton = UIButton.init(frame: self.frame)
         flagButton.imageEdgeInsets = insets;
-        flagButton.contentMode = .scaleAspectFit
+        flagButton.contentMode = .scaleToFill
         if flagButton.superview == nil { self.addSubview(flagButton) }
         
         self.layoutIfNeeded()

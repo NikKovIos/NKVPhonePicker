@@ -15,8 +15,7 @@ public class Countries {
     public class func countryFrom(phoneExtension: String) -> Country {
         let phoneExtension = (phoneExtension as NSString).replacingOccurrences(of: "+", with: "")
         for country in NKVSourcesHelper.countries {
-            if country.isMain
-                && phoneExtension == country.phoneExtension {
+            if phoneExtension == country.phoneExtension {
                 return country
             }
         }
@@ -26,7 +25,7 @@ public class Countries {
     /// Returns a country by a country code.
     ///
     /// - Parameter countryCode: For example: "FR"
-    public class func countryFrom(countryCode: String) -> Country {
+    public class func country(by countryCode: String) -> Country {
         for country in NKVSourcesHelper.countries {
             if countryCode.lowercased() == country.countryCode.lowercased() {
                 return country
@@ -38,9 +37,9 @@ public class Countries {
     /// Returns a countries array from the country codes.
     ///
     /// - Parameter countryCodes: For example: ["FR", "EN"]
-    public class func countriesFrom(countryCodes: [String]) -> [Country] {
+    public class func countries(by countryCodes: [String]) -> [Country] {
         return countryCodes.map { code in
-            Countries.countryFrom(countryCode: code)
+            Countries.country(by: code)
         }
     }
 }
