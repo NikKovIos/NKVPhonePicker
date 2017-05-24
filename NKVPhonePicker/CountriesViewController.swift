@@ -7,7 +7,7 @@
 
 import UIKit
 
-public protocol CountriesViewControllerDelegate: class {
+public protocol CountriesViewControllerDelegate {
     func countriesViewControllerDidCancel(_ sender: CountriesViewController)
     func countriesViewController(_ sender: CountriesViewController, didSelectCountry country: Country)
 }
@@ -29,7 +29,7 @@ public final class CountriesViewController: UIViewController {
     public var shouldHideCancelButton: Bool = false { didSet { updateCancelButton() } }
     
     /// A delegate for <CountriesViewControllerDelegate>
-    public weak var delegate: CountriesViewControllerDelegate?
+    public var delegate: CountriesViewControllerDelegate?
 
     @IBOutlet public weak var countriesVCNavigationItem: UINavigationItem!
     
@@ -81,7 +81,7 @@ public final class CountriesViewController: UIViewController {
     }
     
     private func setupCountries() {
-        unfilteredCountries = partioned(array: Countries.countries, usingSelector: #selector(getter: Country.name))
+        unfilteredCountries = partioned(array: NKVSourcesHelper.countries, usingSelector: #selector(getter: Country.name))
         unfilteredCountries.insert(Countries.countriesFrom(countryCodes: majorCountryLocaleIdentifiers), at: 0)
         tableView.reloadData()
         
@@ -133,7 +133,7 @@ extension CountriesViewController: UITableViewDataSource {
         cell.textLabel?.text = country.name
         cell.detailTextLabel?.text = "+" + country.phoneExtension
         
-        let flag = UIImage(named: "CountryPicker.bundle/Images/\(country.countryCode.uppercased())", in: Bundle(for: type(of: self)), compatibleWith: nil)
+        let flag = NKVSourcesHelper.getFlagImage(by: country.countryCode)
         cell.imageView?.image = flag
         cell.imageView?.contentMode = .scaleAspectFit
         cell.imageView?.clipsToBounds = true
@@ -197,7 +197,7 @@ extension CountriesViewController: UISearchResultsUpdating {
         if text.isEmpty {
             filteredCountries = unfilteredCountries
         } else {
-            let allCountriesArray: [Country] = Countries.countries.filter { $0.name.range(of: text) != nil }
+            let allCountriesArray: [Country] = NKVSourcesHelper.countries.filter { $0.name.range(of: text) != nil }
             filteredCountries = partioned(array: allCountriesArray, usingSelector: #selector(getter: Country.name))
             filteredCountries.insert([], at: 0) //Empty section for our favorites
         }

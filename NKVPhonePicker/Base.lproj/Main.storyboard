@@ -31,7 +31,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
-                                    <outlet property="phonePickerDelegate" destination="BYZ-38-t0r" id="QAW-t6-v2e"/>
+                                    <outlet property="phonePickerDelegate" destination="BYZ-38-t0r" id="OZq-Uo-Sb7"/>
                                 </connections>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Picker without flags" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="thX-OE-AkL" customClass="NKVPhonePickerTextField" customModule="NKVPhonePicker" customModuleProvider="target">
@@ -39,9 +39,6 @@
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
-                                <connections>
-                                    <outlet property="phonePickerDelegate" destination="BYZ-38-t0r" id="rXh-kX-Hny"/>
-                                </connections>
                             </textField>
                         </subviews>
                         <color key="backgroundColor" red="0.97254901959999995" green="0.53492733063170239" blue="0.52016430485199094" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -54,6 +51,9 @@
                             <constraint firstItem="thX-OE-AkL" firstAttribute="trailing" secondItem="4iN-WC-NnQ" secondAttribute="trailing" id="zsV-Lw-vic"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="topTextField" destination="4iN-WC-NnQ" id="IRy-cv-tU5"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>

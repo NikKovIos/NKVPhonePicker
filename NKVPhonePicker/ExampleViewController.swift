@@ -8,18 +8,11 @@
 import UIKit
 
 class ExampleViewController: UIViewController {
+    
+    @IBOutlet weak var topTextField: NKVPhonePickerTextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        topTextField.flagSize = CGSize(width: 30, height: 50)
     }
 }
-
-//extension ExampleViewController: CountriesViewControllerDelegate {
-//    func countriesViewControllerDidCancel(_ sender: CountriesViewController) {
-//        
-//    }
-//    func countriesViewController(_ sender: CountriesViewController, didSelectCountry country: Country) {
-//        
-//    }
-//}
-

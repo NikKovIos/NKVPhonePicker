@@ -1,33 +1,49 @@
 //
-//  NKVPhonePickerTextField.swift
-//  NKVPhonePicker
+// Be happy and free :)
 //
-//  Created by Nik Kov on 23.05.17.
-//  Copyright © 2017 nik.kov. All rights reserved.
+// Nik Kov
+// nik-kov.com
 //
 
 import UIKit
 
-class NKVPhonePickerTextField: UITextField {
-    var flagView: NKVFlagView!
+public class NKVPhonePickerTextField: UITextField {
+    // MARK: - Interface
     @IBOutlet weak var phonePickerDelegate: UIViewController?
+
+    /// - Returns: Current phone number in textField. Ex: +79997773344
+    public private(set) var phoneNumber: String?
     
+    /// - Returns: Current phone number in textField without code. Ex: 9997773344
+    public private(set) var phoneNumberWithoutCode: String?
     
-    var pickerTitle: String?
-    var pickerTitleFont: UIFont?
-    var pickerCancelButtonTitle: String?
-    var pickerCancelButtonColor: UIColor?
-    var pickerCancelButtonFont: UIFont?
-    var pickerBarTintColor: UIColor?
-    //    @IBInspectable var
+    /// - Returns: Current phone code without +. Ex: 7
+    public private(set) var code: String?
     
-    // MARK: - Initialization
+    public var pickerTitle: String?
+    public var pickerTitleFont: UIFont?
+    public var pickerCancelButtonTitle: String?
+    public var pickerCancelButtonColor: UIColor?
+    public var pickerCancelButtonFont: UIFont?
+    public var pickerBarTintColor: UIColor?
+    
+    /// Insets for the flag icon.
+    ///
+    /// Left and right insets affect on flag view. 
+    /// Top and bottom insets - on image only.
+    public var flagInsets: UIEdgeInsets? { didSet { customizeSelf() } }
+    public var flagSize: CGSize?         { didSet { customizeSelf() } }
+    
+    var flagView: NKVFlagView!
+    
+    // MARK: - Implementation
+    // MARK: Initialization
     override init(frame: CGRect) {
         super.init(frame: frame)
         initialize()
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         initialize()
     }
@@ -38,23 +54,23 @@ class NKVPhonePickerTextField: UITextField {
         flagView = NKVFlagView(with: self)
         self.leftView = flagView
         
-        flagView!.flagButton.addTarget(self, action: #selector(presentCountriesViewController), for: .touchUpInside)
+        flagView.flagButton.addTarget(self, action: #selector(presentCountriesViewController), for: .touchUpInside)
     }
     
+    /// Presents a view controller to choose a country code.
     @objc private func presentCountriesViewController() {
-        if let delegateVC = phonePickerDelegate {
+        if let delegate = phonePickerDelegate {
             let countriesVC = CountriesViewController.standardController()
-            if delegateVC is CountriesViewControllerDelegate {
-                countriesVC.delegate = delegateVC as? CountriesViewControllerDelegate
-            }
+            countriesVC.delegate = self as CountriesViewControllerDelegate
             let navC = UINavigationController.init(rootViewController: countriesVC)
             
             customizeCountryPicker(countriesVC)
-            
-            delegateVC.present(navC, animated: true, completion: nil)
+            delegate.present(navC, animated: true, completion: nil)
         }
     }
     
+    // MARK: Customization
+    /// Method to customize the CountryPickerController.
     private func customizeCountryPicker(_ pickerVC: CountriesViewController) {
         if let pickerTitle = pickerTitle {
             pickerVC.countriesVCNavigationItem.title = pickerTitle
@@ -77,5 +93,23 @@ class NKVPhonePickerTextField: UITextField {
         if let pickerBarTintColor = pickerBarTintColor, let navController = pickerVC.navigationController {
             navController.navigationBar.barTintColor = pickerBarTintColor
         }
+    }
+    
+    private func customizeSelf() {
+        if let flagInsets = flagInsets {
+            flagView.insets = flagInsets
+        }
+        if let flagSize = flagSize {
+            flagView.iconSize = flagSize
+        }
+    }
+}
+
+extension NKVPhonePickerTextField: CountriesViewControllerDelegate {
+    public func countriesViewController(_ sender: CountriesViewController, didSelectCountry country: Country) {
+        flagView.setFlagWith(country: country)
+    }
+    public func countriesViewControllerDidCancel(_ sender: CountriesViewController) {
+        /// Do nothing yet
     }
 }
