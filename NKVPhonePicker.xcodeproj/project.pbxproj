@@ -12,16 +12,15 @@
 		EB84913A1ED435260069CD20 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB8491381ED435260069CD20 /* Main.storyboard */; };
 		EB84913C1ED435260069CD20 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EB84913B1ED435260069CD20 /* Assets.xcassets */; };
 		EB84913F1ED435260069CD20 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB84913D1ED435260069CD20 /* LaunchScreen.storyboard */; };
-		EB84914B1ED4359C0069CD20 /* NKVPhonePickerSwift.podspec in Resources */ = {isa = PBXBuildFile; fileRef = EB8491491ED4359C0069CD20 /* NKVPhonePickerSwift.podspec */; };
-		EB84914C1ED4359C0069CD20 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = EB84914A1ED4359C0069CD20 /* README.md */; };
 		EB84919E1ED435AB0069CD20 /* Countries.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EB84914D1ED435AB0069CD20 /* Countries.bundle */; };
 		EB8491B01ED435AB0069CD20 /* CountriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB8491661ED435AB0069CD20 /* CountriesViewController.swift */; };
 		EB8491C31ED435AB0069CD20 /* CountriesViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB8491801ED435AB0069CD20 /* CountriesViewController.storyboard */; };
-		EB8491D81ED435AB0069CD20 /* Countries.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB84919C1ED435AB0069CD20 /* Countries.swift */; };
 		EB8491D91ED435AB0069CD20 /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB84919D1ED435AB0069CD20 /* Country.swift */; };
 		EB8491E71ED4370E0069CD20 /* NKVPhonePickerTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB8491E61ED4370E0069CD20 /* NKVPhonePickerTextField.swift */; };
 		EB8492001ED467FE0069CD20 /* NKVFlagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB8491FF1ED467FE0069CD20 /* NKVFlagView.swift */; };
 		EBD53F561ED6E64F007510E3 /* NKVPhoneFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD53F551ED6E64F007510E3 /* NKVPhoneFormatter.swift */; };
+		EBD53F591ED73C0F007510E3 /* NKVPhonePickerSwift.podspec in Resources */ = {isa = PBXBuildFile; fileRef = EBD53F571ED73C0F007510E3 /* NKVPhonePickerSwift.podspec */; };
+		EBD53F5A1ED73C0F007510E3 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = EBD53F581ED73C0F007510E3 /* README.md */; };
 		EBD60A681ED5D4170039A3AE /* NKVLocalizationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD60A671ED5D4170039A3AE /* NKVLocalizationHelper.swift */; };
 		EBEEE4E41ED62319007F9981 /* NKVSourcesHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBEEE4E31ED62319007F9981 /* NKVSourcesHelper.swift */; };
 /* End PBXBuildFile section */
@@ -34,16 +33,15 @@
 		EB84913B1ED435260069CD20 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EB84913E1ED435260069CD20 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EB8491401ED435260069CD20 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		EB8491491ED4359C0069CD20 /* NKVPhonePickerSwift.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = NKVPhonePickerSwift.podspec; sourceTree = "<group>"; };
-		EB84914A1ED4359C0069CD20 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		EB84914D1ED435AB0069CD20 /* Countries.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Countries.bundle; sourceTree = "<group>"; };
 		EB8491661ED435AB0069CD20 /* CountriesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountriesViewController.swift; sourceTree = "<group>"; };
 		EB8491801ED435AB0069CD20 /* CountriesViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CountriesViewController.storyboard; sourceTree = "<group>"; };
-		EB84919C1ED435AB0069CD20 /* Countries.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Countries.swift; sourceTree = "<group>"; };
 		EB84919D1ED435AB0069CD20 /* Country.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Country.swift; sourceTree = "<group>"; };
 		EB8491E61ED4370E0069CD20 /* NKVPhonePickerTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NKVPhonePickerTextField.swift; sourceTree = "<group>"; };
 		EB8491FF1ED467FE0069CD20 /* NKVFlagView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NKVFlagView.swift; sourceTree = "<group>"; };
 		EBD53F551ED6E64F007510E3 /* NKVPhoneFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NKVPhoneFormatter.swift; sourceTree = "<group>"; };
+		EBD53F571ED73C0F007510E3 /* NKVPhonePickerSwift.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = NKVPhonePickerSwift.podspec; sourceTree = "<group>"; };
+		EBD53F581ED73C0F007510E3 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		EBD60A671ED5D4170039A3AE /* NKVLocalizationHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NKVLocalizationHelper.swift; sourceTree = "<group>"; };
 		EBEEE4E31ED62319007F9981 /* NKVSourcesHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NKVSourcesHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -62,7 +60,9 @@
 		EB8491281ED435260069CD20 = {
 			isa = PBXGroup;
 			children = (
-				EB8491331ED435260069CD20 /* NKVPhonePicker */,
+				EB8491481ED435920069CD20 /* Info */,
+				EB8491471ED4358B0069CD20 /* Sources */,
+				EB8491461ED4357C0069CD20 /* Example */,
 				EB8491321ED435260069CD20 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -75,16 +75,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		EB8491331ED435260069CD20 /* NKVPhonePicker */ = {
-			isa = PBXGroup;
-			children = (
-				EB8491471ED4358B0069CD20 /* Sources */,
-				EB8491461ED4357C0069CD20 /* Example */,
-				EB8491481ED435920069CD20 /* Podspec */,
-			);
-			path = NKVPhonePicker;
-			sourceTree = "<group>";
-		};
 		EB8491461ED4357C0069CD20 /* Example */ = {
 			isa = PBXGroup;
 			children = (
@@ -95,7 +85,7 @@
 				EB84913D1ED435260069CD20 /* LaunchScreen.storyboard */,
 				EB8491401ED435260069CD20 /* Info.plist */,
 			);
-			name = Example;
+			path = Example;
 			sourceTree = "<group>";
 		};
 		EB8491471ED4358B0069CD20 /* Sources */ = {
@@ -106,25 +96,25 @@
 				EB8491E51ED436140069CD20 /* Views */,
 				EB8491E31ED435F70069CD20 /* Models */,
 			);
-			name = Sources;
+			path = Sources;
 			sourceTree = "<group>";
 		};
-		EB8491481ED435920069CD20 /* Podspec */ = {
+		EB8491481ED435920069CD20 /* Info */ = {
 			isa = PBXGroup;
 			children = (
-				EB8491491ED4359C0069CD20 /* NKVPhonePickerSwift.podspec */,
-				EB84914A1ED4359C0069CD20 /* README.md */,
+				EBD53F571ED73C0F007510E3 /* NKVPhonePickerSwift.podspec */,
+				EBD53F581ED73C0F007510E3 /* README.md */,
 			);
-			name = Podspec;
+			name = Info;
+			path = Podspec;
 			sourceTree = "<group>";
 		};
 		EB8491E31ED435F70069CD20 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				EB84919C1ED435AB0069CD20 /* Countries.swift */,
 				EB84919D1ED435AB0069CD20 /* Country.swift */,
 			);
-			name = Models;
+			path = Models;
 			sourceTree = "<group>";
 		};
 		EB8491E51ED436140069CD20 /* Views */ = {
@@ -135,7 +125,7 @@
 				EB8491FF1ED467FE0069CD20 /* NKVFlagView.swift */,
 				EB8491E61ED4370E0069CD20 /* NKVPhonePickerTextField.swift */,
 			);
-			name = Views;
+			path = Views;
 			sourceTree = "<group>";
 		};
 		EBEEE4E51ED62359007F9981 /* Helpers */ = {
@@ -145,7 +135,7 @@
 				EBEEE4E31ED62319007F9981 /* NKVSourcesHelper.swift */,
 				EBD53F551ED6E64F007510E3 /* NKVPhoneFormatter.swift */,
 			);
-			name = Helpers;
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -211,9 +201,9 @@
 				EB84913F1ED435260069CD20 /* LaunchScreen.storyboard in Resources */,
 				EB84913C1ED435260069CD20 /* Assets.xcassets in Resources */,
 				EB84913A1ED435260069CD20 /* Main.storyboard in Resources */,
+				EBD53F591ED73C0F007510E3 /* NKVPhonePickerSwift.podspec in Resources */,
 				EB84919E1ED435AB0069CD20 /* Countries.bundle in Resources */,
 				EB8491C31ED435AB0069CD20 /* CountriesViewController.storyboard in Resources */,
-				EB84914B1ED4359C0069CD20 /* NKVPhonePickerSwift.podspec in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -224,11 +214,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EB84914C1ED4359C0069CD20 /* README.md in Sources */,
 				EB8491E71ED4370E0069CD20 /* NKVPhonePickerTextField.swift in Sources */,
 				EB8491B01ED435AB0069CD20 /* CountriesViewController.swift in Sources */,
+				EBD53F5A1ED73C0F007510E3 /* README.md in Sources */,
 				EB8491371ED435260069CD20 /* ExampleViewController.swift in Sources */,
-				EB8491D81ED435AB0069CD20 /* Countries.swift in Sources */,
 				EBD53F561ED6E64F007510E3 /* NKVPhoneFormatter.swift in Sources */,
 				EBD60A681ED5D4170039A3AE /* NKVLocalizationHelper.swift in Sources */,
 				EB8491D91ED435AB0069CD20 /* Country.swift in Sources */,
@@ -247,6 +236,7 @@
 				EB8491391ED435260069CD20 /* Base */,
 			);
 			name = Main.storyboard;
+			path = .;
 			sourceTree = "<group>";
 		};
 		EB84913D1ED435260069CD20 /* LaunchScreen.storyboard */ = {
@@ -255,6 +245,7 @@
 				EB84913E1ED435260069CD20 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			path = .;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -360,7 +351,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = T4Q29AP976;
-				INFOPLIST_FILE = NKVPhonePicker/Info.plist;
+				INFOPLIST_FILE = Example/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.NKVPhonePicker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -373,10 +364,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = T4Q29AP976;
-				INFOPLIST_FILE = NKVPhonePicker/Info.plist;
+				INFOPLIST_FILE = Example/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.NKVPhonePicker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;

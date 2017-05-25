@@ -9,10 +9,21 @@
 import UIKit
 
 struct NKVSourcesHelper {
-    public static func getFlagImage(by code: String) -> UIImage {
+    /// Returns the flag image or nil, if there are not such image for this code.
+    public static func getFlagImage(by code: String) -> UIImage? {
         let flagImage = UIImage(named: "Countries.bundle/Images/\(code.uppercased())", in: Bundle(for: NKVPhonePickerTextField.self), compatibleWith: nil)
         
-        return flagImage ?? UIImage()
+        return flagImage
+    }
+    
+    public static func isFlagExistsFor(countryCode: String) -> Bool {
+        return (self.getFlagImage(by: countryCode) != nil)
+    }
+    
+    public static func isFlagExistsWith(phoneExtension: String) -> Bool {
+        let countryWithString = Country.countryBy(phoneExtension: phoneExtension)
+        if countryWithString == Country.empty { return false }
+        return (self.getFlagImage(by: countryWithString.countryCode) != nil)
     }
     
     public private(set) static var countries: [Country] = {

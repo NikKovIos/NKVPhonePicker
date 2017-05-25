@@ -70,7 +70,7 @@ public final class CountriesViewController: UITableViewController {
     
     private func setupCountries() {
         unfilteredCountries = partioned(array: NKVSourcesHelper.countries, usingSelector: #selector(getter: Country.name))
-        unfilteredCountries.insert(Countries.countries(by: favoriteCountriesLocaleIdentifiers), at: 0)
+        unfilteredCountries.insert(Country.countriesBy(countryCodes: favoriteCountriesLocaleIdentifiers), at: 0)
         tableView.reloadData()
         
         if let selectedCountry = selectedCountry, shouldScrollToSelectedCountry {

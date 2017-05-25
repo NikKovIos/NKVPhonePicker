@@ -10,20 +10,32 @@ import UIKit
 final class NKVFlagView: UIView {
     // MARK: - Interface
     /// Size of the flag icon
-    var iconSize: CGSize     { didSet { configureInstance() } }
+    public var iconSize: CGSize     { didSet { configureInstance() } }
     /// Shifting for the icon from top, left, bottom and right.
-    var insets: UIEdgeInsets { didSet { configureInstance() } }
+    public var insets: UIEdgeInsets { didSet { configureInstance() } }
+    
+    /// Shows what country is presenting now.
+    public var currentPresentingCountry: Country = Country.empty
     
     public var flagButton: UIButton = UIButton()
     
     /// Convenience method to set the flag with Country entity.
     public func setFlagWith(country: Country) {
-        self.setFlag(with: country.countryCode)
+        self.setFlagWith(countryCode: country.countryCode)
+    }
+    
+    /// Convenience method to set the flag with phone extension.
+    public func setFlagWith(phoneExtension: String) {
+        let country = Country.countryBy(phoneExtension: phoneExtension)
+        self.setFlagWith(country: country)
     }
     
     /// Method for setting a flag with country (region) code.
-    public func setFlag(with code: String?) {
-        let code = code ?? "?"
+    public func setFlagWith(countryCode: String?) {
+        let code = countryCode ?? "?"
+        
+        currentPresentingCountry = Country.countryBy(countryCode: code)
+        
         let flagImage = NKVSourcesHelper.getFlagImage(by: code)
         self.flagButton.setImage(flagImage, for: .normal)
         self.flagButton.imageView?.contentMode = .scaleAspectFit
@@ -35,7 +47,7 @@ final class NKVFlagView: UIView {
         self.iconSize = CGSize(width: 18.0, height: textField.frame.height)
         super.init(frame: CGRect.zero)
         configureInstance()
-        setFlag(with: NKVLocalizationHelper.currentCode)
+        setFlagWith(countryCode: NKVLocalizationHelper.currentCode)
     }
     
     // MARK: - Implementation

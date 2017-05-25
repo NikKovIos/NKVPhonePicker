@@ -18,21 +18,22 @@ public class NKVPhonePickerTextField: UITextField {
         return self.text ?? ""
     }
     
-    /// - Returns: Current phone number in textField. Ex: +79997773344.
+    /// - Returns: Current phone number in textField without '+'. Ex: +79997773344.
     public var phoneNumber: String {
-        return self.text?.replacingOccurrences(of: " ", with: "") ?? ""
+        return self.text?.cutSpaces.cutPluses ?? ""
     }
     
     /// - Returns: Current phone number in textField without code. Ex: 9997773344.
     public var phoneNumberWithoutCode: String {
-        return (self.text?.replacingOccurrences(of: (currentSelectedCountry?.phoneExtension)!, with: ""))!
+        return (self.text?.replacingOccurrences(of: code, with: "").cutSpaces.cutPluses)!
     }
     
     /// - Returns: Current phone code without +. Ex: 7
     public var code: String {
-        return currentSelectedCountry?.phoneExtension.replacingOccurrences(of: "+", with: "") ?? ""
+        return flagView.currentPresentingCountry.phoneExtension.cutPluses 
     }
     
+    // Country picker customization properties:
     public var pickerTitle: String?
     public var pickerTitleFont: UIFont?
     public var pickerCancelButtonTitle: String?
@@ -54,8 +55,8 @@ public class NKVPhonePickerTextField: UITextField {
     public var currentSelectedCountry: Country? {
         didSet {
             if let selected = currentSelectedCountry {
-                self.setCode(with: selected)
-                flagView.setFlagWith(country: selected)
+                self.setCode(country: selected)
+                self.setFlag(country: selected)
             }
         }
     }
@@ -70,19 +71,34 @@ public class NKVPhonePickerTextField: UITextField {
     /// while editing the textField.
     public var isPlusPrefixImmortal: Bool = true
     
-    /// Set to 'false' if you don't need to scroll to selected country in CountryPickerViewController
+    /// Show is there a valid country flag (not with question mark).
+    public var isFlagExist: Bool = false
+    
+    /// Set to 'false' if you don't need to scroll to selected country in CountryPickerViewController.
     public var shouldScrollToSelectedCountry: Bool = true
     
-    /// Method for set code in textField with Country entity
-    public func setCode(with country: Country) {
+    /// Method for set code in textField with Country entity.
+    public func setCode(country: Country) {
         self.text = "+\(country.phoneExtension) "
     }
     
-    /// Method for set flag with countryCode
+    /// Method for set flag with countryCode.
     ///
     /// If nil it would be "?" code. This code present a flag with question mark.
     public func setFlag(countryCode: String?) {
-        flagView.setFlag(with: countryCode)
+        flagView.setFlagWith(countryCode: countryCode)
+    }
+    
+    /// Method for set flag with Country entity.
+    public func setFlag(country: Country) {
+        flagView.setFlagWith(country: country)
+    }
+    
+    /// Method for set flag with phone extenion.
+    public func setFlag(phoneExtension: String) {
+        if NKVSourcesHelper.isFlagExistsWith(phoneExtension: phoneExtension) {
+            flagView.setFlagWith(phoneExtension: phoneExtension)
+        }
     }
     
     // MARK: - Implementation
@@ -107,6 +123,7 @@ public class NKVPhonePickerTextField: UITextField {
         currentSelectedCountry = Country.currentCountry
         
         flagView.flagButton.addTarget(self, action: #selector(presentCountriesViewController), for: .touchUpInside)
+        self.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
     }
     
     /// Presents a view controller to choose a country code.
@@ -175,20 +192,18 @@ extension NKVPhonePickerTextField: CountriesViewControllerDelegate {
 }
 
 extension NKVPhonePickerTextField: UITextFieldDelegate {
-    public func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        let updatedString = (textField.text as NSString?)?.replacingCharacters(in: range, with: string)
-        
-        // Preventing of deleting a '+' character
-        if updatedString?.characters.count == 0 && isPlusPrefixImmortal {
-            textField.text = "+"
-            return false
-        }
+    
+    @objc fileprivate func textFieldDidChange() {
+        if let newString = self.text {
+            if newString.characters.count == 1 || newString.characters.count == 0 {
+                self.setFlag(countryCode: "?")
+            }
+            
+            if isPlusPrefixImmortal {
+                self.text = "+\(newString.cutPluses)"
+            }
 
-        // Defining if there a prefix and if it - checking the country
-        
-//        let phonePrefix =
-//        let phone =
-        
-        return true
+            self.setFlag(phoneExtension: newString)
+        }
     }
 }
