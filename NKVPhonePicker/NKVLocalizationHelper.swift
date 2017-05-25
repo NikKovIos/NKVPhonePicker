@@ -1,9 +1,8 @@
 //
-//  NKVLocalizationHelper.swift
-//  NKVPhonePicker
+// Be happy and free :)
 //
-//  Created by Nik Kov on 24.05.17.
-//  Copyright © 2017 nik.kov. All rights reserved.
+// Nik Kov
+// nik-kov.com
 //
 
 import Foundation
@@ -14,9 +13,14 @@ struct NKVLocalizationHelper {
     /// Ex: For Russian phone language it would be "RU".
     ///
     /// If region code didn't found - it would be "JM" by default.
-    static var currentCode: String {
+    static var currentCode: String? {
         let currentLocale = Locale.current
         let regionCode = currentLocale.regionCode?.uppercased()
-        return regionCode ?? "JM"
+        return regionCode
+    }
+    
+    /// Returns a localized country name by a country code of the current locale.
+    static func countryName(by countryCode: String) -> String? {
+        return (Locale.current as NSLocale).displayName(forKey: .countryCode, value: countryCode)
     }
 }

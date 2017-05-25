@@ -34,6 +34,9 @@ public final class CountriesViewController: UITableViewController {
     /// You can choose to hide or show a cancel button with this property.
     public var isCancelButtonHidden: Bool = false { didSet { configurateCancelButton() } }
     
+    /// Set to 'false' if you don't need to scroll to selected country in CountryPickerViewController
+    public var shouldScrollToSelectedCountry: Bool = true
+
     /// A delegate for <CountriesViewControllerDelegate>.
     public var delegate: CountriesViewControllerDelegate?
 
@@ -49,13 +52,16 @@ public final class CountriesViewController: UITableViewController {
         setupTableView()
     }
     
+    deinit {
+        self.searchController.view.removeFromSuperview()
+    }
+    
     // MARK: - Private
-    /// An array with which all countries are presenting. This array works with search controller and tableView.
+    fileprivate var searchController = UISearchController(searchResultsController: nil)
+/// An array with which all countries are presenting. This array works with search controller and tableView.
     fileprivate var filteredCountries: [[Country]]!
     /// An array with all countries, we have.
     fileprivate var unfilteredCountries: [[Country]]! { didSet { filteredCountries = unfilteredCountries } }
-    
-    fileprivate var searchController = UISearchController(searchResultsController: nil)
     
     @IBAction private func cancel(sender: UIBarButtonItem) {
         delegate?.countriesViewControllerDidCancel(self)
@@ -67,7 +73,7 @@ public final class CountriesViewController: UITableViewController {
         unfilteredCountries.insert(Countries.countries(by: favoriteCountriesLocaleIdentifiers), at: 0)
         tableView.reloadData()
         
-        if let selectedCountry = selectedCountry {
+        if let selectedCountry = selectedCountry, shouldScrollToSelectedCountry {
             for (index, countries) in unfilteredCountries.enumerated() {
                 if let countryIndex = countries.index(of: selectedCountry) {
                     let indexPath = NSIndexPath(row: countryIndex, section: index) as IndexPath
@@ -88,7 +94,6 @@ public final class CountriesViewController: UITableViewController {
         searchController.searchBar.tintColor = UIColor.black
         searchController.searchBar.backgroundColor = UIColor.white
         searchController.extendedLayoutIncludesOpaqueBars = true
-        searchController.delegate = self
 
         definesPresentationContext = true
     }
@@ -100,7 +105,7 @@ public final class CountriesViewController: UITableViewController {
     }
     
     private func setupTableView() {
-        tableView.sectionIndexTrackingBackgroundColor = UIColor.gray
+        tableView.sectionIndexTrackingBackgroundColor = UIColor.clear
         tableView.sectionIndexBackgroundColor = UIColor.clear
         tableView.sectionIndexColor = UIColor.black
         tableView.tableHeaderView = searchController.searchBar
@@ -177,7 +182,6 @@ extension CountriesViewController {
     
     // Indexes
     public override func sectionIndexTitles(for tableView: UITableView) -> [String]? {
-        print(UILocalizedIndexedCollation.current().sectionTitles)
         return searchController.isActive ? nil : UILocalizedIndexedCollation.current().sectionTitles
     }
     
@@ -191,7 +195,7 @@ extension CountriesViewController {
     public override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         delegate?.countriesViewController(self, didSelectCountry: filteredCountries[indexPath.section][indexPath.row])
-        searchController.dismiss(animated: false, completion: nil)
+        if searchController.isActive { searchController.dismiss(animated: false, completion: nil) }
         self.dismiss(animated: true, completion: nil)
     }
 }

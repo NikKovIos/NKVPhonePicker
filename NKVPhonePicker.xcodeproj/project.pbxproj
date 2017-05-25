@@ -104,7 +104,6 @@
 				EB84914D1ED435AB0069CD20 /* Countries.bundle */,
 				EBEEE4E51ED62359007F9981 /* Helpers */,
 				EB8491E51ED436140069CD20 /* Views */,
-				EB8491E41ED4360E0069CD20 /* Classes */,
 				EB8491E31ED435F70069CD20 /* Models */,
 			);
 			name = Sources;
@@ -128,20 +127,13 @@
 			name = Models;
 			sourceTree = "<group>";
 		};
-		EB8491E41ED4360E0069CD20 /* Classes */ = {
-			isa = PBXGroup;
-			children = (
-				EB8491FF1ED467FE0069CD20 /* NKVFlagView.swift */,
-				EB8491E61ED4370E0069CD20 /* NKVPhonePickerTextField.swift */,
-			);
-			name = Classes;
-			sourceTree = "<group>";
-		};
 		EB8491E51ED436140069CD20 /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				EB8491801ED435AB0069CD20 /* CountriesViewController.storyboard */,
 				EB8491661ED435AB0069CD20 /* CountriesViewController.swift */,
+				EB8491FF1ED467FE0069CD20 /* NKVFlagView.swift */,
+				EB8491E61ED4370E0069CD20 /* NKVPhonePickerTextField.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";

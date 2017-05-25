@@ -9,7 +9,7 @@ import UIKit
 
 public class NKVPhonePickerTextField: UITextField {
     // MARK: - Interface
-    /// Set this property in order to present the Country Picker ViewController
+    /// Set this property in order to present the CountryPickerViewController
     /// when user clicks on the flag button
     @IBOutlet weak var phonePickerDelegate: UIViewController?
 
@@ -24,10 +24,14 @@ public class NKVPhonePickerTextField: UITextField {
     }
     
     /// - Returns: Current phone number in textField without code. Ex: 9997773344.
-    public var phoneNumberWithoutCode: String?
+    public var phoneNumberWithoutCode: String {
+        return (self.text?.replacingOccurrences(of: (currentSelectedCountry?.phoneExtension)!, with: ""))!
+    }
     
     /// - Returns: Current phone code without +. Ex: 7
-    public private(set) var code: String?
+    public var code: String {
+        return currentSelectedCountry?.phoneExtension.replacingOccurrences(of: "+", with: "") ?? ""
+    }
     
     public var pickerTitle: String?
     public var pickerTitleFont: UIFont?
@@ -43,7 +47,10 @@ public class NKVPhonePickerTextField: UITextField {
     public var flagInsets: UIEdgeInsets? { didSet { customizeSelf() } }
     public var flagSize: CGSize?         { didSet { customizeSelf() } }
     
+    /// The UIView subclass which contains flag icon. 
     var flagView: NKVFlagView!
+    
+    /// This var returnes an entity of current selected country.
     public var currentSelectedCountry: Country? {
         didSet {
             if let selected = currentSelectedCountry {
@@ -59,8 +66,23 @@ public class NKVPhonePickerTextField: UITextField {
     ///     countryVC.favoriteCountriesLocaleIdentifiers = ["RU", "JM", "GB"]   
     public var favoriteCountriesLocaleIdentifiers: [String]?
     
+    /// Set to 'false' if you want to make available to erase the plus character
+    /// while editing the textField.
+    public var isPlusPrefixImmortal: Bool = true
+    
+    /// Set to 'false' if you don't need to scroll to selected country in CountryPickerViewController
+    public var shouldScrollToSelectedCountry: Bool = true
+    
+    /// Method for set code in textField with Country entity
     public func setCode(with country: Country) {
         self.text = "+\(country.phoneExtension) "
+    }
+    
+    /// Method for set flag with countryCode
+    ///
+    /// If nil it would be "?" code. This code present a flag with question mark.
+    public func setFlag(countryCode: String?) {
+        flagView.setFlag(with: countryCode)
     }
     
     // MARK: - Implementation
@@ -102,6 +124,8 @@ public class NKVPhonePickerTextField: UITextField {
     // MARK: Customization
     /// Method to customize the CountryPickerController.
     private func customizeCountryPicker(_ pickerVC: CountriesViewController) {
+        pickerVC.shouldScrollToSelectedCountry = shouldScrollToSelectedCountry
+        
         if let currentSelectedCountry = currentSelectedCountry {
             pickerVC.selectedCountry = currentSelectedCountry
         }
@@ -155,7 +179,7 @@ extension NKVPhonePickerTextField: UITextFieldDelegate {
         let updatedString = (textField.text as NSString?)?.replacingCharacters(in: range, with: string)
         
         // Preventing of deleting a '+' character
-        if updatedString?.characters.count == 0 {
+        if updatedString?.characters.count == 0 && isPlusPrefixImmortal {
             textField.text = "+"
             return false
         }

@@ -19,7 +19,7 @@ public class Countries {
                 return country
             }
         }
-        return Country.emptyCountry
+        return Country.empty
     }
     
     /// Returns a country by a country code.
@@ -31,7 +31,7 @@ public class Countries {
                 return country
             }
         }
-        return Country.emptyCountry
+        return Country.empty
     }
     
     /// Returns a countries array from the country codes.

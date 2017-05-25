@@ -9,10 +9,12 @@
 import Foundation
 
 public class Country: NSObject {
+    /// Ex: "RU"
     public var countryCode: String
+    /// Ex: "+7"
     public var phoneExtension: String
     @objc public var name: String {
-        return (Locale.current as NSLocale).displayName(forKey: .countryCode, value: countryCode) ?? ""
+        return NKVLocalizationHelper.countryName(by: countryCode) ?? ""
     }
 
     public init(countryCode: String, phoneExtension: String) {
@@ -20,13 +22,17 @@ public class Country: NSObject {
         self.phoneExtension = phoneExtension
     }
     
-    /// Returns 
+    /// Returns a Country entity of the current iphone's localization region code
+    /// or empty country if it not exist.
     public static var currentCountry: Country {
-        return Countries.country(by: NKVLocalizationHelper.currentCode)
+        guard let currentCountryCode = NKVLocalizationHelper.currentCode else {
+            return Country.empty
+        }
+        return Countries.country(by: currentCountryCode)
     }
     
-    /// Returnes a country if there are not such a country in our array, or you just need for test purposes.
-    public static var emptyCountry: Country {
+    /// Returnes an empty country entity for test or other purposes.
+    public static var empty: Country {
         return Country(countryCode: "", phoneExtension: "")
     }
     

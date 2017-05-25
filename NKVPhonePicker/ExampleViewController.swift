@@ -1,4 +1,4 @@
-//
+    //
 // Be happy and free :)
 //
 // Nik Kov
@@ -15,5 +15,8 @@ class ExampleViewController: UIViewController {
         super.viewDidLoad()
 //        topTextField.flagSize = CGSize(width: 30, height: 50)
         topTextField.favoriteCountriesLocaleIdentifiers = ["RU", "ER", "JM"]
+        topTextField.setFlag(countryCode: nil)
+//        topTextField.isPlusPrefixImmortal = false
+        topTextField.shouldScrollToSelectedCountry = false
     }
 }

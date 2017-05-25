@@ -8,15 +8,28 @@
 import UIKit
 
 final class NKVFlagView: UIView {
+    // MARK: - Interface
     /// Size of the flag icon
     var iconSize: CGSize     { didSet { configureInstance() } }
     /// Shifting for the icon from top, left, bottom and right.
     var insets: UIEdgeInsets { didSet { configureInstance() } }
     
-    var flagButton: UIButton = UIButton()
-    private weak var textField: UITextField!
+    public var flagButton: UIButton = UIButton()
     
-    required init(with textField: UITextField) {
+    /// Convenience method to set the flag with Country entity.
+    public func setFlagWith(country: Country) {
+        self.setFlag(with: country.countryCode)
+    }
+    
+    /// Method for setting a flag with country (region) code.
+    public func setFlag(with code: String?) {
+        let code = code ?? "?"
+        let flagImage = NKVSourcesHelper.getFlagImage(by: code)
+        self.flagButton.setImage(flagImage, for: .normal)
+        self.flagButton.imageView?.contentMode = .scaleAspectFit
+    }
+    
+    public required init(with textField: UITextField) {
         self.textField = textField
         self.insets = UIEdgeInsetsMake(7, 7, 7, 0)
         self.iconSize = CGSize(width: 18.0, height: textField.frame.height)
@@ -25,17 +38,9 @@ final class NKVFlagView: UIView {
         setFlag(with: NKVLocalizationHelper.currentCode)
     }
     
-    func setFlag(with code: String) {
-        let flagImage = NKVSourcesHelper.getFlagImage(by: code)
-        self.flagButton.setImage(flagImage, for: .normal)
-        self.flagButton.imageView?.contentMode = .scaleAspectFit
-    }
-    
-    /// Convenience method to set the flag with Country entity.
-    func setFlagWith(country: Country) {
-        self.setFlag(with: country.countryCode)
-    }
-    
+    // MARK: - Implementation
+    private weak var textField: UITextField!
+
     private func configureInstance() {
         // Setting flag view's frame
         self.frame = CGRect(x: 0,
