@@ -16,12 +16,12 @@
 		EB84914C1ED4359C0069CD20 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = EB84914A1ED4359C0069CD20 /* README.md */; };
 		EB84919E1ED435AB0069CD20 /* Countries.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EB84914D1ED435AB0069CD20 /* Countries.bundle */; };
 		EB8491B01ED435AB0069CD20 /* CountriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB8491661ED435AB0069CD20 /* CountriesViewController.swift */; };
-		EB8491B11ED435AB0069CD20 /* PhoneNumberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB8491671ED435AB0069CD20 /* PhoneNumberViewController.swift */; };
-		EB8491C31ED435AB0069CD20 /* NKVPhonePicker.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB8491801ED435AB0069CD20 /* NKVPhonePicker.storyboard */; };
+		EB8491C31ED435AB0069CD20 /* CountriesViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB8491801ED435AB0069CD20 /* CountriesViewController.storyboard */; };
 		EB8491D81ED435AB0069CD20 /* Countries.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB84919C1ED435AB0069CD20 /* Countries.swift */; };
 		EB8491D91ED435AB0069CD20 /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB84919D1ED435AB0069CD20 /* Country.swift */; };
 		EB8491E71ED4370E0069CD20 /* NKVPhonePickerTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB8491E61ED4370E0069CD20 /* NKVPhonePickerTextField.swift */; };
 		EB8492001ED467FE0069CD20 /* NKVFlagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB8491FF1ED467FE0069CD20 /* NKVFlagView.swift */; };
+		EBD53F561ED6E64F007510E3 /* NKVPhoneFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD53F551ED6E64F007510E3 /* NKVPhoneFormatter.swift */; };
 		EBD60A681ED5D4170039A3AE /* NKVLocalizationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD60A671ED5D4170039A3AE /* NKVLocalizationHelper.swift */; };
 		EBEEE4E41ED62319007F9981 /* NKVSourcesHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBEEE4E31ED62319007F9981 /* NKVSourcesHelper.swift */; };
 /* End PBXBuildFile section */
@@ -38,12 +38,12 @@
 		EB84914A1ED4359C0069CD20 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		EB84914D1ED435AB0069CD20 /* Countries.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Countries.bundle; sourceTree = "<group>"; };
 		EB8491661ED435AB0069CD20 /* CountriesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountriesViewController.swift; sourceTree = "<group>"; };
-		EB8491671ED435AB0069CD20 /* PhoneNumberViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhoneNumberViewController.swift; sourceTree = "<group>"; };
-		EB8491801ED435AB0069CD20 /* NKVPhonePicker.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = NKVPhonePicker.storyboard; sourceTree = "<group>"; };
+		EB8491801ED435AB0069CD20 /* CountriesViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CountriesViewController.storyboard; sourceTree = "<group>"; };
 		EB84919C1ED435AB0069CD20 /* Countries.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Countries.swift; sourceTree = "<group>"; };
 		EB84919D1ED435AB0069CD20 /* Country.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Country.swift; sourceTree = "<group>"; };
 		EB8491E61ED4370E0069CD20 /* NKVPhonePickerTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NKVPhonePickerTextField.swift; sourceTree = "<group>"; };
 		EB8491FF1ED467FE0069CD20 /* NKVFlagView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NKVFlagView.swift; sourceTree = "<group>"; };
+		EBD53F551ED6E64F007510E3 /* NKVPhoneFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NKVPhoneFormatter.swift; sourceTree = "<group>"; };
 		EBD60A671ED5D4170039A3AE /* NKVLocalizationHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NKVLocalizationHelper.swift; sourceTree = "<group>"; };
 		EBEEE4E31ED62319007F9981 /* NKVSourcesHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NKVSourcesHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -140,9 +140,8 @@
 		EB8491E51ED436140069CD20 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				EB8491801ED435AB0069CD20 /* NKVPhonePicker.storyboard */,
+				EB8491801ED435AB0069CD20 /* CountriesViewController.storyboard */,
 				EB8491661ED435AB0069CD20 /* CountriesViewController.swift */,
-				EB8491671ED435AB0069CD20 /* PhoneNumberViewController.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -152,6 +151,7 @@
 			children = (
 				EBD60A671ED5D4170039A3AE /* NKVLocalizationHelper.swift */,
 				EBEEE4E31ED62319007F9981 /* NKVSourcesHelper.swift */,
+				EBD53F551ED6E64F007510E3 /* NKVPhoneFormatter.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -220,7 +220,7 @@
 				EB84913C1ED435260069CD20 /* Assets.xcassets in Resources */,
 				EB84913A1ED435260069CD20 /* Main.storyboard in Resources */,
 				EB84919E1ED435AB0069CD20 /* Countries.bundle in Resources */,
-				EB8491C31ED435AB0069CD20 /* NKVPhonePicker.storyboard in Resources */,
+				EB8491C31ED435AB0069CD20 /* CountriesViewController.storyboard in Resources */,
 				EB84914B1ED4359C0069CD20 /* NKVPhonePickerSwift.podspec in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -235,9 +235,9 @@
 				EB84914C1ED4359C0069CD20 /* README.md in Sources */,
 				EB8491E71ED4370E0069CD20 /* NKVPhonePickerTextField.swift in Sources */,
 				EB8491B01ED435AB0069CD20 /* CountriesViewController.swift in Sources */,
-				EB8491B11ED435AB0069CD20 /* PhoneNumberViewController.swift in Sources */,
 				EB8491371ED435260069CD20 /* ExampleViewController.swift in Sources */,
 				EB8491D81ED435AB0069CD20 /* Countries.swift in Sources */,
+				EBD53F561ED6E64F007510E3 /* NKVPhoneFormatter.swift in Sources */,
 				EBD60A681ED5D4170039A3AE /* NKVLocalizationHelper.swift in Sources */,
 				EB8491D91ED435AB0069CD20 /* Country.swift in Sources */,
 				EB8492001ED467FE0069CD20 /* NKVFlagView.swift in Sources */,

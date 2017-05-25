@@ -44,7 +44,24 @@ public class NKVPhonePickerTextField: UITextField {
     public var flagSize: CGSize?         { didSet { customizeSelf() } }
     
     var flagView: NKVFlagView!
-    var currentCountry: Country! { didSet { setCode(with: currentCountry) } }
+    public var currentSelectedCountry: Country? {
+        didSet {
+            if let selected = currentSelectedCountry {
+                self.setCode(with: selected)
+                flagView.setFlagWith(country: selected)
+            }
+        }
+    }
+    
+    /// Use this var for setting countries in the top of the tableView
+    /// Ex:
+    ///
+    ///     countryVC.favoriteCountriesLocaleIdentifiers = ["RU", "JM", "GB"]   
+    public var favoriteCountriesLocaleIdentifiers: [String]?
+    
+    public func setCode(with country: Country) {
+        self.text = "+\(country.phoneExtension) "
+    }
     
     // MARK: - Implementation
     // MARK: Initialization
@@ -63,14 +80,11 @@ public class NKVPhonePickerTextField: UITextField {
         self.keyboardType = .numberPad
         flagView = NKVFlagView(with: self)
         self.leftView = flagView
+        self.delegate = self
         
-        currentCountry = Country.currentCountry
+        currentSelectedCountry = Country.currentCountry
         
         flagView.flagButton.addTarget(self, action: #selector(presentCountriesViewController), for: .touchUpInside)
-    }
-    
-    func setCode(with country: Country) {
-        self.text = "+\(country.phoneExtension) "
     }
     
     /// Presents a view controller to choose a country code.
@@ -88,6 +102,12 @@ public class NKVPhonePickerTextField: UITextField {
     // MARK: Customization
     /// Method to customize the CountryPickerController.
     private func customizeCountryPicker(_ pickerVC: CountriesViewController) {
+        if let currentSelectedCountry = currentSelectedCountry {
+            pickerVC.selectedCountry = currentSelectedCountry
+        }
+        if let favoriteCountriesLocaleIdentifiers = favoriteCountriesLocaleIdentifiers {
+            pickerVC.favoriteCountriesLocaleIdentifiers = favoriteCountriesLocaleIdentifiers
+        }
         if let pickerTitle = pickerTitle {
             pickerVC.countriesVCNavigationItem.title = pickerTitle
         }
@@ -123,10 +143,28 @@ public class NKVPhonePickerTextField: UITextField {
 
 extension NKVPhonePickerTextField: CountriesViewControllerDelegate {
     public func countriesViewController(_ sender: CountriesViewController, didSelectCountry country: Country) {
-        flagView.setFlagWith(country: country)
-        self.setCode(with: country)
+        currentSelectedCountry = country
     }
     public func countriesViewControllerDidCancel(_ sender: CountriesViewController) {
         /// Do nothing yet
+    }
+}
+
+extension NKVPhonePickerTextField: UITextFieldDelegate {
+    public func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        let updatedString = (textField.text as NSString?)?.replacingCharacters(in: range, with: string)
+        
+        // Preventing of deleting a '+' character
+        if updatedString?.characters.count == 0 {
+            textField.text = "+"
+            return false
+        }
+
+        // Defining if there a prefix and if it - checking the country
+        
+//        let phonePrefix =
+//        let phone =
+        
+        return true
     }
 }

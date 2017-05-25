@@ -14,5 +14,6 @@ class ExampleViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 //        topTextField.flagSize = CGSize(width: 30, height: 50)
+        topTextField.favoriteCountriesLocaleIdentifiers = ["RU", "ER", "JM"]
     }
 }

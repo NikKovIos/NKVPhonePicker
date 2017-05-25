@@ -12,77 +12,59 @@ public protocol CountriesViewControllerDelegate {
     func countriesViewController(_ sender: CountriesViewController, didSelectCountry country: Country)
 }
 
-public final class CountriesViewController: UIViewController {
+public final class CountriesViewController: UITableViewController {
+    @IBOutlet public weak var cancelBarButtonItem: UIBarButtonItem!
+    @IBOutlet public weak var countriesVCNavigationItem: UINavigationItem!
+   
     // MARK: - API
     
     /// A class function for retrieving standart controller for picking countries.
     ///
     /// - Returns: Instance of the country picker controller.
     public class func standardController() -> CountriesViewController {
-        return UIStoryboard(name: "NKVPhonePicker", bundle: Bundle(for: self)).instantiateViewController(withIdentifier: "CountryPickerVC") as! CountriesViewController
+        return UIStoryboard(name: "CountriesViewController", bundle: Bundle(for: self)).instantiateViewController(withIdentifier: "CountryPickerVC") as! CountriesViewController
     }
     
-    /// Cancel bar button Item (thank you CAP :).
-    @IBOutlet weak public var cancelBarButtonItem: UIBarButtonItem!
-    
+    /// Use this var for setting countries in the top of the tableView
+    /// Ex:
+    ///
+    ///     countryVC.favoriteCountriesLocaleIdentifiers = ["RU", "JM", "GB"]
+    public var favoriteCountriesLocaleIdentifiers: [String] = []
+
     /// You can choose to hide or show a cancel button with this property.
-    public var shouldHideCancelButton: Bool = false { didSet { updateCancelButton() } }
+    public var isCancelButtonHidden: Bool = false { didSet { configurateCancelButton() } }
     
-    /// A delegate for <CountriesViewControllerDelegate>
+    /// A delegate for <CountriesViewControllerDelegate>.
     public var delegate: CountriesViewControllerDelegate?
 
-    @IBOutlet public weak var countriesVCNavigationItem: UINavigationItem!
-    
-    public var filteredCountries: [[Country]]!
-    public var unfilteredCountries: [[Country]]! { didSet { filteredCountries = unfilteredCountries } }
+    /// The current selected country.
     public var selectedCountry: Country?
-    public var majorCountryLocaleIdentifiers: [String] = []
-    
+
     override public func viewDidLoad() {
         super.viewDidLoad()
-        
-        updateCancelButton()
+    
+        configurateCancelButton()
         setupCountries()
         setupSearchController()
         setupTableView()
     }
     
     // MARK: - Private
-    fileprivate var searchController = UISearchController(searchResultsController: nil)
+    /// An array with which all countries are presenting. This array works with search controller and tableView.
+    fileprivate var filteredCountries: [[Country]]!
+    /// An array with all countries, we have.
+    fileprivate var unfilteredCountries: [[Country]]! { didSet { filteredCountries = unfilteredCountries } }
     
-    @IBOutlet fileprivate weak var tableView: UITableView!
+    fileprivate var searchController = UISearchController(searchResultsController: nil)
     
     @IBAction private func cancel(sender: UIBarButtonItem) {
         delegate?.countriesViewControllerDidCancel(self)
         self.dismiss(animated: true, completion: nil)
     }
     
-    private func updateCancelButton() {
-        if let cancelBarButtonItem = cancelBarButtonItem {
-            navigationItem.leftBarButtonItem = shouldHideCancelButton ? nil: cancelBarButtonItem
-        }
-    }
-    
-    private func setupSearchController() {
-        searchController.delegate = self
-        searchController.searchResultsUpdater = self
-        searchController.dimsBackgroundDuringPresentation = false
-        searchController.searchBar.delegate = self
-        searchController.searchBar.sizeToFit()
-        
-        definesPresentationContext = true
-    }
-    
-    private func setupTableView() {
-        tableView.sectionIndexTrackingBackgroundColor = UIColor.clear
-        tableView.sectionIndexBackgroundColor = UIColor.clear
-        tableView.tableHeaderView = searchController.searchBar
-        tableView.tableFooterView = UIView(frame: CGRect.zero)
-    }
-    
     private func setupCountries() {
         unfilteredCountries = partioned(array: NKVSourcesHelper.countries, usingSelector: #selector(getter: Country.name))
-        unfilteredCountries.insert(Countries.countries(by: majorCountryLocaleIdentifiers), at: 0)
+        unfilteredCountries.insert(Countries.countries(by: favoriteCountriesLocaleIdentifiers), at: 0)
         tableView.reloadData()
         
         if let selectedCountry = selectedCountry {
@@ -94,6 +76,36 @@ public final class CountriesViewController: UIViewController {
                 }
             }
         }
+    }
+
+    private func setupSearchController() {
+        searchController.delegate = self
+        searchController.searchResultsUpdater = self
+        searchController.dimsBackgroundDuringPresentation = false
+        searchController.searchBar.delegate = self
+        searchController.searchBar.sizeToFit()
+        searchController.searchBar.searchBarStyle = .minimal
+        searchController.searchBar.tintColor = UIColor.black
+        searchController.searchBar.backgroundColor = UIColor.white
+        searchController.extendedLayoutIncludesOpaqueBars = true
+        searchController.delegate = self
+
+        definesPresentationContext = true
+    }
+    
+    private func configurateCancelButton() {
+        if let cancelBarButtonItem = cancelBarButtonItem {
+            navigationItem.leftBarButtonItem = isCancelButtonHidden ? nil: cancelBarButtonItem
+        }
+    }
+    
+    private func setupTableView() {
+        tableView.sectionIndexTrackingBackgroundColor = UIColor.gray
+        tableView.sectionIndexBackgroundColor = UIColor.clear
+        tableView.sectionIndexColor = UIColor.black
+        tableView.tableHeaderView = searchController.searchBar
+        tableView.tableFooterView = UIView(frame: CGRect.zero)
+        tableView.scrollsToTop = true
     }
     
     fileprivate func partioned<T: AnyObject>(array: [T], usingSelector selector: Selector) -> [[T]] {
@@ -115,25 +127,27 @@ public final class CountriesViewController: UIViewController {
     }
 }
 
-// MARK: - Table View
-extension CountriesViewController: UITableViewDataSource {
-    public func numberOfSections(in tableView: UITableView) -> Int {
+// MARK: - TableView Data Source
+extension CountriesViewController {
+    public override func numberOfSections(in tableView: UITableView) -> Int {
         return filteredCountries.count
     }
     
-    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    public override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return filteredCountries[section].count
     }
     
-    public  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    public  override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = self.tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath as IndexPath)
         
         let country = filteredCountries[indexPath.section][indexPath.row]
         
         cell.textLabel?.text = country.name
+        cell.textLabel?.adjustsFontSizeToFitWidth = true
         cell.textLabel?.minimumScaleFactor = 0.5
-        cell.detailTextLabel?.text = "+" + country.phoneExtension
         
+        cell.detailTextLabel?.text = "+" + country.phoneExtension
+
         let flag = NKVSourcesHelper.getFlagImage(by: country.countryCode)
         cell.imageView?.image = flag
         cell.imageView?.contentMode = .scaleAspectFit
@@ -149,7 +163,8 @@ extension CountriesViewController: UITableViewDataSource {
         return cell
     }
     
-    public func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    // Sections headers
+    public override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         let countries = filteredCountries[section]
         if countries.isEmpty {
             return nil
@@ -160,19 +175,23 @@ extension CountriesViewController: UITableViewDataSource {
         return UILocalizedIndexedCollation.current().sectionTitles[section - 1]
     }
     
-    public func sectionIndexTitlesForTableView(tableView: UITableView) -> [String]? {
+    // Indexes
+    public override func sectionIndexTitles(for tableView: UITableView) -> [String]? {
+        print(UILocalizedIndexedCollation.current().sectionTitles)
         return searchController.isActive ? nil : UILocalizedIndexedCollation.current().sectionTitles
     }
     
-    public func tableView(_ tableView: UITableView, sectionForSectionIndexTitle title: String, at index: Int) -> Int {
+    public override func tableView(_ tableView: UITableView, sectionForSectionIndexTitle title: String, at index: Int) -> Int {
         return UILocalizedIndexedCollation.current().section(forSectionIndexTitle: index + 1)
     }
 }
 
-extension CountriesViewController: UITableViewDelegate {
-    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+// MARK: TableView Delegate
+extension CountriesViewController {
+    public override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         delegate?.countriesViewController(self, didSelectCountry: filteredCountries[indexPath.section][indexPath.row])
+        searchController.dismiss(animated: false, completion: nil)
         self.dismiss(animated: true, completion: nil)
     }
 }
@@ -180,9 +199,11 @@ extension CountriesViewController: UITableViewDelegate {
 // MARK: - Search
 extension CountriesViewController: UISearchControllerDelegate {
     public func willPresentSearchController(_ searchController: UISearchController) {
+        searchController.searchBar.searchBarStyle = .default
         tableView.reloadSectionIndexTitles()
     }
     public func willDismissSearchController(_ searchController: UISearchController) {
+        searchController.searchBar.searchBarStyle = .minimal
         tableView.reloadSectionIndexTitles()
     }
 }
