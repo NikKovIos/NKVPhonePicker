@@ -6,7 +6,9 @@
 ![Swift version](https://img.shields.io/badge/Swift-3.0-orange.svg?style=flat)
 ![License](https://img.shields.io/badge/license-MIT-lightgrey.svg?style=flat)
 
-An UITextField subclass to simplify country code's picking.
+<p align="center">
+<img src="https://raw.githubusercontent.com/NikKovIos/NKVPhonePicker/master/RepoAssets/Logo.png" width="350"/>
+</p>
 
 ## Preview
 ![](https://raw.githubusercontent.com/NikKovIos/NKVPhonePicker/master/RepoAssets/Example.gif)  
