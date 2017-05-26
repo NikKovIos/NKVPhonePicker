@@ -1,9 +1,8 @@
 //
-//  NKVSourcesHelper.swift
-//  NKVPhonePicker
+// Be happy and free :)
 //
-//  Created by Nik Kov on 24.05.17.
-//  Copyright © 2017 nik.kov. All rights reserved.
+// Nik Kov
+// nik-kov.com
 //
 
 import UIKit
@@ -44,7 +43,7 @@ struct NKVSourcesHelper {
                     }
                 }
             } else {
-                print("No such a file")
+                print("NKVPhonePickerTextField can't find a bundle for the countries")
             }
         } catch {
             print(error.localizedDescription)

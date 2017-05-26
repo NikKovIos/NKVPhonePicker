@@ -1,6 +1,8 @@
 #
-# Be sure to run `pod lib lint CountryPicker.podspec' to ensure this is a
-# valid spec before submitting.
+# Be happy and free :)
+#
+# Nik Kov
+# nik-kov.com
 #
 
 Pod::Spec.new do |s|
@@ -12,15 +14,17 @@ Pod::Spec.new do |s|
                        DESC
 
   s.homepage         = 'https://github.com/NikKovIos/NKVPhonePicker'
+  s.ios.deployment_target = '9.0'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'Nik Kov' => 'nikkovios@gmail.com' }
   s.source           = {
     :git => 'https://github.com/NikKovIos/NKVPhonePicker.git',
     :tag => s.version.to_s }
 
-  s.ios.deployment_target = '9.0'
+
   s.module_name  = 'NKVPhonePicker'
-  s.source_files = 'Sources/*'
+  s.source_files = 'Sources/**/*.swift'
+  s.resources = 'Sources/Bundle/*'
 
   s.social_media_url = 'https://vk.com/lightwithme'
 

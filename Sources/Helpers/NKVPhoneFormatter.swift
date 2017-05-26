@@ -1,9 +1,8 @@
 //
-//  NKVFormatter.swift
-//  NKVPhonePicker
+// Be happy and free :)
 //
-//  Created by Nik Kov on 25.05.17.
-//  Copyright © 2017 nik.kov. All rights reserved.
+// Nik Kov
+// nik-kov.com
 //
 
 extension String {

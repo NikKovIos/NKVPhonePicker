@@ -11,7 +11,7 @@ public class NKVPhonePickerTextField: UITextField {
     // MARK: - Interface
     /// Set this property in order to present the CountryPickerViewController
     /// when user clicks on the flag button
-    @IBOutlet weak var phonePickerDelegate: UIViewController?
+    @IBOutlet public weak var phonePickerDelegate: UIViewController?
 
     /// - Returns: Current phone number in textField with spaces. Ex: +7 999 777 33 44
     public var rawPhoneNumber: String {
@@ -25,12 +25,16 @@ public class NKVPhonePickerTextField: UITextField {
     
     /// - Returns: Current phone number in textField without code. Ex: 9997773344.
     public var phoneNumberWithoutCode: String {
-        return (self.text?.replacingOccurrences(of: code, with: "").cutSpaces.cutPluses)!
+        if isPlusPrefixImmortal {
+            return (self.text?.replacingOccurrences(of: code, with: "").cutSpaces.cutPluses)!
+        } else {
+            return "This feature is not available yet with 'isPlusPrefixImmortal == false'"
+        }
     }
     
     /// - Returns: Current phone code without +. Ex: 7
     public var code: String {
-        return flagView.currentPresentingCountry.phoneExtension.cutPluses 
+        return flagView.currentPresentingCountry.phoneExtension.cutPluses
     }
     
     // Country picker customization properties:

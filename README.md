@@ -29,6 +29,11 @@ pod try NKVPhonePicker
 ```
 *(don't forget to update your cocoapods master repo)*
 
+If you're still using Swift 2.x - you can set 
+```ruby
+pod 'NKVPhonePicker', :git => "https://github.com/NikKovIos/NKVPhonePicker.git", :branch => "Swift_2.x"
+```
+
 ## Usage
 
 1) Make your UITextField a class of NKVPhonePickerTextField
@@ -43,4 +48,5 @@ pod try NKVPhonePicker
 - [x] https://github.com/NikKovIos/SDWebImage-CircularProgressView - extension to change progress bar on images for SDWebImage
 - [x] https://github.com/NikKovIos/ObjectMapper_RealmSwift - extension to add Realm object support for ObjectMapper
 
-### by Nik Kov
+### by Nik Kov 
+http://nik-kov.com

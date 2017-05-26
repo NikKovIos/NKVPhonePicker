@@ -43,7 +43,7 @@ final class NKVFlagView: UIView {
     
     public required init(with textField: UITextField) {
         self.textField = textField
-        self.insets = UIEdgeInsetsMake(7, 7, 7, 0)
+        self.insets = UIEdgeInsetsMake(7, 7, 7, 7)
         self.iconSize = CGSize(width: 18.0, height: textField.frame.height)
         super.init(frame: CGRect.zero)
         configureInstance()

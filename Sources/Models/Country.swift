@@ -1,9 +1,8 @@
 //
-//  Country.swift
-//  PhoneNumberPicker
+// Be happy and free :)
 //
-//  Created by Hugh Bellamy on 06/09/2015.
-//  Copyright (c) 2015 Hugh Bellamy. All rights reserved.
+// Nik Kov
+// nik-kov.com
 //
 
 import Foundation
