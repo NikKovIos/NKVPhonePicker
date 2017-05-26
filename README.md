@@ -11,8 +11,8 @@
 
 
 ## Preview
-![](https://raw.githubusercontent.com/NikKovIos/NKVPhonePicker/master/RepoAssets/Example.gif)  
-<img src="https://raw.githubusercontent.com/NikKovIos/NKVPhonePicker/master/RepoAssets/Screenshot_one.png" width="250"/> <img src="https://raw.githubusercontent.com/NikKovIos/NKVPhonePicker/master/RepoAssets/Screenshot_two.jpg" width="250"/> <img src="https://raw.githubusercontent.com/NikKovIos/NKVPhonePicker/master/RepoAssets/Screenshot_three.png" width="250"/> 
+![](https://raw.githubusercontent.com/NikKovIos/NKVPhonePicker/master/RepoAssets/Example.gif)          <img src="https://raw.githubusercontent.com/NikKovIos/NKVPhonePicker/master/RepoAssets/Screenshot_two.jpg" height="480"/>  
+<img src="https://raw.githubusercontent.com/NikKovIos/NKVPhonePicker/master/RepoAssets/Screenshot_one.png" height="400"/>          <img src="https://raw.githubusercontent.com/NikKovIos/NKVPhonePicker/master/RepoAssets/Screenshot_three.png" height="400"/> 
 
 
 ## Installation
