@@ -9,8 +9,8 @@
 An UITextField subclass to simplify country code's picking.
 
 ## Preview
-![](https://raw.githubusercontent.com/NikKovIos/NKVPhonePicker/master/RepoAssets/Example.gif)
-<img src="https://raw.githubusercontent.com/NikKovIos/NKVPhonePicker/master/RepoAssets/Screenshot_1.png" width="300"/> <img src="https://raw.githubusercontent.com/NikKovIos/NKVPhonePicker/master/RepoAssets/Screenshot_2_new" width="300"/> <img src="https://raw.githubusercontent.com/NikKovIos/NKVPhonePicker/master/RepoAssets/Screenshot_3.png" width="300"/> 
+![](https://raw.githubusercontent.com/NikKovIos/NKVPhonePicker/master/RepoAssets/Example.gif)  
+<img src="https://raw.githubusercontent.com/NikKovIos/NKVPhonePicker/master/RepoAssets/Screenshot_1.png" width="250"/> <img src="https://raw.githubusercontent.com/NikKovIos/NKVPhonePicker/master/RepoAssets/Screenshot_2_new.jpg" width="250"/> <img src="https://raw.githubusercontent.com/NikKovIos/NKVPhonePicker/master/RepoAssets/Screenshot_3.png" width="250"/> 
 
 
 ## Installation
