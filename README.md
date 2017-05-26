@@ -1,5 +1,3 @@
-# NKVPhonePicker
-
 ![Cocoapods](https://img.shields.io/badge/pod-available-brightgreen.svg?style=flat)
 ![Platform](https://img.shields.io/badge/platform-ios-blue.svg?style=flat)
 ![Version](https://img.shields.io/badge/version-0.1.0-blue.svg?style=flat)
