@@ -9,11 +9,11 @@
 An UITextField subclass to simplify country code's picking.
 
 ## Preview
-![](https://github.com/NikKovIos/NKVPhonePicker/tree/master/RepoAssets/Example.gif)
+![](https://raw.githubusercontent.com/NikKovIos/NKVPhonePicker/master/RepoAssets/Example.gif)
+![Screenshot_one](https://raw.githubusercontent.com/NikKovIos/NKVPhonePicker/master/RepoAssets/Screenshot_1.png "Screenshot_one")
+![Screenshot_two](https://raw.githubusercontent.com/NikKovIos/NKVPhonePicker/master/RepoAssets/Screenshot_2_new.jpg "Screenshot_two")
+![Screenshot_three](https://raw.githubusercontent.com/NikKovIos/NKVPhonePicker/master/RepoAssets/Screenshot_3.png.png "Screenshot_three")
 
-<img src="https://github.com/NikKovIos/NKVPhonePicker/tree/master/RepoAssets/Example.gif" width="214"/> <img src="https://raw.githubusercontent.com/Friend-LGA/ReadmeFiles/e86caa0a37236d03642747a379f4a92f5384c317/LGAlertView/Default_Alert_View/1.png" width="214"/> <img src="https://raw.githubusercontent.com/Friend-LGA/ReadmeFiles/e86caa0a37236d03642747a379f4a92f5384c317/LGAlertView/Default_Alert_View/2.png" width="214"/> <img src="https://raw.githubusercontent.com/Friend-LGA/ReadmeFiles/e86caa0a37236d03642747a379f4a92f5384c317/LGAlertView/Default_Alert_View/3.png" width="214"/>
-
-![ExampleGif](https://github.com/NikKovIos/NKVPhonePicker/tree/master/RepoAssets/Example.gif "ExampleGif")
 
 ## Installation
 
