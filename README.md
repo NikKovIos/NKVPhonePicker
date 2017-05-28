@@ -42,6 +42,7 @@ pod 'NKVPhonePicker', :git => "https://github.com/NikKovIos/NKVPhonePicker.git",
 
 #### TODO:
 - [x] Add example
+- [] Add my logo
 
 ## My other Repos
 
