@@ -50,23 +50,31 @@ final class NKVFlagView: UIView {
         setFlagWith(countryCode: NKVLocalizationHelper.currentCode)
     }
     
+    override func layoutSubviews() {
+        updateFrame()
+    }
+    
     // MARK: - Implementation
     private weak var textField: UITextField!
 
     private func configureInstance() {
+        // Adding flag button to flag's view
+        flagButton = UIButton.init(frame: CGRect.zero)
+        flagButton.imageEdgeInsets = insets;
+        flagButton.contentMode = .scaleToFill
+        if flagButton.superview == nil { self.addSubview(flagButton) }
+        
+        updateFrame()
+    }
+    
+    /// Set and update flag view's frame.
+    func updateFrame() {
         // Setting flag view's frame
         self.frame = CGRect(x: 0,
                             y: 0,
                             width: insets.left + insets.right + iconSize.width,
                             height: max(textField.frame.height, iconSize.height))
-        
-        // Adding flag button to flag's view
-        flagButton = UIButton.init(frame: self.frame)
-        flagButton.imageEdgeInsets = insets;
-        flagButton.contentMode = .scaleToFill
-        if flagButton.superview == nil { self.addSubview(flagButton) }
-        
-        self.layoutIfNeeded()
+        flagButton.frame = self.frame
     }
     
     required init?(coder aDecoder: NSCoder) { fatalError("init(coder:) not supported"); }
