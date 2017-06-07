@@ -40,6 +40,8 @@ pod 'NKVPhonePicker', :git => "https://github.com/NikKovIos/NKVPhonePicker.git",
 2) Set its phonePickerDelegate to UIViewController in order to be able of presenting the CountriesViewController
 3) If any troubles - watch an example project.
 
+Please, make an issue, if you need any features, or have bugs.
+
 #### TODO:
 - [x] Add example
 - [ ] Add my logo
