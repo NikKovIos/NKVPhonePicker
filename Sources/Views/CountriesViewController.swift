@@ -58,7 +58,7 @@ public final class CountriesViewController: UITableViewController {
     
     // MARK: - Private
     fileprivate var searchController = UISearchController(searchResultsController: nil)
-/// An array with which all countries are presenting. This array works with search controller and tableView.
+    /// An array with which all countries are presenting. This array works with search controller and tableView.
     fileprivate var filteredCountries: [[Country]]!
     /// An array with all countries, we have.
     fileprivate var unfilteredCountries: [[Country]]! { didSet { filteredCountries = unfilteredCountries } }
