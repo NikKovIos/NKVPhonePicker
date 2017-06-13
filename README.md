@@ -44,6 +44,7 @@ Please, make an issue, if you need any features, or have bugs.
 
 #### TODO:
 - [x] Add example
+- [ ] Patterns for each country
 - [ ] Add my logo
 
 ## My other Repos
