@@ -7,7 +7,7 @@
 
 import UIKit
 
-public class NKVPhonePickerTextField: UITextField {
+open class NKVPhonePickerTextField: UITextField {
     // MARK: - Interface
     /// Set this property in order to present the CountryPickerViewController
     /// when user clicks on the flag button
@@ -206,8 +206,8 @@ extension NKVPhonePickerTextField: UITextFieldDelegate {
             if isPlusPrefixImmortal {
                 self.text = "+\(newString.cutPluses)"
             }
-
-            self.setFlag(phoneExtension: newString)
+            
+            self.setFlag(phoneExtension: newString.replacingOccurrences(of: " ", with: ""))
         }
     }
 }
