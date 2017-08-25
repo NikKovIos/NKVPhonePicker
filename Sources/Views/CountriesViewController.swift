@@ -42,6 +42,8 @@ public final class CountriesViewController: UITableViewController {
 
     /// The current selected country.
     public var selectedCountry: Country?
+    
+    public var tableFont : UIFont?
 
     override public func viewDidLoad() {
         super.viewDidLoad()
@@ -152,6 +154,11 @@ extension CountriesViewController {
         cell.textLabel?.minimumScaleFactor = 0.5
         
         cell.detailTextLabel?.text = "+" + country.phoneExtension
+        
+        if let tableFont = tableFont {
+            cell.textLabel?.font = tableFont
+            cell.detailTextLabel?.font = tableFont
+        }
 
         let flag = NKVSourcesHelper.getFlagImage(by: country.countryCode)
         cell.imageView?.image = flag
