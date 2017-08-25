@@ -55,3 +55,5 @@ Please, make an issue, if you need any features, or have bugs.
 
 ### by Nik Kov 
 http://nik-kov.com
+
+Note: 'In this library used the TextFieldPatternFormat lib by Vojta Stavik'

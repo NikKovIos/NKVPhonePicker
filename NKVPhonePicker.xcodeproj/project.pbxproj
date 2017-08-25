@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		EB50FA291ED8506700722C25 /* Countries.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EB50FA271ED8506700722C25 /* Countries.bundle */; };
 		EB50FA2A1ED8506700722C25 /* CountriesViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB50FA281ED8506700722C25 /* CountriesViewController.storyboard */; };
+		EB5621461F50B3B100398954 /* TextFieldWithPattern.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5621451F50B3B100398954 /* TextFieldWithPattern.swift */; };
 		EB8491351ED435260069CD20 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB8491341ED435260069CD20 /* AppDelegate.swift */; };
 		EB8491371ED435260069CD20 /* ExampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB8491361ED435260069CD20 /* ExampleViewController.swift */; };
 		EB84913A1ED435260069CD20 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB8491381ED435260069CD20 /* Main.storyboard */; };
@@ -28,6 +29,7 @@
 /* Begin PBXFileReference section */
 		EB50FA271ED8506700722C25 /* Countries.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = Countries.bundle; path = Bundle/Countries.bundle; sourceTree = "<group>"; };
 		EB50FA281ED8506700722C25 /* CountriesViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = CountriesViewController.storyboard; path = Bundle/CountriesViewController.storyboard; sourceTree = "<group>"; };
+		EB5621451F50B3B100398954 /* TextFieldWithPattern.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldWithPattern.swift; sourceTree = "<group>"; };
 		EB8491311ED435260069CD20 /* NKVPhonePicker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NKVPhonePicker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB8491341ED435260069CD20 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EB8491361ED435260069CD20 /* ExampleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleViewController.swift; sourceTree = "<group>"; };
@@ -132,6 +134,7 @@
 				EB8491661ED435AB0069CD20 /* CountriesViewController.swift */,
 				EB8491FF1ED467FE0069CD20 /* NKVFlagView.swift */,
 				EB8491E61ED4370E0069CD20 /* NKVPhonePickerTextField.swift */,
+				EB5621451F50B3B100398954 /* TextFieldWithPattern.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -225,6 +228,7 @@
 				EB8491E71ED4370E0069CD20 /* NKVPhonePickerTextField.swift in Sources */,
 				EB8491B01ED435AB0069CD20 /* CountriesViewController.swift in Sources */,
 				EBD53F5A1ED73C0F007510E3 /* README.md in Sources */,
+				EB5621461F50B3B100398954 /* TextFieldWithPattern.swift in Sources */,
 				EB8491371ED435260069CD20 /* ExampleViewController.swift in Sources */,
 				EBD53F561ED6E64F007510E3 /* NKVPhoneFormatter.swift in Sources */,
 				EBD60A681ED5D4170039A3AE /* NKVLocalizationHelper.swift in Sources */,

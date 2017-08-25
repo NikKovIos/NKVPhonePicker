@@ -23,6 +23,14 @@ class ExampleViewController: UIViewController {
 //        topTextField.setFlag(countryCode: nil)
 //        topTextField.isPlusPrefixImmortal = false
         
+        // Setting initial custom country
+        let country = Country.countryBy(countryCode: "EG")
+        topTextField.currentSelectedCountry = country
+
+        // Setting custom format pattern for some countries
+        topTextField.customPhoneFormats = ["RU" : "### ### ### ## ##",
+                                           "GB": "# #### #########"]
+        
         // You can also add NKVPhonePickerTextField programmatically ;)
         addingProgrammatically()
     }
@@ -34,7 +42,7 @@ class ExampleViewController: UIViewController {
         outputLabel.text = topTextField.phoneNumber
     }
     @IBAction func didPressPhoneNumberWithoutCode(_ sender: UIButton) {
-        outputLabel.text = topTextField.phoneNumberWithoutCode
+//        outputLabel.text = topTextField.phoneNumberWithoutCode
     }
     @IBAction func didPressCode(_ sender: UIButton) {
         outputLabel.text = topTextField.code

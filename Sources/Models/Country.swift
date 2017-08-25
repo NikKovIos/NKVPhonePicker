@@ -15,10 +15,13 @@ public class Country: NSObject {
     @objc public var name: String {
         return NKVLocalizationHelper.countryName(by: countryCode) ?? ""
     }
+    /// Ex: "### ## ######"
+    public var formatPattern: String
 
-    public init(countryCode: String, phoneExtension: String) {
+    public init(countryCode: String, phoneExtension: String, formatPattern: String = "###################") {
         self.countryCode = countryCode
         self.phoneExtension = phoneExtension
+        self.formatPattern = formatPattern
     }
     
     /// Returns a Country entity of the current iphone's localization region code

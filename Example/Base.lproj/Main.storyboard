@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -124,6 +123,20 @@
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="23"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="dqdqdqwd" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bj4-SN-7g1" customClass="NKVPhonePickerTextField" customModule="NKVPhonePicker" customModuleProvider="target">
+                                <rect key="frame" x="46" y="372" width="283" height="30"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="cS7-42-rDF"/>
+                                </constraints>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="23"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="dummy:" destination="dkx-z0-nzr" eventType="editingDidEndOnExit" id="eMP-HZ-mqK"/>
+                                    <outlet property="phonePickerDelegate" destination="BYZ-38-t0r" id="43L-a7-bW8"/>
+                                </connections>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" red="0.97254901959999995" green="0.53492733063170239" blue="0.52016430485199094" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <gestureRecognizers/>
@@ -137,8 +150,11 @@
                             <constraint firstItem="Ty7-ct-NbH" firstAttribute="top" secondItem="4iN-WC-NnQ" secondAttribute="bottom" constant="20" id="JbB-7L-FcM"/>
                             <constraint firstItem="4iN-WC-NnQ" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="40" id="O4e-Y9-6b3"/>
                             <constraint firstAttribute="trailingMargin" secondItem="SYR-jA-MP0" secondAttribute="trailing" constant="10" id="XIW-qM-N8l"/>
+                            <constraint firstItem="bj4-SN-7g1" firstAttribute="trailing" secondItem="4iN-WC-NnQ" secondAttribute="trailing" id="c3x-33-D6G"/>
                             <constraint firstAttribute="trailingMargin" secondItem="4iN-WC-NnQ" secondAttribute="trailing" constant="30" id="cvt-JH-F85"/>
+                            <constraint firstItem="bj4-SN-7g1" firstAttribute="leading" secondItem="4iN-WC-NnQ" secondAttribute="leading" id="hRv-i8-thK"/>
                             <constraint firstItem="Ty7-ct-NbH" firstAttribute="leading" secondItem="SYR-jA-MP0" secondAttribute="leading" id="k4h-ht-iCE"/>
+                            <constraint firstItem="bj4-SN-7g1" firstAttribute="top" secondItem="uPl-31-L8h" secondAttribute="bottom" constant="14.5" id="pAq-fd-IWD"/>
                             <constraint firstItem="WyH-jQ-Hdw" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="SYR-jA-MP0" secondAttribute="trailing" id="zb2-J1-hne"/>
                         </constraints>
                         <connections>

@@ -19,10 +19,10 @@ struct NKVSourcesHelper {
         return (self.getFlagImage(by: countryCode) != nil)
     }
     
-    public static func isFlagExistsWith(phoneExtension: String) -> Bool {
+    public static func isFlagExistsWith(phoneExtension: String) -> (exists: Bool, country: Country) {
         let countryWithString = Country.countryBy(phoneExtension: phoneExtension)
-        if countryWithString == Country.empty { return false }
-        return (self.getFlagImage(by: countryWithString.countryCode) != nil)
+        if countryWithString == Country.empty { return (false, countryWithString) }
+        return ((self.getFlagImage(by: countryWithString.countryCode) != nil), countryWithString)
     }
     
     public private(set) static var countries: [Country] = {
@@ -35,11 +35,13 @@ struct NKVSourcesHelper {
                 if let array = json as? Array<[String: String]> {
                     for object in array {
                         guard let code = object["code"],
-                            let phoneExtension = object["dial_code"] else {
-                            fatalError("Must be valid json.")
+                            let phoneExtension = object["dial_code"],
+                            let formatPattern = object["format"] else {
+                                fatalError("Must be valid json.")
                         }
                         countries.append(Country(countryCode: code,
-                                                 phoneExtension: phoneExtension))
+                                                 phoneExtension: phoneExtension,
+                                                 formatPattern: formatPattern))
                     }
                 }
             } else {

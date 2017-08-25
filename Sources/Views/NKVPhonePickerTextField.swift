@@ -7,12 +7,40 @@
 
 import UIKit
 
-open class NKVPhonePickerTextField: UITextField {
-    // MARK: - Interface
+open class NKVPhonePickerTextField: TextFieldPatternFormat {
+    // MARK: Interface
+    // MARK: Settings
     /// Set this property in order to present the CountryPickerViewController
     /// when user clicks on the flag button
     @IBOutlet public weak var phonePickerDelegate: UIViewController?
 
+    /// Use this var for setting countries in the top of the tableView
+    /// Ex:
+    ///
+    ///     textField.favoriteCountriesLocaleIdentifiers = ["RU", "JM", "GB"]
+    public var favoriteCountriesLocaleIdentifiers: [String]?
+    
+    /// Use this var for setting custom phone formatting for countries. Use "#" char.
+    /// Ex:
+    ///
+    ///     textField.customPhoneFormats = ["RU" : "# ### ### ## ##", "GB": "# #### #########"]
+    public var customPhoneFormats: [String: String]?
+    
+    /// Set to 'false' if you don't need the '+' prefix
+    public var isPlusPrefixExists: Bool = true
+    
+    /// Show is there a valid country flag (not with question mark).
+    public var isFlagExist: Bool = false
+    
+    /// Set to 'false' if you don't need to scroll to selected country in CountryPickerViewController.
+    public var shouldScrollToSelectedCountry: Bool = true
+    
+    // MARK: - Get
+    /// The UIView subclass which contains flag icon.
+    var flagView: NKVFlagView!
+    /// The UILabel with plus if isPlusPrefixExists == true
+    var plusLabel: UILabel?
+    
     /// - Returns: Current phone number in textField with spaces. Ex: +7 999 777 33 44
     public var rawPhoneNumber: String {
         return self.text ?? ""
@@ -24,66 +52,23 @@ open class NKVPhonePickerTextField: UITextField {
     }
     
     /// - Returns: Current phone number in textField without code. Ex: 9997773344.
-    public var phoneNumberWithoutCode: String {
-        if isPlusPrefixImmortal {
-            return (self.text?.replacingOccurrences(of: code, with: "").cutSpaces.cutPluses)!
-        } else {
-            return "This feature is not available yet with 'isPlusPrefixImmortal == false'"
-        }
-    }
+//    public var phoneNumberWithoutCode: String {
+//        if isPlusPrefixExists {
+//            return (self.text?.replacingOccurrences(of: code, with: "").cutSpaces.cutPluses)!
+//        } else {
+//            return "This feature is not available yet with 'isPlusPrefixImmortal == false'"
+//        }
+//    }
     
     /// - Returns: Current phone code without +. Ex: 7
     public var code: String {
         return flagView.currentPresentingCountry.phoneExtension.cutPluses
     }
     
-    // Country picker customization properties:
-    public var pickerTitle: String?
-    public var pickerTitleFont: UIFont?
-    public var pickerCancelButtonTitle: String?
-    public var pickerCancelButtonColor: UIColor?
-    public var pickerCancelButtonFont: UIFont?
-    public var pickerBarTintColor: UIColor?
-    
-    /// Insets for the flag icon.
-    ///
-    /// Left and right insets affect on flag view. 
-    /// Top and bottom insets - on image only.
-    public var flagInsets: UIEdgeInsets? { didSet { customizeSelf() } }
-    public var flagSize: CGSize?         { didSet { customizeSelf() } }
-    
-    /// The UIView subclass which contains flag icon. 
-    var flagView: NKVFlagView!
-    
-    /// This var returnes an entity of current selected country.
-    public var currentSelectedCountry: Country? {
-        didSet {
-            if let selected = currentSelectedCountry {
-                self.setCode(country: selected)
-                self.setFlag(country: selected)
-            }
-        }
-    }
-    
-    /// Use this var for setting countries in the top of the tableView
-    /// Ex:
-    ///
-    ///     countryVC.favoriteCountriesLocaleIdentifiers = ["RU", "JM", "GB"]   
-    public var favoriteCountriesLocaleIdentifiers: [String]?
-    
-    /// Set to 'false' if you want to make available to erase the plus character
-    /// while editing the textField.
-    public var isPlusPrefixImmortal: Bool = true
-    
-    /// Show is there a valid country flag (not with question mark).
-    public var isFlagExist: Bool = false
-    
-    /// Set to 'false' if you don't need to scroll to selected country in CountryPickerViewController.
-    public var shouldScrollToSelectedCountry: Bool = true
-    
+    // MARK: Set
     /// Method for set code in textField with Country entity.
     public func setCode(country: Country) {
-        self.text = "+\(country.phoneExtension) "
+        self.text = "\(country.phoneExtension)"
     }
     
     /// Method for set flag with countryCode.
@@ -100,12 +85,55 @@ open class NKVPhonePickerTextField: UITextField {
     
     /// Method for set flag with phone extenion.
     public func setFlag(phoneExtension: String) {
-        if NKVSourcesHelper.isFlagExistsWith(phoneExtension: phoneExtension) {
+        let (exists, country) = NKVSourcesHelper.isFlagExistsWith(phoneExtension: phoneExtension)
+        if exists {
             flagView.setFlagWith(phoneExtension: phoneExtension)
+            if let customFormats = customPhoneFormats {
+                for format in customFormats {
+                    if country.countryCode.uppercased() == format.key {
+                        self.setFormatting(format.value, replacementChar: "#")
+                        return
+                    }
+                }
+            }
+            self.setFormatting(country.formatPattern, replacementChar: "#")
         }
     }
     
+    // MARK: - Main
+    /// Use this var to set or get current selected country.
+    public var currentSelectedCountry: Country? {
+        didSet {
+            if let selected = currentSelectedCountry {
+                self.setCode(country: selected)
+                self.setFlag(country: selected)
+            }
+        }
+    }
+    
+    // MARK: - Customizing
+    // Country picker customization properties:
+    public var pickerTitle: String?
+    public var pickerTitleFont: UIFont?
+    public var pickerCancelButtonTitle: String?
+    public var pickerCancelButtonColor: UIColor?
+    public var pickerCancelButtonFont: UIFont?
+    public var pickerBarTintColor: UIColor?
+    
+    /// Insets for the flag icon.
+    ///
+    /// Left and right insets affect on flag view. 
+    /// Top and bottom insets - on image only.
+    public var flagInsets: UIEdgeInsets? { didSet { customizeSelf() } }
+    public var flagSize: CGSize?         { didSet { customizeSelf() } }
+
+
+
+    
+    
+    
     // MARK: - Implementation
+    
     // MARK: Initialization
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -128,6 +156,22 @@ open class NKVPhonePickerTextField: UITextField {
         
         flagView.flagButton.addTarget(self, action: #selector(presentCountriesViewController), for: .touchUpInside)
         self.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+        
+        addPlusLabel()
+    }
+    
+    func addPlusLabel() {
+        if isPlusPrefixExists && plusLabel == nil {
+            plusLabel = UILabel(frame: CGRect(x: self.flagView.frame.size.width,
+                                                  y: self.flagView.frame.origin.y,
+                                                  width: (self.font?.pointSize ?? 10) / 1.5,
+                                                  height: self.flagView.frame.size.height))
+            plusLabel?.backgroundColor = UIColor.clear
+            plusLabel?.text = "+"
+            plusLabel?.font = self.font
+            plusLabel?.textColor = self.textColor
+            self.addSubview(plusLabel!)
+        }
     }
     
     /// Presents a view controller to choose a country code.
@@ -184,12 +228,21 @@ open class NKVPhonePickerTextField: UITextField {
             flagView.iconSize = flagSize
         }
     }
+    
+    override open func textRect(forBounds bounds: CGRect) -> CGRect {
+        return super.textRect(forBounds: UIEdgeInsetsInsetRect(bounds, UIEdgeInsets(top: 0, left: (self.font?.pointSize ?? 10) / 2, bottom: 0, right: 0)))
+    }
+    
+    override open func editingRect(forBounds bounds: CGRect) -> CGRect {
+        return super.editingRect(forBounds: UIEdgeInsetsInsetRect(bounds, UIEdgeInsets(top: 0, left: (self.font?.pointSize ?? 10) / 2, bottom: 0, right: 0)))
+    }
 }
 
 extension NKVPhonePickerTextField: CountriesViewControllerDelegate {
     public func countriesViewController(_ sender: CountriesViewController, didSelectCountry country: Country) {
         currentSelectedCountry = country
     }
+    
     public func countriesViewControllerDidCancel(_ sender: CountriesViewController) {
         /// Do nothing yet
     }
@@ -202,12 +255,9 @@ extension NKVPhonePickerTextField: UITextFieldDelegate {
             if newString.characters.count == 1 || newString.characters.count == 0 {
                 self.setFlag(countryCode: "?")
             }
-            
-            if isPlusPrefixImmortal {
-                self.text = "+\(newString.cutPluses)"
-            }
-            
-            self.setFlag(phoneExtension: newString.replacingOccurrences(of: " ", with: ""))
+
+            let firstFourLetters = String(newString.characters.prefix(5))
+            self.setFlag(phoneExtension: firstFourLetters)
         }
     }
 }
