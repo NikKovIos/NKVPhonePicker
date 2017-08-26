@@ -5,7 +5,7 @@
 
 ![Cocoapods](https://img.shields.io/badge/pod-available-brightgreen.svg?style=flat)
 ![Platform](https://img.shields.io/badge/platform-ios-blue.svg?style=flat)
-![Version](https://img.shields.io/badge/version-1.0.1-blue.svg?style=flat)
+![Version](https://img.shields.io/badge/version-1.1.0-blue.svg?style=flat)
 ![Swift version](https://img.shields.io/badge/Swift-3.0-orange.svg?style=flat)
 ![License](https://img.shields.io/badge/license-MIT-lightgrey.svg?style=flat)
 
@@ -56,10 +56,9 @@ topTextField.currentSelectedCountry = country
 
 // Setting custom format pattern for some countries
 topTextField.customPhoneFormats = ["RU" : "# ### ### ## ##",
-"GB": "## #### #########"]
+                                   "GB": "## #### #########"]
 
 // Adding programmatically
-func addingProgrammatically() {
 bottomTextField = NKVPhonePickerTextField(frame: CGRect(x: 0, y: 0, width: 0, height: 30))
 bottomTextField.placeholder = "ex: 03123456"
 bottomTextField.autocorrectionType = .no
@@ -74,24 +73,28 @@ bottomTextField.textColor = UIColor.white
 bottomTextField.textFieldTextInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0)
 bottomTextField.translatesAutoresizingMaskIntoConstraints = false
 self.view.addSubview(bottomTextField)
-
+        
 let views: [String : Any] = ["bottomTextField": self.bottomTextField]
 let horizontalConstraints = NSLayoutConstraint.constraints(withVisualFormat:
-"H:|-15-[bottomTextField]-15-|",
-options: [],
-metrics: nil,
-views: views)
-
+            "H:|-15-[bottomTextField]-15-|",
+                                                          options: [],
+                                                          metrics: nil,
+                                                          views: views)
+        
 let verticalConstraints = NSLayoutConstraint.constraints(withVisualFormat:
-"V:|-(>=0)-[bottomTextField(30)]-15-|",
-options: [],
-metrics: nil,
-views: views)
-
+            "V:|-(>=0)-[bottomTextField(30)]-15-|",
+                                                          options: [],
+                                                          metrics: nil,
+                                                          views: views)
+        
+view.addConstraints(horizontalConstraints)
+view.addConstraints(verticalConstraints)
 view.addConstraints(horizontalConstraints)
 view.addConstraints(verticalConstraints)
 }
 ```
+
+**Note:** 'In this library used the `TextFieldPatternFormat` lib by Vojta Stavik'
 
 #### TODO:
 - [x] Add example
@@ -106,5 +109,3 @@ view.addConstraints(verticalConstraints)
 
 ### by Nik Kov 
 http://nik-kov.com
-
-Note: 'In this library used the TextFieldPatternFormat lib by Vojta Stavik'
