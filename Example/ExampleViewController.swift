@@ -18,31 +18,25 @@ class ExampleViewController: UIViewController {
         super.viewDidLoad()
         
         topTextField.favoriteCountriesLocaleIdentifiers = ["RU", "ER", "JM"]
-        topTextField.shouldScrollToSelectedCountry = false
+//        topTextField.shouldScrollToSelectedCountry = false
 //        topTextField.flagSize = CGSize(width: 30, height: 50)
 //        topTextField.setFlag(countryCode: nil)
-//        topTextField.isPlusPrefixImmortal = false
-        
+//        topTextField.isPlusPrefixExists = false
+
         // Setting initial custom country
         let country = Country.countryBy(countryCode: "EG")
         topTextField.currentSelectedCountry = country
 
         // Setting custom format pattern for some countries
-        topTextField.customPhoneFormats = ["RU" : "### ### ### ## ##",
-                                           "GB": "# #### #########"]
+        topTextField.customPhoneFormats = ["RU" : "# ### ### ## ##",
+                                           "GB": "## #### #########"]
         
         // You can also add NKVPhonePickerTextField programmatically ;)
         addingProgrammatically()
     }
     
-    @IBAction func didPressRawPhoneNumber(_ sender: UIButton) {
-       outputLabel.text = topTextField.rawPhoneNumber
-    }
     @IBAction func didPressPhoneNumber(_ sender: UIButton) {
         outputLabel.text = topTextField.phoneNumber
-    }
-    @IBAction func didPressPhoneNumberWithoutCode(_ sender: UIButton) {
-//        outputLabel.text = topTextField.phoneNumberWithoutCode
     }
     @IBAction func didPressCode(_ sender: UIButton) {
         outputLabel.text = topTextField.code
@@ -52,7 +46,7 @@ class ExampleViewController: UIViewController {
     }
     
     func addingProgrammatically() {
-        bottomTextField = NKVPhonePickerTextField()
+        bottomTextField = NKVPhonePickerTextField(frame: CGRect(x: 0, y: 0, width: 0, height: 30))
         bottomTextField.placeholder = "ex: 03123456"
         bottomTextField.autocorrectionType = .no
         bottomTextField.phonePickerDelegate = self
@@ -61,8 +55,9 @@ class ExampleViewController: UIViewController {
         bottomTextField.layer.borderWidth = 1
         bottomTextField.layer.borderColor = UIColor.white.cgColor
         bottomTextField.layer.cornerRadius = 5
-        bottomTextField.font = UIFont.boldSystemFont(ofSize: 18)
+        bottomTextField.font = UIFont.boldSystemFont(ofSize: 25)
         bottomTextField.textColor = UIColor.white
+        bottomTextField.textFieldTextInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0)
         bottomTextField.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(bottomTextField)
         

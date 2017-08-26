@@ -23,11 +23,12 @@
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4iN-WC-NnQ" customClass="NKVPhonePickerTextField" customModule="NKVPhonePicker" customModuleProvider="target">
                                 <rect key="frame" x="46" y="60" width="283" height="50"/>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="frC-iQ-Zzj"/>
                                 </constraints>
                                 <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="27"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
                                     <action selector="dummy:" destination="dkx-z0-nzr" eventType="editingDidEndOnExit" id="JOk-mm-csJ"/>
@@ -35,28 +36,10 @@
                                 </connections>
                             </textField>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="SYR-jA-MP0">
-                                <rect key="frame" x="26" y="183.5" width="323" height="174"/>
+                                <rect key="frame" x="26" y="183.5" width="323" height="82"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="csQ-2W-PwZ">
-                                        <rect key="frame" x="0.0" y="0.0" width="323" height="36"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                        <state key="normal" title="rawPhoneNumber">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
-                                                <integer key="value" value="1"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <integer key="value" value="5"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="didPressRawPhoneNumber:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ShP-48-Out"/>
-                                        </connections>
-                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CR3-SW-X7W">
-                                        <rect key="frame" x="0.0" y="46" width="323" height="36"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="323" height="36"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <state key="normal" title="phoneNumber">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -73,27 +56,8 @@
                                             <action selector="didPressPhoneNumber:" destination="BYZ-38-t0r" eventType="touchUpInside" id="iaL-i1-ybd"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k0x-Db-R7d">
-                                        <rect key="frame" x="0.0" y="92" width="323" height="36"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                        <state key="normal" title="phoneNumberWithoutCode">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
-                                                <integer key="value" value="1"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <integer key="value" value="5"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="titleLabel.adjustsFontSizeToFitWidth" value="YES"/>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="didPressPhoneNumberWithoutCode:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Fat-aj-dC3"/>
-                                        </connections>
-                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uPl-31-L8h">
-                                        <rect key="frame" x="0.0" y="138" width="323" height="36"/>
+                                        <rect key="frame" x="0.0" y="46" width="323" height="36"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <state key="normal" title="code">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -123,20 +87,6 @@
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="23"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="dqdqdqwd" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bj4-SN-7g1" customClass="NKVPhonePickerTextField" customModule="NKVPhonePicker" customModuleProvider="target">
-                                <rect key="frame" x="46" y="372" width="283" height="30"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="cS7-42-rDF"/>
-                                </constraints>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="23"/>
-                                <textInputTraits key="textInputTraits"/>
-                                <connections>
-                                    <action selector="dummy:" destination="dkx-z0-nzr" eventType="editingDidEndOnExit" id="eMP-HZ-mqK"/>
-                                    <outlet property="phonePickerDelegate" destination="BYZ-38-t0r" id="43L-a7-bW8"/>
-                                </connections>
-                            </textField>
                         </subviews>
                         <color key="backgroundColor" red="0.97254901959999995" green="0.53492733063170239" blue="0.52016430485199094" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <gestureRecognizers/>
@@ -150,11 +100,8 @@
                             <constraint firstItem="Ty7-ct-NbH" firstAttribute="top" secondItem="4iN-WC-NnQ" secondAttribute="bottom" constant="20" id="JbB-7L-FcM"/>
                             <constraint firstItem="4iN-WC-NnQ" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="40" id="O4e-Y9-6b3"/>
                             <constraint firstAttribute="trailingMargin" secondItem="SYR-jA-MP0" secondAttribute="trailing" constant="10" id="XIW-qM-N8l"/>
-                            <constraint firstItem="bj4-SN-7g1" firstAttribute="trailing" secondItem="4iN-WC-NnQ" secondAttribute="trailing" id="c3x-33-D6G"/>
                             <constraint firstAttribute="trailingMargin" secondItem="4iN-WC-NnQ" secondAttribute="trailing" constant="30" id="cvt-JH-F85"/>
-                            <constraint firstItem="bj4-SN-7g1" firstAttribute="leading" secondItem="4iN-WC-NnQ" secondAttribute="leading" id="hRv-i8-thK"/>
                             <constraint firstItem="Ty7-ct-NbH" firstAttribute="leading" secondItem="SYR-jA-MP0" secondAttribute="leading" id="k4h-ht-iCE"/>
-                            <constraint firstItem="bj4-SN-7g1" firstAttribute="top" secondItem="uPl-31-L8h" secondAttribute="bottom" constant="14.5" id="pAq-fd-IWD"/>
                             <constraint firstItem="WyH-jQ-Hdw" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="SYR-jA-MP0" secondAttribute="trailing" id="zb2-J1-hne"/>
                         </constraints>
                         <connections>

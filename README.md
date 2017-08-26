@@ -42,10 +42,61 @@ pod 'NKVPhonePicker', :git => "https://github.com/NikKovIos/NKVPhonePicker.git",
 
 Please, make an issue, if you need any features, or have bugs.
 
+## Example
+```swift
+topTextField.favoriteCountriesLocaleIdentifiers = ["RU", "ER", "JM"]
+topTextField.shouldScrollToSelectedCountry = false
+topTextField.flagSize = CGSize(width: 30, height: 50)
+topTextField.setFlag(countryCode: nil)
+topTextField.isPlusPrefixExists = false
+
+// Setting initial custom country
+let country = Country.countryBy(countryCode: "EG")
+topTextField.currentSelectedCountry = country
+
+// Setting custom format pattern for some countries
+topTextField.customPhoneFormats = ["RU" : "# ### ### ## ##",
+"GB": "## #### #########"]
+
+// Adding programmatically
+func addingProgrammatically() {
+bottomTextField = NKVPhonePickerTextField(frame: CGRect(x: 0, y: 0, width: 0, height: 30))
+bottomTextField.placeholder = "ex: 03123456"
+bottomTextField.autocorrectionType = .no
+bottomTextField.phonePickerDelegate = self
+bottomTextField.keyboardType = .numberPad
+bottomTextField.favoriteCountriesLocaleIdentifiers = ["LB"]
+bottomTextField.layer.borderWidth = 1
+bottomTextField.layer.borderColor = UIColor.white.cgColor
+bottomTextField.layer.cornerRadius = 5
+bottomTextField.font = UIFont.boldSystemFont(ofSize: 25)
+bottomTextField.textColor = UIColor.white
+bottomTextField.textFieldTextInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0)
+bottomTextField.translatesAutoresizingMaskIntoConstraints = false
+self.view.addSubview(bottomTextField)
+
+let views: [String : Any] = ["bottomTextField": self.bottomTextField]
+let horizontalConstraints = NSLayoutConstraint.constraints(withVisualFormat:
+"H:|-15-[bottomTextField]-15-|",
+options: [],
+metrics: nil,
+views: views)
+
+let verticalConstraints = NSLayoutConstraint.constraints(withVisualFormat:
+"V:|-(>=0)-[bottomTextField(30)]-15-|",
+options: [],
+metrics: nil,
+views: views)
+
+view.addConstraints(horizontalConstraints)
+view.addConstraints(verticalConstraints)
+}
+```
+
 #### TODO:
 - [x] Add example
-- [ ] Patterns for each country
-- [ ] Max numbers count var
+- [x] Max numbers count var (can do with custom pattern)
+- [x] Patterns for each country
 - [ ] Add my logo
 
 ## My other Repos

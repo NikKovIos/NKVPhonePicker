@@ -27,7 +27,12 @@ open class NKVPhonePickerTextField: TextFieldPatternFormat {
     public var customPhoneFormats: [String: String]?
     
     /// Set to 'false' if you don't need the '+' prefix
-    public var isPlusPrefixExists: Bool = true
+    public var isPlusPrefixExists: Bool = true { didSet {
+        if isPlusPrefixExists == false {
+            plusLabel?.removeFromSuperview()
+            textFieldTextInsets = UIEdgeInsets.zero
+        }
+        }}
     
     /// Show is there a valid country flag (not with question mark).
     public var isFlagExist: Bool = false
@@ -41,24 +46,10 @@ open class NKVPhonePickerTextField: TextFieldPatternFormat {
     /// The UILabel with plus if isPlusPrefixExists == true
     var plusLabel: UILabel?
     
-    /// - Returns: Current phone number in textField with spaces. Ex: +7 999 777 33 44
-    public var rawPhoneNumber: String {
-        return self.text ?? ""
-    }
-    
-    /// - Returns: Current phone number in textField without '+'. Ex: +79997773344.
+    /// - Returns: Current phone number in textField without '+'. Ex: 79997773344.
     public var phoneNumber: String {
         return self.text?.cutSpaces.cutPluses ?? ""
     }
-    
-    /// - Returns: Current phone number in textField without code. Ex: 9997773344.
-//    public var phoneNumberWithoutCode: String {
-//        if isPlusPrefixExists {
-//            return (self.text?.replacingOccurrences(of: code, with: "").cutSpaces.cutPluses)!
-//        } else {
-//            return "This feature is not available yet with 'isPlusPrefixImmortal == false'"
-//        }
-//    }
     
     /// - Returns: Current phone code without +. Ex: 7
     public var code: String {
@@ -68,6 +59,7 @@ open class NKVPhonePickerTextField: TextFieldPatternFormat {
     // MARK: Set
     /// Method for set code in textField with Country entity.
     public func setCode(country: Country) {
+        self.text = ""
         self.text = "\(country.phoneExtension)"
     }
     
@@ -75,12 +67,13 @@ open class NKVPhonePickerTextField: TextFieldPatternFormat {
     ///
     /// If nil it would be "?" code. This code present a flag with question mark.
     public func setFlag(countryCode: String?) {
-        flagView.setFlagWith(countryCode: countryCode)
+        let country = Country.countryBy(countryCode: code)
+        self.setFlag(phoneExtension: country.phoneExtension)
     }
     
     /// Method for set flag with Country entity.
     public func setFlag(country: Country) {
-        flagView.setFlagWith(country: country)
+        self.setFlag(phoneExtension: country.phoneExtension)
     }
     
     /// Method for set flag with phone extenion.
@@ -120,6 +113,9 @@ open class NKVPhonePickerTextField: TextFieldPatternFormat {
     public var pickerCancelButtonFont: UIFont?
     public var pickerBarTintColor: UIColor?
     
+    /// Insets for text in textField
+    public var textFieldTextInsets: UIEdgeInsets? { didSet { layoutSubviews() } }
+    
     /// Insets for the flag icon.
     ///
     /// Left and right insets affect on flag view. 
@@ -135,6 +131,11 @@ open class NKVPhonePickerTextField: TextFieldPatternFormat {
     // MARK: - Implementation
     
     // MARK: Initialization
+    // With code initialization you always must define textField's height 
+    // in order to properly add a plus label.
+    @available(*, unavailable)
+    init() { super.init(frame: CGRect.zero) }
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         initialize()
@@ -145,6 +146,11 @@ open class NKVPhonePickerTextField: TextFieldPatternFormat {
         initialize()
     }
     
+    open override func layoutSubviews() {
+        super.layoutSubviews()
+        addPlusLabel()
+    }
+    
     private func initialize() {
         self.leftViewMode = .always;
         self.keyboardType = .numberPad
@@ -152,26 +158,29 @@ open class NKVPhonePickerTextField: TextFieldPatternFormat {
         self.leftView = flagView
         self.delegate = self
         
+        var fontSize = (self.font?.pointSize ?? 10) / 2
+        fontSize = fontSize == 0 ? 5 : fontSize
+        textFieldTextInsets = UIEdgeInsets(top: 0, left: fontSize, bottom: 0, right: 0)
+        
         currentSelectedCountry = Country.currentCountry
         
         flagView.flagButton.addTarget(self, action: #selector(presentCountriesViewController), for: .touchUpInside)
         self.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
-        
-        addPlusLabel()
     }
-    
+   
     func addPlusLabel() {
-        if isPlusPrefixExists && plusLabel == nil {
-            plusLabel = UILabel(frame: CGRect(x: self.flagView.frame.size.width,
-                                                  y: self.flagView.frame.origin.y,
-                                                  width: (self.font?.pointSize ?? 10) / 1.5,
-                                                  height: self.flagView.frame.size.height))
+        if isPlusPrefixExists && (plusLabel == nil) {
+            plusLabel = UILabel(frame: CGRect.zero)
             plusLabel?.backgroundColor = UIColor.clear
             plusLabel?.text = "+"
-            plusLabel?.font = self.font
-            plusLabel?.textColor = self.textColor
             self.addSubview(plusLabel!)
         }
+        plusLabel?.font = self.font
+        plusLabel?.textColor = self.textColor
+        plusLabel?.frame = CGRect(x: self.flagView.frame.size.width,
+                                  y: self.flagView.frame.origin.y,
+                                  width: (self.font?.pointSize ?? 10) / 1.5,
+                                  height: self.frame.size.height * 0.9)
     }
     
     /// Presents a view controller to choose a country code.
@@ -230,11 +239,11 @@ open class NKVPhonePickerTextField: TextFieldPatternFormat {
     }
     
     override open func textRect(forBounds bounds: CGRect) -> CGRect {
-        return super.textRect(forBounds: UIEdgeInsetsInsetRect(bounds, UIEdgeInsets(top: 0, left: (self.font?.pointSize ?? 10) / 2, bottom: 0, right: 0)))
+        return super.textRect(forBounds: UIEdgeInsetsInsetRect(bounds, textFieldTextInsets ?? UIEdgeInsets.zero))
     }
     
     override open func editingRect(forBounds bounds: CGRect) -> CGRect {
-        return super.editingRect(forBounds: UIEdgeInsetsInsetRect(bounds, UIEdgeInsets(top: 0, left: (self.font?.pointSize ?? 10) / 2, bottom: 0, right: 0)))
+        return super.editingRect(forBounds: UIEdgeInsetsInsetRect(bounds, textFieldTextInsets ?? UIEdgeInsets.zero))
     }
 }
 
