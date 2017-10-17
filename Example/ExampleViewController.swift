@@ -29,7 +29,7 @@ class ExampleViewController: UIViewController {
 
         // Setting custom format pattern for some countries
         topTextField.customPhoneFormats = ["RU" : "# ### ### ## ##",
-                                           "GB": "## #### #########"]
+                                           "IN": "## #### #########"]
         
         // You can also add NKVPhonePickerTextField programmatically ;)
         addingProgrammatically()

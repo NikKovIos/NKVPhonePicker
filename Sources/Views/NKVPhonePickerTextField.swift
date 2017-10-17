@@ -5,11 +5,12 @@
 // nik-kov.com
 //
 
+import Foundation
 import UIKit
 
 open class NKVPhonePickerTextField: TextFieldPatternFormat {
     // MARK: Interface
-    // MARK: Settings
+    // MARK: - Settings
     /// Set this property in order to present the CountryPickerViewController
     /// when user clicks on the flag button
     @IBOutlet public weak var phonePickerDelegate: UIViewController?
@@ -134,7 +135,9 @@ open class NKVPhonePickerTextField: TextFieldPatternFormat {
     // With code initialization you always must define textField's height 
     // in order to properly add a plus label.
     @available(*, unavailable)
-    init() { super.init(frame: CGRect.zero) }
+    init() {
+        super.init(frame: CGRect.zero)
+    }
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -152,8 +155,8 @@ open class NKVPhonePickerTextField: TextFieldPatternFormat {
     }
     
     private func initialize() {
-        self.leftViewMode = .always;
-        self.keyboardType = .numberPad
+        self.leftViewMode = .always
+        self.keyboardType = .phonePad
         flagView = NKVFlagView(with: self)
         self.leftView = flagView
         self.delegate = self
@@ -210,11 +213,11 @@ open class NKVPhonePickerTextField: TextFieldPatternFormat {
             pickerVC.countriesVCNavigationItem.title = pickerTitle
         }
         if let pickerTitleFont = pickerTitleFont, let navController = pickerVC.navigationController {
-            let fontAttributes = [NSFontAttributeName: pickerTitleFont]
+            let fontAttributes = [NSAttributedStringKey.font: pickerTitleFont]
             navController.navigationBar.titleTextAttributes = fontAttributes
         }
         if let pickerCancelButtonFont = pickerCancelButtonFont {
-            let fontAttributes = [NSFontAttributeName: pickerCancelButtonFont]
+            let fontAttributes = [NSAttributedStringKey.font: pickerCancelButtonFont]
             pickerVC.countriesVCNavigationItem.leftBarButtonItem?.setTitleTextAttributes(fontAttributes, for: .normal)
             pickerVC.countriesVCNavigationItem.leftBarButtonItem?.setTitleTextAttributes(fontAttributes, for: .highlighted)
         }

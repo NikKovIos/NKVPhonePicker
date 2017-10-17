@@ -23,7 +23,8 @@
 
 import UIKit
 
-enum TextFieldFormatting {
+public enum TextFieldFormatting {
+    case uuid
     case socialSecurityNumber
     case phoneNumber
     case custom
@@ -36,7 +37,7 @@ open class TextFieldPatternFormat: UITextField {
      Set a formatting pattern for a number and define a replacement string. For example: If formattingPattern would be "##-##-AB-##" and
      replacement string would be "#" and user input would be "123456", final string would look like "12-34-AB-56"
      */
-    func setFormatting(_ formattingPattern: String, replacementChar: Character) {
+    public func setFormatting(_ formattingPattern: String, replacementChar: Character) {
         self.formattingPattern = formattingPattern
         self.replacementChar = replacementChar
     }
@@ -44,23 +45,30 @@ open class TextFieldPatternFormat: UITextField {
     /**
      A character which will be replaced in formattingPattern by a number
      */
-    var replacementChar: Character = "*"
+    public var replacementChar: Character = "*"
     
     /**
      A character which will be replaced in formattingPattern by a number
      */
-    var secureTextReplacementChar: Character = "\u{25cf}"
+    public var secureTextReplacementChar: Character = "\u{25cf}"
+    
+    /**
+     True if input number is hexadecimal eg. UUID
+     */
+    public var isHexadecimal: Bool {
+        return formatting == .uuid
+    }
     
     /**
      Max length of input string. You don't have to set this if you set formattingPattern.
      If 0 -> no limit.
      */
-    var maxLength = 0
+    public var maxLength = 0
     
     /**
      Type of predefined text formatting. (You don't have to set this. It's more a future feature)
      */
-    var formatting : TextFieldFormatting = .noFormatting {
+    public var formatting : TextFieldFormatting = .noFormatting {
         didSet {
             switch formatting {
                 
@@ -72,6 +80,10 @@ open class TextFieldPatternFormat: UITextField {
                 self.formattingPattern = "***-***–****"
                 self.replacementChar = "*"
                 
+            case .uuid:
+                self.formattingPattern = "********-****-****-****-************"
+                self.replacementChar = "*"
+                
             default:
                 self.maxLength = 0
             }
@@ -81,7 +93,7 @@ open class TextFieldPatternFormat: UITextField {
     /**
      String with formatting pattern for the text field.
      */
-    var formattingPattern: String = "" {
+    public var formattingPattern: String = "" {
         didSet {
             self.maxLength = formattingPattern.characters.count
             self.formatting = .custom
@@ -91,7 +103,7 @@ open class TextFieldPatternFormat: UITextField {
     /**
      Provides secure text entry but KEEPS formatting. All digits are replaced with the bullet character \u{25cf} .
      */
-    var formatedSecureTextEntry: Bool {
+    public var formatedSecureTextEntry: Bool {
         set {
             _formatedSecureTextEntry = newValue
             super.isSecureTextEntry = false
@@ -137,16 +149,8 @@ open class TextFieldPatternFormat: UITextField {
     /**
      Final text without formatting characters (read-only)
      */
-    var finalStringWithoutFormatting : String {
-        return TextFieldPatternFormat.makeOnlyDigitsString(_textWithoutSecureBullets)
-    }
-    
-    
-    // MARK: - class methods
-    class func makeOnlyDigitsString(_ string: String) -> String {
-        let stringArray = string.components(separatedBy: CharacterSet.whitespaces)
-        let allNumbers = stringArray.joined(separator: "")
-        return allNumbers
+    public var finalStringWithoutFormatting : String {
+        return _textWithoutSecureBullets.keepOnlyDigits(isHexadecimal: isHexadecimal)
     }
     
     // MARK: - INTERNAL
@@ -157,25 +161,30 @@ open class TextFieldPatternFormat: UITextField {
     fileprivate var _textWithoutSecureBullets = ""
     
     fileprivate func registerForNotifications() {
-        NotificationCenter.default.addObserver(self, selector: #selector(TextFieldPatternFormat.textDidChange), name: NSNotification.Name(rawValue: "UITextFieldTextDidChangeNotification"), object: self)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(TextFieldPatternFormat.textDidChange),
+                                               name: NSNotification.Name(rawValue: "UITextFieldTextDidChangeNotification"),
+                                               object: self)
     }
     
-    func textDidChange() {
+    @objc public func textDidChange() {
+        var superText: String { return super.text ?? "" }
         
         // TODO: - Isn't there more elegant way how to do this?
         let currentTextForFormatting: String
         
-        if super.text?.characters.count > _textWithoutSecureBullets.characters.count {
-            currentTextForFormatting = _textWithoutSecureBullets + super.text!.substring(from: super.text!.characters.index(super.text!.startIndex, offsetBy: _textWithoutSecureBullets.characters.count))
-        } else if super.text?.characters.count == 0 {
+        if superText.characters.count > _textWithoutSecureBullets.characters.count {
+            currentTextForFormatting = _textWithoutSecureBullets + superText[superText.characters.index(superText.startIndex, offsetBy: _textWithoutSecureBullets.characters.count)...]
+        } else if superText.characters.count == 0 {
             _textWithoutSecureBullets = ""
             currentTextForFormatting = ""
         } else {
-            currentTextForFormatting = _textWithoutSecureBullets.substring(to: _textWithoutSecureBullets.characters.index(_textWithoutSecureBullets.startIndex, offsetBy: super.text!.characters.count))
+            let index = _textWithoutSecureBullets.index(_textWithoutSecureBullets.startIndex, offsetBy: superText.characters.count)
+            currentTextForFormatting = String(_textWithoutSecureBullets[..<index])
         }
         
         if formatting != .noFormatting && currentTextForFormatting.characters.count > 0 && formattingPattern.characters.count > 0 {
-            let tempString = TextFieldPatternFormat.makeOnlyDigitsString(currentTextForFormatting)
+            let tempString = currentTextForFormatting.keepOnlyDigits(isHexadecimal: isHexadecimal)
             
             var finalText = ""
             var finalSecureText = ""
@@ -188,17 +197,19 @@ open class TextFieldPatternFormat: UITextField {
             while !stop {
                 let formattingPatternRange = formatterIndex ..< formattingPattern.index(formatterIndex, offsetBy: 1)
                 
-                if formattingPattern.substring(with: formattingPatternRange) != String(replacementChar) {
-                    finalText = finalText + formattingPattern.substring(with: formattingPatternRange)
-                    finalSecureText = finalSecureText + formattingPattern.substring(with: formattingPatternRange)
+                if formattingPattern[formattingPatternRange] != String(replacementChar) {
+                    finalText = finalText + formattingPattern[formattingPatternRange]
+                    finalSecureText = finalSecureText + formattingPattern[formattingPatternRange]
+                    
                 } else if tempString.characters.count > 0 {
+                    
                     let pureStringRange = tempIndex ..< tempString.index(tempIndex, offsetBy: 1)
                     
-                    finalText = finalText + tempString.substring(with: pureStringRange)
+                    finalText = finalText + tempString[pureStringRange]
                     
                     // we want the last number to be visible
                     if tempString.index(tempIndex, offsetBy: 1) == tempString.endIndex {
-                        finalSecureText = finalSecureText + tempString.substring(with: pureStringRange)
+                        finalSecureText = finalSecureText + tempString[pureStringRange]
                     } else {
                         finalSecureText = finalSecureText + String(secureTextReplacementChar)
                     }
@@ -214,38 +225,32 @@ open class TextFieldPatternFormat: UITextField {
             }
             
             _textWithoutSecureBullets = finalText
-            super.text = _formatedSecureTextEntry ? finalSecureText : finalText
+            
+            let newText = _formatedSecureTextEntry ? finalSecureText : finalText
+            if newText != superText {
+                super.text = _formatedSecureTextEntry ? finalSecureText : finalText
+            }
         }
         
         // Let's check if we have additional max length restrictions
         if maxLength > 0 {
-            if text.characters.count > maxLength {
-                super.text = text.substring(to: text.index(text.startIndex, offsetBy: maxLength))
-                _textWithoutSecureBullets = _textWithoutSecureBullets.substring(to: _textWithoutSecureBullets.characters.index(_textWithoutSecureBullets.startIndex, offsetBy: maxLength))
+            if superText.characters.count > maxLength {
+                super.text = String(_textWithoutSecureBullets[..<superText.index(superText.startIndex, offsetBy: maxLength)])
+                
+                let index = _textWithoutSecureBullets.index(_textWithoutSecureBullets.startIndex, offsetBy: maxLength)
+                _textWithoutSecureBullets = String(_textWithoutSecureBullets[..<index])
             }
         }
     }
 }
 
-
-// Helpers
-
-fileprivate func < <T: Comparable>(lhs: T?, rhs: T?) -> Bool {
-    switch (lhs, rhs) {
-    case let (l?, r?):
-        return l < r
-    case (nil, _?):
-        return true
-    default:
-        return false
-    }
-}
-
-fileprivate func > <T: Comparable>(lhs: T?, rhs: T?) -> Bool {
-    switch (lhs, rhs) {
-    case let (l?, r?):
-        return l > r
-    default:
-        return rhs < lhs
+extension String {
+    func keepOnlyDigits(isHexadecimal: Bool) -> String {
+        let ucString = self.uppercased()
+        let validCharacters = isHexadecimal ? "0123456789ABCDEF" : "0123456789"
+        let characterSet: CharacterSet = CharacterSet(charactersIn: validCharacters)
+        let stringArray = ucString.components(separatedBy: characterSet.inverted)
+        let allNumbers = stringArray.joined(separator: "")
+        return allNumbers
     }
 }

@@ -20,8 +20,6 @@
 		EB8491E71ED4370E0069CD20 /* NKVPhonePickerTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB8491E61ED4370E0069CD20 /* NKVPhonePickerTextField.swift */; };
 		EB8492001ED467FE0069CD20 /* NKVFlagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB8491FF1ED467FE0069CD20 /* NKVFlagView.swift */; };
 		EBD53F561ED6E64F007510E3 /* NKVPhoneFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD53F551ED6E64F007510E3 /* NKVPhoneFormatter.swift */; };
-		EBD53F5A1ED73C0F007510E3 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = EBD53F581ED73C0F007510E3 /* README.md */; };
-		EBD53F601ED829A3007510E3 /* NKVPhonePicker.podspec in Resources */ = {isa = PBXBuildFile; fileRef = EBD53F5F1ED829A3007510E3 /* NKVPhonePicker.podspec */; };
 		EBD60A681ED5D4170039A3AE /* NKVLocalizationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD60A671ED5D4170039A3AE /* NKVLocalizationHelper.swift */; };
 		EBEEE4E41ED62319007F9981 /* NKVSourcesHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBEEE4E31ED62319007F9981 /* NKVSourcesHelper.swift */; };
 /* End PBXBuildFile section */
@@ -176,12 +174,13 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0830;
-				LastUpgradeCheck = 0830;
+				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = nik.kov;
 				TargetAttributes = {
 					EB8491301ED435260069CD20 = {
 						CreatedOnToolsVersion = 8.3;
 						DevelopmentTeam = T4Q29AP976;
+						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -214,7 +213,6 @@
 				EB84913A1ED435260069CD20 /* Main.storyboard in Resources */,
 				EB50FA291ED8506700722C25 /* Countries.bundle in Resources */,
 				EB50FA2A1ED8506700722C25 /* CountriesViewController.storyboard in Resources */,
-				EBD53F601ED829A3007510E3 /* NKVPhonePicker.podspec in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -227,7 +225,6 @@
 			files = (
 				EB8491E71ED4370E0069CD20 /* NKVPhonePickerTextField.swift in Sources */,
 				EB8491B01ED435AB0069CD20 /* CountriesViewController.swift in Sources */,
-				EBD53F5A1ED73C0F007510E3 /* README.md in Sources */,
 				EB5621461F50B3B100398954 /* TextFieldWithPattern.swift in Sources */,
 				EB8491371ED435260069CD20 /* ExampleViewController.swift in Sources */,
 				EBD53F561ED6E64F007510E3 /* NKVPhoneFormatter.swift in Sources */,
@@ -273,7 +270,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -281,7 +280,11 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -324,7 +327,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -332,7 +337,11 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -367,7 +376,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.NKVPhonePicker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -381,7 +391,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.NKVPhonePicker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
