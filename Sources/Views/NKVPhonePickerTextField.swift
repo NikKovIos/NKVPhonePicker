@@ -69,19 +69,14 @@ open class NKVPhonePickerTextField: TextFieldPatternFormat {
     /// If nil it would be "?" code. This code present a flag with question mark.
     public func setFlag(countryCode: String?) {
         let country = Country.countryBy(countryCode: code)
-        self.setFlag(phoneExtension: country.phoneExtension)
+        self.setFlag(country: country)
     }
     
     /// Method for set flag with Country entity.
     public func setFlag(country: Country) {
-        self.setFlag(phoneExtension: country.phoneExtension)
-    }
-    
-    /// Method for set flag with phone extenion.
-    public func setFlag(phoneExtension: String) {
-        let (exists, country) = NKVSourcesHelper.isFlagExistsWith(phoneExtension: phoneExtension)
+        let (exists, country) = NKVSourcesHelper.isFlagExistsWith(countryCode: country.countryCode)
         if exists {
-            flagView.setFlagWith(phoneExtension: phoneExtension)
+            flagView.setFlagWith(countryCode: country.countryCode)
             if let customFormats = customPhoneFormats {
                 for format in customFormats {
                     if country.countryCode.uppercased() == format.key {
@@ -92,6 +87,12 @@ open class NKVPhonePickerTextField: TextFieldPatternFormat {
             }
             self.setFormatting(country.formatPattern, replacementChar: "#")
         }
+    }
+    
+    /// Method for set flag with phone extenion.
+    public func setFlag(phoneExtension: String) {
+        let country = Country.countryBy(phoneExtension: phoneExtension)
+        self.setFlag(country: country)
     }
     
     // MARK: - Main
