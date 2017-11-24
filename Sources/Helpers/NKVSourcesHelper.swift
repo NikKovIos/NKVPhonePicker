@@ -19,8 +19,8 @@ struct NKVSourcesHelper {
         return (self.getFlagImage(by: countryCode) != nil)
     }
     
-    public static func isFlagExistsWith(phoneExtension: String) -> (exists: Bool, country: Country) {
-        let countryWithString = Country.countryBy(phoneExtension: phoneExtension)
+    public static func isFlagExistsWith(countryCode: String) -> (exists: Bool, country: Country) {
+        let countryWithString = Country.countryBy(countryCode: countryCode)
         if countryWithString == Country.empty { return (false, countryWithString) }
         return ((self.getFlagImage(by: countryWithString.countryCode) != nil), countryWithString)
     }
