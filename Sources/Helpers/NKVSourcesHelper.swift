@@ -15,13 +15,23 @@ struct NKVSourcesHelper {
         return flagImage
     }
     
+    /// Checks if the flag exists for this countryCode
+    ///
+    /// - Parameter countryCode: code of the country. Ex: "EN"
+    /// - Returns: Bool value. True if exists.
     public static func isFlagExistsFor(countryCode: String) -> Bool {
         return (self.getFlagImage(by: countryCode) != nil)
     }
     
+    /// Checks if the flag exists
+    ///
+    /// - Parameter countryCode: code of the country. Ex: "EN"
+    /// - Returns: Cortege. If exists it returns assigned country, if not - empty dummy country.
     public static func isFlagExistsWith(countryCode: String) -> (exists: Bool, country: Country) {
         let countryWithString = Country.countryBy(countryCode: countryCode)
-        if countryWithString == Country.empty { return (false, countryWithString) }
+        if countryWithString == Country.empty {
+            return (false, countryWithString)
+        }
         return ((self.getFlagImage(by: countryWithString.countryCode) != nil), countryWithString)
     }
     

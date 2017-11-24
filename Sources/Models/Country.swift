@@ -8,22 +8,20 @@
 import Foundation
 
 public class Country: NSObject {
+    
+    // MARK: - Properties
+    
     /// Ex: "RU"
     public var countryCode: String
     /// Ex: "+7"
     public var phoneExtension: String
+    /// Ex: "Russia"
     @objc public var name: String {
         return NKVLocalizationHelper.countryName(by: countryCode) ?? ""
     }
     /// Ex: "### ## ######"
     public var formatPattern: String
 
-    public init(countryCode: String, phoneExtension: String, formatPattern: String = "###################") {
-        self.countryCode = countryCode
-        self.phoneExtension = phoneExtension
-        self.formatPattern = formatPattern
-    }
-    
     /// Returns a Country entity of the current iphone's localization region code
     /// or empty country if it not exist.
     public static var currentCountry: Country {
@@ -33,12 +31,15 @@ public class Country: NSObject {
         return Country.countryBy(countryCode: currentCountryCode)
     }
     
-    /// Making entities comparable
-    static public func ==(lhs: Country, rhs: Country) -> Bool {
-        return lhs.countryCode == rhs.countryCode
+    // MARK: - Initialization
+
+    public init(countryCode: String, phoneExtension: String, formatPattern: String = "###################") {
+        self.countryCode = countryCode
+        self.phoneExtension = phoneExtension
+        self.formatPattern = formatPattern
     }
     
-    // MARK: - Class methods   
+    // MARK: - Class methods
     
     /// Returnes an empty country entity for test or other purposes. 
     /// "+" code returns a flag with question mark.
@@ -78,5 +79,13 @@ public class Country: NSObject {
         return countryCodes.map { code in
             Country.countryBy(countryCode: code)
         }
+    }
+}
+
+// MARK: - Equitable
+extension Country {
+    /// Making entities comparable
+    static public func ==(lhs: Country, rhs: Country) -> Bool {
+        return lhs.countryCode == rhs.countryCode
     }
 }

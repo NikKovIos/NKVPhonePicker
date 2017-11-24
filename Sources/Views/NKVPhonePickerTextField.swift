@@ -9,8 +9,11 @@ import Foundation
 import UIKit
 
 open class NKVPhonePickerTextField: TextFieldPatternFormat {
-    // MARK: Interface
-    // MARK: - Settings
+    
+    // MARK: - Interface
+    
+    // MARK: Settings
+    
     /// Set this property in order to present the CountryPickerViewController
     /// when user clicks on the flag button
     @IBOutlet public weak var phonePickerDelegate: UIViewController?
@@ -28,12 +31,14 @@ open class NKVPhonePickerTextField: TextFieldPatternFormat {
     public var customPhoneFormats: [String: String]?
     
     /// Set to 'false' if you don't need the '+' prefix
-    public var isPlusPrefixExists: Bool = true { didSet {
-        if isPlusPrefixExists == false {
-            plusLabel?.removeFromSuperview()
-            textFieldTextInsets = UIEdgeInsets.zero
+    public var isPlusPrefixExists: Bool = true {
+        didSet {
+            if isPlusPrefixExists == false {
+                plusLabel?.removeFromSuperview()
+                textFieldTextInsets = UIEdgeInsets.zero
+            }
         }
-        }}
+    }
     
     /// Show is there a valid country flag (not with question mark).
     public var isFlagExist: Bool = false
@@ -42,10 +47,22 @@ open class NKVPhonePickerTextField: TextFieldPatternFormat {
     public var shouldScrollToSelectedCountry: Bool = true
     
     // MARK: - Get
+    
+    /// Use this var to set or get current selected country.
+    public var currentSelectedCountry: Country? {
+        didSet {
+            if let selected = currentSelectedCountry {
+                self.setCode(country: selected)
+                self.setFlag(country: selected)
+            }
+        }
+    }
+    
     /// The UIView subclass which contains flag icon.
-    var flagView: NKVFlagView!
+    open var flagView: NKVFlagView!
+    
     /// The UILabel with plus if isPlusPrefixExists == true
-    var plusLabel: UILabel?
+    open var plusLabel: UILabel?
     
     /// - Returns: Current phone number in textField without '+'. Ex: 79997773344.
     public var phoneNumber: String {
@@ -57,7 +74,8 @@ open class NKVPhonePickerTextField: TextFieldPatternFormat {
         return flagView.currentPresentingCountry.phoneExtension.cutPluses
     }
     
-    // MARK: Set
+    // MARK: - Set
+    
     /// Method for set code in textField with Country entity.
     public func setCode(country: Country) {
         self.text = ""
@@ -95,18 +113,8 @@ open class NKVPhonePickerTextField: TextFieldPatternFormat {
         self.setFlag(country: country)
     }
     
-    // MARK: - Main
-    /// Use this var to set or get current selected country.
-    public var currentSelectedCountry: Country? {
-        didSet {
-            if let selected = currentSelectedCountry {
-                self.setCode(country: selected)
-                self.setFlag(country: selected)
-            }
-        }
-    }
-    
     // MARK: - Customizing
+    
     // Country picker customization properties:
     public var pickerTitle: String?
     public var pickerTitleFont: UIFont?
@@ -127,6 +135,8 @@ open class NKVPhonePickerTextField: TextFieldPatternFormat {
 
 
 
+    
+    
     
     
     
@@ -172,7 +182,7 @@ open class NKVPhonePickerTextField: TextFieldPatternFormat {
         self.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
     }
    
-    func addPlusLabel() {
+    private func addPlusLabel() {
         if isPlusPrefixExists && (plusLabel == nil) {
             plusLabel = UILabel(frame: CGRect.zero)
             plusLabel?.backgroundColor = UIColor.clear
@@ -256,13 +266,12 @@ extension NKVPhonePickerTextField: CountriesViewControllerDelegate {
         currentSelectedCountry = country
     }
     
-    public func countriesViewControllerDidCancel(_ sender: CountriesViewController) {
+    open func countriesViewControllerDidCancel(_ sender: CountriesViewController) {
         /// Do nothing yet
     }
 }
 
 extension NKVPhonePickerTextField: UITextFieldDelegate {
-    
     @objc fileprivate func textFieldDidChange() {
         if let newString = self.text {
             if newString.characters.count == 1 || newString.characters.count == 0 {
