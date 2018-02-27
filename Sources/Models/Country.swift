@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 public class Country: NSObject {
     
@@ -14,62 +15,73 @@ public class Country: NSObject {
     /// Ex: "RU"
     public var countryCode: String
     /// Ex: "+7"
-    public var phoneExtension: String
+    @objc public var phoneExtension: String
     /// Ex: "Russia"
     @objc public var name: String {
         return NKVLocalizationHelper.countryName(by: countryCode) ?? ""
     }
     /// Ex: "### ## ######"
     public var formatPattern: String
-
-    /// Returns a Country entity of the current iphone's localization region code
-    /// or empty country if it not exist.
-    public static var currentCountry: Country {
-        guard let currentCountryCode = NKVLocalizationHelper.currentCode else {
-            return Country.empty
-        }
-        return Country.countryBy(countryCode: currentCountryCode)
+    /// A flag image for this country. May be nil.
+    public var flag: UIImage? {
+        return NKVSourcesHelper.flag(for: NKVSource(country: self))
     }
     
     // MARK: - Initialization
 
-    public init(countryCode: String, phoneExtension: String, formatPattern: String = "###################") {
+    public init(countryCode: String,
+                phoneExtension: String,
+                formatPattern: String = "###################") {
         self.countryCode = countryCode
         self.phoneExtension = phoneExtension
         self.formatPattern = formatPattern
     }
     
-    // MARK: - Class methods
+    // MARK: - Country entities
+
+    /// A Country entity of the current iphone's localization region code
+    /// or nil if it not exist.
+    public static var currentCountry: Country? {
+        guard let currentCountryCode = NKVLocalizationHelper.currentCode else {
+            return nil
+        }
+        return Country.country(for: NKVSource(countryCode: currentCountryCode))
+    }
     
-    /// Returnes an empty country entity for test or other purposes. 
+    // TODO: понять что за +
+    /// An empty country entity for test or other purposes.
     /// "+" code returns a flag with question mark.
     public static var empty: Country {
         return Country(countryCode: "?", phoneExtension: "")
     }
     
-    /// Returns a country by a phone extension.
-    ///
-    /// - Parameter phoneExtension: For example: "+241"
-    public class func countryBy(phoneExtension: String) -> Country {
-        let phoneExtension = (phoneExtension as NSString).replacingOccurrences(of: "+", with: "")
-        for country in NKVSourcesHelper.countries {
-            if phoneExtension == country.phoneExtension {
-                return country
-            }
-        }
-        return Country.empty
-    }
+    // MARK: - Methods
     
-    /// Returns a country by a country code.
+    /// A main method for fetching a country
     ///
-    /// - Parameter countryCode: For example: "FR"
-    public class func countryBy(countryCode: String) -> Country {
-        for country in NKVSourcesHelper.countries {
-            if countryCode.lowercased() == country.countryCode.lowercased() {
-                return country
+    /// - Parameter source: Any of the source, look **NKVSourceType**
+    /// - Returns: A Country entity or nil if there is no exist for the source
+    public class func country(`for` source: NKVSource) -> Country? {
+        switch source {
+        case .country(let country):
+            return country
+        case .code(let code):
+            for country in NKVSourcesHelper.countries {
+                if code.code.lowercased() == country.countryCode.lowercased() {
+                    return country
+                }
+            }
+        case .phone(let phone):
+            // TODO: Может есть лучший способ сравнивать телефоны чтобы достать страну?
+            let phoneExtension = phone.phoneExtension.cutPluses
+            for country in NKVSourcesHelper.countries {
+                if phoneExtension == country.phoneExtension {
+                    return country
+                }
             }
         }
-        return Country.empty
+        
+        return nil
     }
     
     /// Returns a countries array from the country codes.
@@ -77,7 +89,12 @@ public class Country: NSObject {
     /// - Parameter countryCodes: For example: ["FR", "EN"]
     public class func countriesBy(countryCodes: [String]) -> [Country] {
         return countryCodes.map { code in
-            Country.countryBy(countryCode: code)
+            if let country = Country.country(for: NKVSource(countryCode: code)) {
+                return country
+            } else {
+                print("⚠️ Country >>> Can't find a country for country code: \(code).\r Replacing it with dummy country. Please check your country ID or update a country database.")
+                return Country.empty
+            }
         }
     }
 }

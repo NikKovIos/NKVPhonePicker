@@ -73,7 +73,8 @@ public final class CountriesViewController: UITableViewController {
     
     private func setupCountries() {
         unfilteredCountries = partioned(array: NKVSourcesHelper.countries, usingSelector: #selector(getter: Country.name))
-        unfilteredCountries.insert(Country.countriesBy(countryCodes: favoriteCountriesLocaleIdentifiers), at: 0)
+        let favoriteCountries = Country.countriesBy(countryCodes: favoriteCountriesLocaleIdentifiers)
+        unfilteredCountries.insert(favoriteCountries, at: 0)
         tableView.reloadData()
         
         if let selectedCountry = selectedCountry, shouldScrollToSelectedCountry {
@@ -162,8 +163,7 @@ extension CountriesViewController {
             cell.detailTextLabel?.font = cellsFont
         }
 
-        let flag = NKVSourcesHelper.getFlagImage(by: country.countryCode)
-        cell.imageView?.image = flag
+        cell.imageView?.image = country.flag
         cell.imageView?.contentMode = .scaleAspectFit
         cell.imageView?.clipsToBounds = true
         cell.imageView?.layer.cornerRadius = 3
@@ -232,8 +232,18 @@ extension CountriesViewController: UISearchResultsUpdating {
         if text.isEmpty {
             filteredCountries = unfilteredCountries
         } else {
-            let allCountriesArray: [Country] = NKVSourcesHelper.countries.filter { $0.name.range(of: text) != nil }
-            filteredCountries = partioned(array: allCountriesArray, usingSelector: #selector(getter: Country.name))
+            // TODO: Check this code
+            let decimalCharacters = CharacterSet.decimalDigits
+            let decimalRange = text.rangeOfCharacter(from: decimalCharacters)
+            if decimalRange != nil {
+                let allCountriesArray: [Country] = NKVSourcesHelper.countries.filter { $0.phoneExtension.range(of: text) != nil }
+                filteredCountries = partioned(array: allCountriesArray, usingSelector: #selector(getter: Country.phoneExtension))
+            } else {
+                let allCountriesArray: [Country] = NKVSourcesHelper.countries.filter { $0.name.range(of: text) != nil }
+                filteredCountries = partioned(array: allCountriesArray, usingSelector: #selector(getter: Country.name))
+            }
+            //            let allCountriesArray: [Country] = NKVSourcesHelper.countries.filter { $0.name.range(of: text) != nil }
+//            filteredCountries = partioned(array: allCountriesArray, usingSelector: #selector(getter: Country.name))
             filteredCountries.insert([], at: 0) //Empty section for our favorites
         }
         tableView.reloadData()

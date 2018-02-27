@@ -7,34 +7,60 @@
 
 import UIKit
 
+public enum NKVSource {
+    case country(Country)
+    case code(CountryCode)
+    case phone(PhoneExtension)
+    
+    init(country: Country) {
+        self = .country(country)
+    }
+    
+    init(countryCode: String) {
+        self = .code(CountryCode(countryCode))
+    }
+    
+    init(phoneExtension: String) {
+        self = .phone(PhoneExtension(phoneExtension))
+    }
+}
+
 struct NKVSourcesHelper {
-    /// Returns the flag image or nil, if there are not such image for this code.
-    public static func getFlagImage(by code: String) -> UIImage? {
-        let flagImage = UIImage(named: "Countries.bundle/Images/\(code.uppercased())", in: Bundle(for: NKVPhonePickerTextField.self), compatibleWith: nil)
+    
+    /// Gives the flag image, if it exists in bundle.
+    ///
+    /// - Parameter source: Any of the source, look **NKVSourceType**
+    /// - Returns: The flag image or nil, if there are not such image for this country code.
+    public static func flag(`for` source: NKVSource) -> UIImage? {
+        var countryCode: String = ""
         
+        switch source {
+        case .country(let country):
+            countryCode = country.countryCode
+        case .code(let code):
+            countryCode = code.code
+        case .phone:
+            guard let country = Country.country(for: source) else {
+                print("⚠️ NKVSourcesHelper >>> Can't find a country for this phone code.")
+                return nil
+            }
+            countryCode = country.countryCode
+        }
+        
+        let imageName = "Countries.bundle/Images/\(countryCode.uppercased())"
+        let flagImage = UIImage(named: imageName,
+                           in: Bundle(for: NKVPhonePickerTextField.self),
+                           compatibleWith: nil)
         return flagImage
     }
     
-    /// Checks if the flag exists for this countryCode
-    ///
-    /// - Parameter countryCode: code of the country. Ex: "EN"
-    /// - Returns: Bool value. True if exists.
-    public static func isFlagExistsFor(countryCode: String) -> Bool {
-        return (self.getFlagImage(by: countryCode) != nil)
+    /// - Parameter code: Country code like 'ru' or 'RU' independed of the letter case.
+    /// - Returns: True of false dependenly if the image of the flag exists in the bundle.
+    public static func isFlagExists(`for` source: NKVSource) -> Bool {
+        return self.flag(for: source) != nil
     }
     
-    /// Checks if the flag exists
-    ///
-    /// - Parameter countryCode: code of the country. Ex: "EN"
-    /// - Returns: Cortege. If exists it returns assigned country, if not - empty dummy country.
-    public static func isFlagExistsWith(countryCode: String) -> (exists: Bool, country: Country) {
-        let countryWithString = Country.countryBy(countryCode: countryCode)
-        if countryWithString == Country.empty {
-            return (false, countryWithString)
-        }
-        return ((self.getFlagImage(by: countryWithString.countryCode) != nil), countryWithString)
-    }
-    
+    /// The array of all countries in the bundle
     public private(set) static var countries: [Country] = {
         var countries: [Country] = []
         
@@ -55,10 +81,10 @@ struct NKVSourcesHelper {
                     }
                 }
             } else {
-                print("NKVPhonePickerTextField can't find a bundle for the countries")
+                print("NKVPhonePickerTextField >>> Can't find a bundle for the countries")
             }
         } catch {
-            print(error.localizedDescription)
+            print("NKVPhonePickerTextField >>> \(error.localizedDescription)")
         }
         
         return countries
