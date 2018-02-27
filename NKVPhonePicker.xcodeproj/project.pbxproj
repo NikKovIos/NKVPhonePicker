@@ -149,8 +149,8 @@
 		EBEEE4E51ED62359007F9981 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				EBD60A671ED5D4170039A3AE /* NKVLocalizationHelper.swift */,
 				EBEEE4E31ED62319007F9981 /* NKVSourcesHelper.swift */,
+				EBD60A671ED5D4170039A3AE /* NKVLocalizationHelper.swift */,
 				EBD53F551ED6E64F007510E3 /* NKVPhoneFormatter.swift */,
 			);
 			path = Helpers;

@@ -8,35 +8,23 @@
 import UIKit
 
 open class NKVFlagView: UIView {
+    
     // MARK: - Interface
+    
+    /// Shows what country is presenting now.
+    public var currentPresentingCountry: Country?
+
+    
     /// Size of the flag icon
     public var iconSize: CGSize     { didSet { configureInstance() } }
     /// Shifting for the icon from top, left, bottom and right.
     public var insets: UIEdgeInsets { didSet { configureInstance() } }
     
-    /// Shows what country is presenting now.
-    public var currentPresentingCountry: Country = Country.empty
-    
-    public var flagButton: UIButton = UIButton()
-
-    /// Convenience method to set the flag with phone extension.
-    public func setFlagWith(phoneExtension: String) {
-        let country = Country.countryBy(phoneExtension: phoneExtension)
-        self.setFlagWith(country: country)
-    }
-    
-    /// Convenience method to set the flag with Country entity.
-    public func setFlagWith(country: Country) {
-        self.setFlagWith(countryCode: country.countryCode)
-    }
-    
-    /// Method for setting a flag with country (region) code.
-    public func setFlagWith(countryCode: String?) {
-        let code = countryCode ?? "?"
+    /// A designated method for setting a flag image
+    public func setFlag(with source: NKVSource) {
+        currentPresentingCountry = Country.country(for: source)
         
-        currentPresentingCountry = Country.countryBy(countryCode: code)
-        
-        let flagImage = NKVSourcesHelper.getFlagImage(by: code)
+        let flagImage = NKVSourcesHelper.flag(for: source)
         self.flagButton.setImage(flagImage, for: .normal)
     }
     
@@ -47,7 +35,10 @@ open class NKVFlagView: UIView {
         super.init(frame: CGRect.zero)
         
         configureInstance()
-        setFlagWith(countryCode: NKVLocalizationHelper.currentCode)
+
+        if let countryForCurrentPhoneLocalization = Country.currentCountry {
+            setFlag(with: NKVSource(country: countryForCurrentPhoneLocalization))
+        }
     }
     
     override open func layoutSubviews() {
@@ -58,6 +49,8 @@ open class NKVFlagView: UIView {
     
     
     // MARK: - Implementation
+    
+    private var flagButton: UIButton = UIButton()
     private weak var textField: UITextField!
 
     private func configureInstance() {

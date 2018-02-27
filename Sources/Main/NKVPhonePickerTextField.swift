@@ -48,15 +48,10 @@ open class NKVPhonePickerTextField: TextFieldPatternFormat {
     
     // MARK: - Get
     
+    /// Current selected country in TextField
     /// Use this var to set or get current selected country.
-    public var currentSelectedCountry: Country? {
-        didSet {
-            if let selected = currentSelectedCountry {
-                self.setCode(country: selected)
-                self.setFlag(country: selected)
-            }
-        }
-    }
+    /// nil if non country is selected
+    public var country: Country? { didSet { presenter.setCountry(source: NKVSource(country: country!)) }}
     
     /// The UIView subclass which contains flag icon.
     open var flagView: NKVFlagView!
@@ -76,41 +71,12 @@ open class NKVPhonePickerTextField: TextFieldPatternFormat {
     
     // MARK: - Set
     
-    /// Method for set code in textField with Country entity.
-    public func setCode(country: Country) {
-        self.text = ""
-        self.text = "\(country.phoneExtension)"
+    public func setCode(source: NKVSource) {
+       presenter.setCode(source: source)
     }
     
-    /// Method for set flag with countryCode.
-    ///
-    /// If nil it would be "?" code. This code present a flag with question mark.
-    public func setFlag(countryCode: String?) {
-        let country = Country.countryBy(countryCode: code)
-        self.setFlag(country: country)
-    }
-    
-    /// Method for set flag with Country entity.
-    public func setFlag(country: Country) {
-        let (exists, country) = NKVSourcesHelper.isFlagExistsWith(countryCode: country.countryCode)
-        if exists {
-            flagView.setFlagWith(countryCode: country.countryCode)
-            if let customFormats = customPhoneFormats {
-                for format in customFormats {
-                    if country.countryCode.uppercased() == format.key {
-                        self.setFormatting(format.value, replacementChar: "#")
-                        return
-                    }
-                }
-            }
-            self.setFormatting(country.formatPattern, replacementChar: "#")
-        }
-    }
-    
-    /// Method for set flag with phone extenion.
-    public func setFlag(phoneExtension: String) {
-        let country = Country.countryBy(phoneExtension: phoneExtension)
-        self.setFlag(country: country)
+    public func setFlag(source: NKVSource) {
+        presenter.setFlag(source: source)
     }
     
     // MARK: - Customizing
@@ -259,15 +225,18 @@ open class NKVPhonePickerTextField: TextFieldPatternFormat {
     override open func editingRect(forBounds bounds: CGRect) -> CGRect {
         return super.editingRect(forBounds: UIEdgeInsetsInsetRect(bounds, textFieldTextInsets ?? UIEdgeInsets.zero))
     }
+    
+    /// Presenter class for business logic
+    lazy var presenter: NKVPhonePickerPresenter = NKVPhonePickerPresenter(textField: self)
 }
 
 extension NKVPhonePickerTextField: CountriesViewControllerDelegate {
     public func countriesViewController(_ sender: CountriesViewController, didSelectCountry country: Country) {
-        currentSelectedCountry = country
+        self.country = country
     }
     
     open func countriesViewControllerDidCancel(_ sender: CountriesViewController) {
-        /// Do nothing yet
+        /// Overridable
     }
 }
 
@@ -275,11 +244,21 @@ extension NKVPhonePickerTextField: UITextFieldDelegate {
     @objc fileprivate func textFieldDidChange() {
         if let newString = self.text {
             if newString.count == 1 || newString.count == 0 {
-                self.setFlag(countryCode: "?")
+                self.setFlag(source: NKVSource(countryCode: "?"))
             }
-
+            
             let firstFourLetters = String(newString.prefix(5))
-            self.setFlag(phoneExtension: firstFourLetters)
+            self.setFlag(source: NKVSource(phoneExtension: firstFourLetters))
         }
     }
+}
+
+
+
+
+// New
+extension NKVPhonePickerTextField {
+    
+    /// Возможность инициализировать с кастомным бандлом
+    /// Var для того, чтобы plus label был справа
 }

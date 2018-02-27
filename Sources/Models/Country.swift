@@ -14,7 +14,7 @@ public class Country: NSObject {
     
     /// Ex: "RU"
     public var countryCode: String
-    /// Ex: "+7"
+    /// Ex: "7"
     @objc public var phoneExtension: String
     /// Ex: "Russia"
     @objc public var name: String {
@@ -71,9 +71,9 @@ public class Country: NSObject {
                     return country
                 }
             }
-        case .phone(let phone):
+        case .phoneExtension(let phoneExtension):
             // TODO: Может есть лучший способ сравнивать телефоны чтобы достать страну?
-            let phoneExtension = phone.phoneExtension.cutPluses
+            let phoneExtension = phoneExtension.phoneExtension.cutPluses
             for country in NKVSourcesHelper.countries {
                 if phoneExtension == country.phoneExtension {
                     return country

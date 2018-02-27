@@ -10,7 +10,7 @@ import UIKit
 public enum NKVSource {
     case country(Country)
     case code(CountryCode)
-    case phone(PhoneExtension)
+    case phoneExtension(PhoneExtension)
     
     init(country: Country) {
         self = .country(country)
