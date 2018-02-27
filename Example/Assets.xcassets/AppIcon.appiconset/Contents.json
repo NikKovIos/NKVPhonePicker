@@ -97,8 +97,9 @@
       "scale" : "2x"
     },
     {
-      "idiom" : "ipad",
       "size" : "83.5x83.5",
+      "idiom" : "ipad",
+      "filename" : "LogoiPadProApp_83,5pt@2x.png",
       "scale" : "2x"
     },
     {
@@ -106,12 +107,6 @@
       "idiom" : "ios-marketing",
       "filename" : "Logostore_1024pt.png",
       "scale" : "1x"
-    },
-    {
-      "size" : "83,5x83,5",
-      "idiom" : "ipad",
-      "filename" : "LogoiPadProApp_83,5pt@2x.png",
-      "scale" : "2x"
     }
   ],
   "info" : {

@@ -95,7 +95,7 @@ open class TextFieldPatternFormat: UITextField {
      */
     public var formattingPattern: String = "" {
         didSet {
-            self.maxLength = formattingPattern.characters.count
+            self.maxLength = formattingPattern.count
             self.formatting = .custom
         }
     }
@@ -173,17 +173,17 @@ open class TextFieldPatternFormat: UITextField {
         // TODO: - Isn't there more elegant way how to do this?
         let currentTextForFormatting: String
         
-        if superText.characters.count > _textWithoutSecureBullets.characters.count {
-            currentTextForFormatting = _textWithoutSecureBullets + superText[superText.characters.index(superText.startIndex, offsetBy: _textWithoutSecureBullets.characters.count)...]
-        } else if superText.characters.count == 0 {
+        if superText.count > _textWithoutSecureBullets.count {
+            currentTextForFormatting = _textWithoutSecureBullets + superText[superText.index(superText.startIndex, offsetBy: _textWithoutSecureBullets.count)...]
+        } else if superText.count == 0 {
             _textWithoutSecureBullets = ""
             currentTextForFormatting = ""
         } else {
-            let index = _textWithoutSecureBullets.index(_textWithoutSecureBullets.startIndex, offsetBy: superText.characters.count)
+            let index = _textWithoutSecureBullets.index(_textWithoutSecureBullets.startIndex, offsetBy: superText.count)
             currentTextForFormatting = String(_textWithoutSecureBullets[..<index])
         }
         
-        if formatting != .noFormatting && currentTextForFormatting.characters.count > 0 && formattingPattern.characters.count > 0 {
+        if formatting != .noFormatting && currentTextForFormatting.count > 0 && formattingPattern.count > 0 {
             let tempString = currentTextForFormatting.keepOnlyDigits(isHexadecimal: isHexadecimal)
             
             var finalText = ""
@@ -201,7 +201,7 @@ open class TextFieldPatternFormat: UITextField {
                     finalText = finalText + formattingPattern[formattingPatternRange]
                     finalSecureText = finalSecureText + formattingPattern[formattingPatternRange]
                     
-                } else if tempString.characters.count > 0 {
+                } else if tempString.count > 0 {
                     
                     let pureStringRange = tempIndex ..< tempString.index(tempIndex, offsetBy: 1)
                     
@@ -234,7 +234,7 @@ open class TextFieldPatternFormat: UITextField {
         
         // Let's check if we have additional max length restrictions
         if maxLength > 0 {
-            if superText.characters.count > maxLength {
+            if superText.count > maxLength {
                 super.text = String(_textWithoutSecureBullets[..<superText.index(superText.startIndex, offsetBy: maxLength)])
                 
                 let index = _textWithoutSecureBullets.index(_textWithoutSecureBullets.startIndex, offsetBy: maxLength)

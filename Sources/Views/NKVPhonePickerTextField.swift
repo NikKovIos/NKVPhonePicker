@@ -274,11 +274,11 @@ extension NKVPhonePickerTextField: CountriesViewControllerDelegate {
 extension NKVPhonePickerTextField: UITextFieldDelegate {
     @objc fileprivate func textFieldDidChange() {
         if let newString = self.text {
-            if newString.characters.count == 1 || newString.characters.count == 0 {
+            if newString.count == 1 || newString.count == 0 {
                 self.setFlag(countryCode: "?")
             }
 
-            let firstFourLetters = String(newString.characters.prefix(5))
+            let firstFourLetters = String(newString.prefix(5))
             self.setFlag(phoneExtension: firstFourLetters)
         }
     }
