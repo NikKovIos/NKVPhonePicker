@@ -93,8 +93,8 @@
 		EB8491461ED4357C0069CD20 /* Example */ = {
 			isa = PBXGroup;
 			children = (
-				EB8491341ED435260069CD20 /* AppDelegate.swift */,
 				EB8491361ED435260069CD20 /* ExampleViewController.swift */,
+				EB8491341ED435260069CD20 /* AppDelegate.swift */,
 				EB84913B1ED435260069CD20 /* Assets.xcassets */,
 				EB8491381ED435260069CD20 /* Main.storyboard */,
 				EB84913D1ED435260069CD20 /* LaunchScreen.storyboard */,

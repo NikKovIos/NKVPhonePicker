@@ -21,7 +21,7 @@ public enum NKVSource {
     }
     
     init(phoneExtension: String) {
-        self = .phone(PhoneExtension(phoneExtension))
+        self = .phoneExtension(PhoneExtension(phoneExtension))
     }
 }
 
@@ -39,9 +39,8 @@ struct NKVSourcesHelper {
             countryCode = country.countryCode
         case .code(let code):
             countryCode = code.code
-        case .phone:
+        case .phoneExtension:
             guard let country = Country.country(for: source) else {
-                print("⚠️ NKVSourcesHelper >>> Can't find a country for this phone code.")
                 return nil
             }
             countryCode = country.countryCode

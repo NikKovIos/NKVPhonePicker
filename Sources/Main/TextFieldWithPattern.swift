@@ -170,7 +170,6 @@ open class TextFieldPatternFormat: UITextField {
     @objc public func textDidChange() {
         var superText: String { return super.text ?? "" }
         
-        // TODO: - Isn't there more elegant way how to do this?
         let currentTextForFormatting: String
         
         if superText.count > _textWithoutSecureBullets.count {

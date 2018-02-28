@@ -8,24 +8,26 @@
 import UIKit
 
 class ExampleViewController: UIViewController {
-    
+    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var outputLabel: UILabel!
     @IBOutlet weak var topTextField: NKVPhonePickerTextField!
     var bottomTextField: NKVPhonePickerTextField!
-    
-    @IBOutlet weak var outputLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        topTextField.phonePickerDelegate = self
         topTextField.favoriteCountriesLocaleIdentifiers = ["RU", "ER", "JM"]
+        
+        /// Uncomment next line to try different settings
+//        topTextField.rightToLeftOrientation = true
 //        topTextField.shouldScrollToSelectedCountry = false
 //        topTextField.flagSize = CGSize(width: 30, height: 50)
-//        topTextField.setFlag(countryCode: nil)
-//        topTextField.isPlusPrefixExists = false
-
+//        topTextField.enablePlusPrefix = false
+        
         // Setting initial custom country
-        let country = Country.countryBy(countryCode: "EG")
-        topTextField.currentSelectedCountry = country
+        let country = Country.country(for: NKVSource(countryCode: "EG"))
+        topTextField.country = country
 
         // Setting custom format pattern for some countries
         topTextField.customPhoneFormats = ["RU" : "# ### ### ## ##",
@@ -33,18 +35,33 @@ class ExampleViewController: UIViewController {
         
         // You can also add NKVPhonePickerTextField programmatically ;)
         addingProgrammatically()
+        
+        // For keyboard
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     
     @IBAction func didPressPhoneNumber(_ sender: UIButton) {
         outputLabel.text = topTextField.phoneNumber
     }
+    
     @IBAction func didPressCode(_ sender: UIButton) {
         outputLabel.text = topTextField.code
     }
-    @IBAction func didPressOnView(_ sender: UITapGestureRecognizer) {
-        self.topTextField.resignFirstResponder()
+    
+    @IBAction func didPressCountry(_ sender: UIButton) {
+        if let country = topTextField.country {
+            outputLabel.text = "\(country.countryCode); \(country.name)"
+        } else {
+            print("The country not setted.")
+        }
     }
     
+    @IBAction func didPressOnView(_ sender: UITapGestureRecognizer) {
+        self.view.endEditing(true)
+    }
+    
+    /// You can add NKVPhonePickerTextField also programmatically
     func addingProgrammatically() {
         bottomTextField = NKVPhonePickerTextField(frame: CGRect(x: 0, y: 0, width: 0, height: 30))
         bottomTextField.placeholder = "ex: 03123456"
@@ -59,7 +76,7 @@ class ExampleViewController: UIViewController {
         bottomTextField.textColor = UIColor.white
         bottomTextField.textFieldTextInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0)
         bottomTextField.translatesAutoresizingMaskIntoConstraints = false
-        self.view.addSubview(bottomTextField)
+        self.scrollView.addSubview(bottomTextField)
         
         let views: [String : Any] = ["bottomTextField": self.bottomTextField]
         let horizontalConstraints = NSLayoutConstraint.constraints(withVisualFormat:
@@ -76,5 +93,22 @@ class ExampleViewController: UIViewController {
         
         view.addConstraints(horizontalConstraints)
         view.addConstraints(verticalConstraints)
+    }
+    
+    
+    // MARK: - Keyboard handling
+    
+    @objc func keyboardWillShow(notification: NSNotification) {
+        let userInfo: NSDictionary = notification.userInfo! as NSDictionary
+        let keyboardInfo = userInfo[UIKeyboardFrameBeginUserInfoKey] as! NSValue
+        let keyboardSize = keyboardInfo.cgRectValue.size
+        let contentInsets = UIEdgeInsets(top: 0, left: 0, bottom: keyboardSize.height, right: 0)
+        scrollView.contentInset = contentInsets
+        scrollView.scrollIndicatorInsets = contentInsets
+    }
+    
+    @objc func keyboardWillHide(notification: NSNotification) {
+        scrollView.contentInset = .zero
+        scrollView.scrollIndicatorInsets = .zero
     }
 }

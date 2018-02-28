@@ -48,9 +48,8 @@ public class Country: NSObject {
         return Country.country(for: NKVSource(countryCode: currentCountryCode))
     }
     
-    // TODO: понять что за +
     /// An empty country entity for test or other purposes.
-    /// "+" code returns a flag with question mark.
+    /// "?" country code returns a flag with question mark.
     public static var empty: Country {
         return Country(countryCode: "?", phoneExtension: "")
     }
@@ -72,7 +71,6 @@ public class Country: NSObject {
                 }
             }
         case .phoneExtension(let phoneExtension):
-            // TODO: Может есть лучший способ сравнивать телефоны чтобы достать страну?
             let phoneExtension = phoneExtension.phoneExtension.cutPluses
             for country in NKVSourcesHelper.countries {
                 if phoneExtension == country.phoneExtension {

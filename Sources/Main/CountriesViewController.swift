@@ -46,9 +46,15 @@ public final class CountriesViewController: UITableViewController {
     /// The font of textLabel and detailedTextLabel
     public var cellsFont : UIFont?
 
+
+    
+ 
+    
+    // MARK: - Private
+    
     override public func viewDidLoad() {
         super.viewDidLoad()
-    
+        
         configurateCancelButton()
         setupCountries()
         setupSearchController()
@@ -59,7 +65,6 @@ public final class CountriesViewController: UITableViewController {
         self.searchController.view.removeFromSuperview()
     }
     
-    // MARK: - Private
     fileprivate var searchController = UISearchController(searchResultsController: nil)
     /// An array with which all countries are presenting. This array works with search controller and tableView.
     fileprivate var filteredCountries: [[Country]]!
@@ -232,7 +237,6 @@ extension CountriesViewController: UISearchResultsUpdating {
         if text.isEmpty {
             filteredCountries = unfilteredCountries
         } else {
-            // TODO: Check this code
             let decimalCharacters = CharacterSet.decimalDigits
             let decimalRange = text.rangeOfCharacter(from: decimalCharacters)
             if decimalRange != nil {
@@ -242,8 +246,6 @@ extension CountriesViewController: UISearchResultsUpdating {
                 let allCountriesArray: [Country] = NKVSourcesHelper.countries.filter { $0.name.range(of: text) != nil }
                 filteredCountries = partioned(array: allCountriesArray, usingSelector: #selector(getter: Country.name))
             }
-            //            let allCountriesArray: [Country] = NKVSourcesHelper.countries.filter { $0.name.range(of: text) != nil }
-//            filteredCountries = partioned(array: allCountriesArray, usingSelector: #selector(getter: Country.name))
             filteredCountries.insert([], at: 0) //Empty section for our favorites
         }
         tableView.reloadData()

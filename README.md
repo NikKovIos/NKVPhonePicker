@@ -5,7 +5,7 @@
 
 ![Cocoapods](https://img.shields.io/badge/pod-available-brightgreen.svg?style=flat)
 ![Platform](https://img.shields.io/badge/platform-ios-blue.svg?style=flat)
-![Version](https://img.shields.io/badge/version-1.2.1-blue.svg?style=flat)
+![Version](https://img.shields.io/badge/version-2.0.0-blue.svg?style=flat)
 ![Swift version](https://img.shields.io/badge/Swift-4.0-orange.svg?style=flat)
 ![License](https://img.shields.io/badge/license-MIT-lightgrey.svg?style=flat)
 
@@ -29,7 +29,7 @@ pod try NKVPhonePicker
 ```
 *(don't forget to update your cocoapods master repo)*
 
-If you're still using Swift 2.x - you can set 
+If you're still using Swift 2.x - you can set (The development for swift_2.x is deprecated. Stale version still exists)
 ```ruby
 pod 'NKVPhonePicker', :git => "https://github.com/NikKovIos/NKVPhonePicker.git", :branch => "Swift_2.x"
 ```
@@ -44,11 +44,12 @@ Please, make an issue, if you need any features, or have bugs.
 
 ## Example
 ```swift
+topTextField.phonePickerDelegate = self
 topTextField.favoriteCountriesLocaleIdentifiers = ["RU", "ER", "JM"]
+topTextField.rightToLeftOrientation = true
 topTextField.shouldScrollToSelectedCountry = false
 topTextField.flagSize = CGSize(width: 30, height: 50)
-topTextField.setFlag(countryCode: nil)
-topTextField.isPlusPrefixExists = false
+topTextField.enablePlusPrefix = false
 
 // Setting initial custom country
 let country = Country.countryBy(countryCode: "EG")
@@ -100,7 +101,6 @@ view.addConstraints(verticalConstraints)
 - [x] Add example
 - [x] Max numbers count var (can do with custom pattern)
 - [x] Patterns for each country
-- [ ] Add my logo
 
 ## My other Repos
 
