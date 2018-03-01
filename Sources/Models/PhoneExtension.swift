@@ -7,9 +7,9 @@
 //
 
 public struct PhoneExtension {
-    var phoneExtension: String
+    public var phoneExtension: String
     
-    init?(source: NKVSource) {
+    public init?(source: NKVSource) {
         switch source {
         case .country(let country):
             self.phoneExtension = country.phoneExtension
@@ -24,7 +24,7 @@ public struct PhoneExtension {
         }
     }
     
-    init(_ phoneExtension: String) {
+    public init(_ phoneExtension: String) {
         self.phoneExtension = phoneExtension
     }
 }

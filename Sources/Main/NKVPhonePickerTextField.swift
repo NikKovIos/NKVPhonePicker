@@ -123,7 +123,7 @@ open class NKVPhonePickerTextField: TextFieldPatternFormat {
         super.init(frame: CGRect.zero)
     }
 
-    override init(frame: CGRect) {
+    override public init(frame: CGRect) {
         super.init(frame: frame)
         initialize()
     }

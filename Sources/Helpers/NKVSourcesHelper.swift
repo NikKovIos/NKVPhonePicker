@@ -7,24 +7,6 @@
 
 import UIKit
 
-public enum NKVSource {
-    case country(Country)
-    case code(CountryCode)
-    case phoneExtension(PhoneExtension)
-    
-    init(country: Country) {
-        self = .country(country)
-    }
-    
-    init(countryCode: String) {
-        self = .code(CountryCode(countryCode))
-    }
-    
-    init(phoneExtension: String) {
-        self = .phoneExtension(PhoneExtension(phoneExtension))
-    }
-}
-
 struct NKVSourcesHelper {
     
     /// Gives the flag image, if it exists in bundle.

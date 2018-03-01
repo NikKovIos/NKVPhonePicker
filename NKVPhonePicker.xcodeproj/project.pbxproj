@@ -10,6 +10,7 @@
 		EB1D35E62045F3B900DC9560 /* NKVPhonePickerPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1D35E52045F3B900DC9560 /* NKVPhonePickerPresenter.swift */; };
 		EB1D35E82045F74400DC9560 /* CountryCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1D35E72045F74400DC9560 /* CountryCode.swift */; };
 		EB1D35EA2045F76C00DC9560 /* PhoneExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1D35E92045F76C00DC9560 /* PhoneExtension.swift */; };
+		EB1D35F520481B4E00DC9560 /* NKVSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1D35F420481B4E00DC9560 /* NKVSource.swift */; };
 		EB50FA291ED8506700722C25 /* Countries.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EB50FA271ED8506700722C25 /* Countries.bundle */; };
 		EB50FA2A1ED8506700722C25 /* CountriesViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB50FA281ED8506700722C25 /* CountriesViewController.storyboard */; };
 		EB5621461F50B3B100398954 /* TextFieldWithPattern.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5621451F50B3B100398954 /* TextFieldWithPattern.swift */; };
@@ -31,6 +32,7 @@
 		EB1D35E52045F3B900DC9560 /* NKVPhonePickerPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NKVPhonePickerPresenter.swift; sourceTree = "<group>"; };
 		EB1D35E72045F74400DC9560 /* CountryCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryCode.swift; sourceTree = "<group>"; };
 		EB1D35E92045F76C00DC9560 /* PhoneExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneExtension.swift; sourceTree = "<group>"; };
+		EB1D35F420481B4E00DC9560 /* NKVSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NKVSource.swift; sourceTree = "<group>"; };
 		EB50FA271ED8506700722C25 /* Countries.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = Countries.bundle; path = Bundle/Countries.bundle; sourceTree = "<group>"; };
 		EB50FA281ED8506700722C25 /* CountriesViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = CountriesViewController.storyboard; path = Bundle/CountriesViewController.storyboard; sourceTree = "<group>"; };
 		EB5621451F50B3B100398954 /* TextFieldWithPattern.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldWithPattern.swift; sourceTree = "<group>"; };
@@ -130,6 +132,7 @@
 				EB84919D1ED435AB0069CD20 /* Country.swift */,
 				EB1D35E72045F74400DC9560 /* CountryCode.swift */,
 				EB1D35E92045F76C00DC9560 /* PhoneExtension.swift */,
+				EB1D35F420481B4E00DC9560 /* NKVSource.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -236,6 +239,7 @@
 				EB8491E71ED4370E0069CD20 /* NKVPhonePickerTextField.swift in Sources */,
 				EB8491B01ED435AB0069CD20 /* CountriesViewController.swift in Sources */,
 				EB5621461F50B3B100398954 /* TextFieldWithPattern.swift in Sources */,
+				EB1D35F520481B4E00DC9560 /* NKVSource.swift in Sources */,
 				EB8491371ED435260069CD20 /* ExampleViewController.swift in Sources */,
 				EBD53F561ED6E64F007510E3 /* NKVPhoneFormatter.swift in Sources */,
 				EB1D35E62045F3B900DC9560 /* NKVPhonePickerPresenter.swift in Sources */,

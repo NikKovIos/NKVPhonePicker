@@ -7,9 +7,9 @@
 //
 
 public struct CountryCode {
-    var code: String
+    public var code: String
     
-    init?(_ source: NKVSource) {
+    public init?(_ source: NKVSource) {
         switch source {
         case .country(let country):
             self.code = country.countryCode
@@ -24,7 +24,7 @@ public struct CountryCode {
         }
     }
     
-    init(_ countryCode: String) {
+    public init(_ countryCode: String) {
         self.code = countryCode
     }
 }

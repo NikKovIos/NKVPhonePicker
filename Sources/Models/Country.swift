@@ -8,12 +8,12 @@
 import Foundation
 import UIKit
 
-public class Country: NSObject {
+open class Country: NSObject {
     
     // MARK: - Properties
     
     /// Ex: "RU"
-    public var countryCode: String
+    @objc public var countryCode: String
     /// Ex: "7"
     @objc public var phoneExtension: String
     /// Ex: "Russia"
@@ -21,7 +21,7 @@ public class Country: NSObject {
         return NKVLocalizationHelper.countryName(by: countryCode) ?? ""
     }
     /// Ex: "### ## ######"
-    public var formatPattern: String
+    @objc public var formatPattern: String
     /// A flag image for this country. May be nil.
     public var flag: UIImage? {
         return NKVSourcesHelper.flag(for: NKVSource(country: self))
