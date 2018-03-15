@@ -6,9 +6,8 @@
 ![Platform](https://img.shields.io/badge/platform-ios-blue.svg?style=flat)
 ![Swift version](https://img.shields.io/badge/Swift-4.0-orange.svg?style=flat)
 ![License](https://img.shields.io/badge/license-MIT-lightgrey.svg?style=flat)  
-
-[![CocoaPods](https://img.shields.io/cocoapods/v/NKVPhonePicker.svg)](https://cocoapods.org/pods/NKVPhonePicker) [![CocoaPods](https://img.shields.io/cocoapods/dm/NKVPhonePicker.svg)](https://cocoapods.org/pods/NKVPhonePicker)
-
+[![CocoaPods](https://img.shields.io/cocoapods/v/NKVPhonePicker.svg)](https://cocoapods.org/pods/NKVPhonePicker)
+[![CocoaPods](https://img.shields.io/cocoapods/dm/NKVPhonePicker.svg)](https://cocoapods.org/pods/NKVPhonePicker)
 
 ## Preview
 ![](https://raw.githubusercontent.com/NikKovIos/NKVPhonePicker/master/RepoAssets/Example.gif)          <img src="https://raw.githubusercontent.com/NikKovIos/NKVPhonePicker/master/RepoAssets/Screenshot_two.jpg" height="480"/>  
