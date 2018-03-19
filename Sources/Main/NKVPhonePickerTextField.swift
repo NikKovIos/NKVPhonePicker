@@ -28,7 +28,7 @@ open class NKVPhonePickerTextField: TextFieldPatternFormat {
     /// Ex:
     ///
     ///     textField.customPhoneFormats = ["RU" : "# ### ### ## ##", "GB": "# #### #########"]
-    public var customPhoneFormats: [String: String]?
+    public var customPhoneFormats: [String: String]? { didSet { presenter.didSetCustomPhoneFormats() } }
     
     /// Set to 'false' if you don't need the '+' prefix to be visible
     public var enablePlusPrefix: Bool = true { didSet { presenter.plusPrefix(on: enablePlusPrefix) } }
@@ -38,6 +38,9 @@ open class NKVPhonePickerTextField: TextFieldPatternFormat {
     
     /// Set to true for languages where flag and + must be at the right. For example for Arabic.
     public var rightToLeftOrientation: Bool = false { didSet { presenter.isRightToLeftMode(on: rightToLeftOrientation) } }
+    
+    /// If true the flag icon and country can be changed only by code. For ex: topTextField.country = Country.country(for: NKVSource(countryCode: "EG"))
+    public var isFlagFixed: Bool = false
     
     // MARK: - Get
     
@@ -243,7 +246,9 @@ open class NKVPhonePickerTextField: TextFieldPatternFormat {
 
 extension NKVPhonePickerTextField: CountriesViewControllerDelegate {
     public func countriesViewController(_ sender: CountriesViewController, didSelectCountry country: Country) {
-        self.country = country
+        if isFlagFixed == false {
+            self.country = country
+        }
     }
     
     open func countriesViewControllerDidCancel(_ sender: CountriesViewController) {
@@ -253,7 +258,7 @@ extension NKVPhonePickerTextField: CountriesViewControllerDelegate {
 
 extension NKVPhonePickerTextField: UITextFieldDelegate {
     @objc fileprivate func textFieldDidChange() {
-        if let newString = self.text {
+        if let newString = self.text, isFlagFixed == false {
             if newString.count == 1 || newString.count == 0 {
                 self.setFlag(source: NKVSource(country: Country.empty))
             }

@@ -26,8 +26,11 @@ class ExampleViewController: UIViewController {
 //        topTextField.enablePlusPrefix = false
         
         // Setting initial custom country
-        let country = Country.country(for: NKVSource(countryCode: "EG"))
+        let country = Country.country(for: NKVSource(countryCode: "RU"))
         topTextField.country = country
+        
+        // Setting to let the flag be changed only with code
+//        topTextField.isFlagFixed = true
 
         // Setting custom format pattern for some countries
         topTextField.customPhoneFormats = ["RU" : "# ### ### ## ##",

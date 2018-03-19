@@ -53,6 +53,13 @@ class NKVPhonePickerPresenter {
         self.textField.setFormatting(country.formatPattern, replacementChar: "#")
     }
     
+    /// Enable custom formats instantly when assigned
+    public func didSetCustomPhoneFormats() {
+        if let country = self.textField.country {
+            self.enablePhoneFormat(for: country)
+        }
+    }
+    
     /// If off - removing the plus prefix
     public func plusPrefix(on: Bool) {
         if !on {
