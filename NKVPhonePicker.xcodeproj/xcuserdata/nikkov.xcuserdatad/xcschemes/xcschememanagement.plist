@@ -4,7 +4,12 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>NKVPhonePicker.xcscheme</key>
+		<key>NKVPhonePicker.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
+		<key>NKVPhonePickerExample.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>0</integer>
@@ -13,6 +18,16 @@
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
 		<key>EB8491301ED435260069CD20</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>EBD660C420801FCE00EA276E</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>EBD660E12080272100EA276E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
