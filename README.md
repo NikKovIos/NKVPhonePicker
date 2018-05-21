@@ -103,6 +103,7 @@ view.addConstraints(verticalConstraints)
 
 ## My other Repos
 
+- [x] https://github.com/Yummypets/YPImagePicker - Instagram like image picker. The project in cooperative with https://github.com/s4cha
 - [x] https://github.com/NikKovIos/SDWebImage-CircularProgressView - extension to change progress bar on images for SDWebImage
 - [x] https://github.com/NikKovIos/ObjectMapper_RealmSwift - extension to add Realm object support for ObjectMapper
 
