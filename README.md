@@ -101,11 +101,13 @@ view.addConstraints(verticalConstraints)
 - [x] Max numbers count var (can do with custom pattern)
 - [x] Patterns for each country
 
-## My other Repos
+## Checkout my other works
 
-- [x] https://github.com/Yummypets/YPImagePicker - Instagram like image picker. The project in cooperative with https://github.com/s4cha
+- [x] https://github.com/Yummypets/YPImagePicker - Instagram like image picker. The project in cooperative with [s4cha](https://github.com/s4cha)
 - [x] https://github.com/NikKovIos/SDWebImage-CircularProgressView - extension to change progress bar on images for SDWebImage
 - [x] https://github.com/NikKovIos/ObjectMapper_RealmSwift - extension to add Realm object support for ObjectMapper
 
-### by Nik Kov 
-http://nik-kov.com
+<a href="http://nik-kov.com">
+  <img src="https://raw.githubusercontent.com/Yummypets/YPImagePicker/master/Images/coreTeam2.png" width="70px">
+</a>
+
