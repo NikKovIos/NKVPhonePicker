@@ -24,6 +24,7 @@ class ExampleViewController: UIViewController {
 //        topTextField.shouldScrollToSelectedCountry = false
 //        topTextField.flagSize = CGSize(width: 30, height: 50)
 //        topTextField.enablePlusPrefix = false
+//        NKVPhonePickerTextField.samePhoneExtensionCountryPriorities = ["1": "US"]
         
         // Setting initial custom country
         let country = Country.country(for: NKVSource(countryCode: "RU"))

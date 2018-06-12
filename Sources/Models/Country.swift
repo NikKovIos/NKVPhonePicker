@@ -71,12 +71,79 @@ open class Country: NSObject {
                 }
             }
         case .phoneExtension(let phoneExtension):
+            
+            var matchingCountries = [Country]()
+            
             let phoneExtension = phoneExtension.phoneExtension.cutPluses
             for country in NKVSourcesHelper.countries {
                 if phoneExtension == country.phoneExtension {
-                    return country
+                    matchingCountries.append(country)
                 }
             }
+            
+            // If phone extension does not match any specific country, see if prefix of the extension is a match so we can pinpoint the country by local area code
+            if matchingCountries.count == 0 {
+                for country in NKVSourcesHelper.countries {
+                    var tempPhoneExtension = phoneExtension
+                    while tempPhoneExtension.count > 0 {
+                        if tempPhoneExtension == country.phoneExtension {
+                            matchingCountries.append(country)
+                            break
+                        } else {
+                            tempPhoneExtension.remove(at: tempPhoneExtension.index(before: tempPhoneExtension.endIndex))
+                        }
+                    }
+                }
+            }
+
+            // We have multiple countries for same phone extension. We decide which one to pick here.
+            if matchingCountries.count > 0 {
+                let matchingPhoneExtension = matchingCountries.first!.phoneExtension
+                
+                if phoneExtension.count > 1 {
+                    // Deciding which country to pick based on local area code.
+                    do {
+                        if let file = Bundle(for: NKVPhonePickerTextField.self).url(forResource: "Countries.bundle/Data/localAreaCodes", withExtension: "json") {
+                            
+                            let data = try Data(contentsOf: file)
+                            let json = try JSONSerialization.jsonObject(with: data, options: [])
+                            if let array = json  as? [String : [AnyObject]] {
+                                if array.index(forKey: matchingPhoneExtension) != nil {
+                                    // Found countries with given phone extension.
+                                    for country in array[array.index(forKey: matchingPhoneExtension)!].value {
+                                        if let areaCodes = country["localAreaCodes"] as? [String] {
+                                            if phoneExtension.hasPrefix(matchingPhoneExtension) {
+                                                var localAreaCode = String(phoneExtension.dropFirst(matchingPhoneExtension.count))
+                                                localAreaCode = String(localAreaCode.prefix(areaCodes.first!.count))
+                                                if areaCodes.contains(localAreaCode) {
+                                                    // Found a specific country with given phone extension and local area code.
+                                                    if let currentCountry = country["countryCode"] as? String {
+                                                        return Country.country(for: NKVSource(countryCode: currentCountry))
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        } else {
+                            print("NKVPhonePickerTextField >>> Can't find a bundle for the local area codes")
+                        }
+                    } catch {
+                        print("NKVPhonePickerTextField >>> \(error.localizedDescription)")
+                    }
+                }
+                
+                // Deciding which country to pick based on country priority.
+                if let countryPriorities = NKVPhonePickerTextField.samePhoneExtensionCountryPriorities {
+                    if let prioritizedCountry = countryPriorities[matchingPhoneExtension] {
+                        return Country.country(for: NKVSource(countryCode: prioritizedCountry))
+                    }
+                }
+                
+                return matchingCountries.first
+            }
+            
         }
         
         return nil

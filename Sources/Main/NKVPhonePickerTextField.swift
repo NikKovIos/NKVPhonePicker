@@ -17,6 +17,12 @@ open class NKVPhonePickerTextField: TextFieldPatternFormat {
     /// Set this property in order to present the CountryPickerViewController
     /// when user clicks on the flag button
     @IBOutlet public weak var phonePickerDelegate: UIViewController?
+    
+    /// Use this var for setting priority of countries when they have the same phone extension
+    /// Ex:
+    ///
+    ///     NKVPhonePickerTextField.samePhoneExtensionCountryPriorities = ["1": "US"]
+    public static var samePhoneExtensionCountryPriorities: [String: String]?
 
     /// Use this var for setting countries in the top of the tableView
     /// Ex:
