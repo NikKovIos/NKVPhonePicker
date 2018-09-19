@@ -7,7 +7,7 @@
 
 import UIKit
 
-public protocol CountriesViewControllerDelegate {
+@objc public protocol CountriesViewControllerDelegate {
     func countriesViewControllerDidCancel(_ sender: CountriesViewController)
     func countriesViewController(_ sender: CountriesViewController, didSelectCountry country: Country)
 }
@@ -21,7 +21,7 @@ public final class CountriesViewController: UITableViewController {
     /// A class function for retrieving standart controller for picking countries.
     ///
     /// - Returns: Instance of the country picker controller.
-    public class func standardController() -> CountriesViewController {
+    @objc public class func standardController() -> CountriesViewController {
         return UIStoryboard(name: "CountriesViewController", bundle: Bundle(for: self)).instantiateViewController(withIdentifier: "CountryPickerVC") as! CountriesViewController
     }
     
@@ -38,7 +38,7 @@ public final class CountriesViewController: UITableViewController {
     public var shouldScrollToSelectedCountry: Bool = true
 
     /// A delegate for <CountriesViewControllerDelegate>.
-    public var delegate: CountriesViewControllerDelegate?
+    @objc public var delegate: CountriesViewControllerDelegate?
 
     /// The current selected country.
     public var selectedCountry: Country?
@@ -97,7 +97,6 @@ public final class CountriesViewController: UITableViewController {
         searchController.delegate = self
         searchController.searchResultsUpdater = self
         searchController.dimsBackgroundDuringPresentation = false
-        searchController.searchBar.delegate = self
         searchController.searchBar.sizeToFit()
         searchController.searchBar.searchBarStyle = .minimal
         searchController.searchBar.tintColor = UIColor.black
@@ -209,7 +208,7 @@ extension CountriesViewController {
     public override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         delegate?.countriesViewController(self, didSelectCountry: filteredCountries[indexPath.section][indexPath.row])
-        if searchController.isActive { searchController.dismiss(animated: false, completion: nil) }
+        searchController.isActive = false
         self.dismiss(animated: true, completion: nil)
     }
 }
@@ -248,13 +247,6 @@ extension CountriesViewController: UISearchResultsUpdating {
             }
             filteredCountries.insert([], at: 0) //Empty section for our favorites
         }
-        tableView.reloadData()
-    }
-}
-
-extension CountriesViewController: UISearchBarDelegate {
-    public func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        filteredCountries = unfilteredCountries
         tableView.reloadData()
     }
 }
