@@ -49,9 +49,9 @@ open class Country: NSObject {
     }
     
     /// An empty country entity for test or other purposes.
-    /// "?" country code returns a flag with question mark.
+    /// "_unknown" country code returns a "question" flag.
     public static var empty: Country {
-        return Country(countryCode: "?", phoneExtension: "")
+        return Country(countryCode: "_unknown", phoneExtension: "")
     }
     
     // MARK: - Methods
