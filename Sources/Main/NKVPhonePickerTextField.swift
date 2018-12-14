@@ -210,11 +210,11 @@ open class NKVPhonePickerTextField: TextFieldPatternFormat {
             pickerVC.countriesVCNavigationItem.title = pickerTitle
         }
         if let pickerTitleFont = pickerTitleFont, let navController = pickerVC.navigationController {
-            let fontAttributes = [NSAttributedStringKey.font: pickerTitleFont]
+            let fontAttributes = [NSAttributedString.Key.font: pickerTitleFont]
             navController.navigationBar.titleTextAttributes = fontAttributes
         }
         if let pickerCancelButtonFont = pickerCancelButtonFont {
-            let fontAttributes = [NSAttributedStringKey.font: pickerCancelButtonFont]
+            let fontAttributes = [NSAttributedString.Key.font: pickerCancelButtonFont]
             pickerVC.countriesVCNavigationItem.leftBarButtonItem?.setTitleTextAttributes(fontAttributes, for: .normal)
             pickerVC.countriesVCNavigationItem.leftBarButtonItem?.setTitleTextAttributes(fontAttributes, for: .highlighted)
         }
@@ -239,11 +239,11 @@ open class NKVPhonePickerTextField: TextFieldPatternFormat {
     }
     
     override open func textRect(forBounds bounds: CGRect) -> CGRect {
-        return super.textRect(forBounds: UIEdgeInsetsInsetRect(bounds, textFieldTextInsets ?? UIEdgeInsets.zero))
+        return super.textRect(forBounds: bounds.inset(by: textFieldTextInsets ?? UIEdgeInsets.zero))
     }
     
     override open func editingRect(forBounds bounds: CGRect) -> CGRect {
-        return super.editingRect(forBounds: UIEdgeInsetsInsetRect(bounds, textFieldTextInsets ?? UIEdgeInsets.zero))
+        return super.editingRect(forBounds: bounds.inset(by: textFieldTextInsets ?? UIEdgeInsets.zero))
     }
     
     /// Presenter class for business logic

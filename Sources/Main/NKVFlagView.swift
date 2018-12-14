@@ -33,7 +33,7 @@ open class NKVFlagView: UIView {
 
     public required init(with textField: NKVPhonePickerTextField) {
         self.textField = textField
-        self.insets = UIEdgeInsetsMake(7, 7, 7, 7)
+        self.insets = UIEdgeInsets(top: 7, left: 7, bottom: 7, right: 7)
         self.iconSize = CGSize(width: 18.0, height: textField.frame.height)
         super.init(frame: CGRect.zero)
         
