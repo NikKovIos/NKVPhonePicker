@@ -4,7 +4,7 @@
 <br />
 
 ![Platform](https://img.shields.io/badge/platform-ios-blue.svg?style=flat)
-![Swift version](https://img.shields.io/badge/Swift-4.0-orange.svg?style=flat)
+![Swift version](https://img.shields.io/badge/Swift-4.2-orange.svg?style=flat)
 ![License](https://img.shields.io/badge/license-MIT-lightgrey.svg?style=flat)  
 [![CocoaPods](https://img.shields.io/cocoapods/v/NKVPhonePicker.svg)](https://cocoapods.org/pods/NKVPhonePicker)
 [![CocoaPods](https://img.shields.io/cocoapods/dm/NKVPhonePicker.svg)](https://cocoapods.org/pods/NKVPhonePicker)
@@ -28,7 +28,7 @@ pod try NKVPhonePicker
 ```
 *(don't forget to update your cocoapods master repo)*
 
-If you're still using Swift 2.x - you can set (The development for swift_2.x is deprecated. Stale version still exists)
+If you're still using Swift 2.x - you can set (The development for swift_2.x is deprecated. Stale version still exists.)
 ```ruby
 pod 'NKVPhonePicker', :git => "https://github.com/NikKovIos/NKVPhonePicker.git", :branch => "Swift_2.x"
 ```
