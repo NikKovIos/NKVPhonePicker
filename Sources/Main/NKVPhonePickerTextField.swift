@@ -8,6 +8,10 @@
 import Foundation
 import UIKit
 
+public protocol NKVPhonePickerTextFieldProtocol: class {
+    func countriesViewController(_ sender: CountriesViewController, didSelectCountry country: Country)
+}
+
 open class NKVPhonePickerTextField: TextFieldPatternFormat {
     
     // MARK: - Interface
@@ -29,7 +33,7 @@ open class NKVPhonePickerTextField: TextFieldPatternFormat {
     ///
     ///     textField.favoriteCountriesLocaleIdentifiers = ["RU", "JM", "GB"]
     public var favoriteCountriesLocaleIdentifiers: [String]?
-    
+    public weak var callbackDelegate: NKVPhonePickerTextFieldProtocol?
     /// Use this var for setting custom phone formatting for countries. Use "#" char.
     /// Ex:
     ///
@@ -255,6 +259,7 @@ extension NKVPhonePickerTextField: CountriesViewControllerDelegate {
         if isFlagFixed == false {
             self.country = country
         }
+        callbackDelegate?.countriesViewController(sender, didSelectCountry: country)
     }
     
     open func countriesViewControllerDidCancel(_ sender: CountriesViewController) {
