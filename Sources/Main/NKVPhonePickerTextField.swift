@@ -45,6 +45,10 @@ open class NKVPhonePickerTextField: TextFieldPatternFormat {
     /// Set to 'false' if you don't need to scroll to selected country in when CountryPickerViewController did appear.
     public var shouldScrollToSelectedCountry: Bool = true
     
+    /// If true the initial value would be + <current country phone code>, for example +1 for US.
+    /// If false it would be just +.
+    public var setCurrentCountryInitially: Bool = true { didSet { country = setCurrentCountryInitially ? Country.currentCountry : nil }}
+    
     /// Set to true for languages where flag and + must be at the right. For example for Arabic.
     public var rightToLeftOrientation: Bool = false { didSet { presenter.isRightToLeftMode(on: rightToLeftOrientation) } }
     
@@ -63,6 +67,8 @@ open class NKVPhonePickerTextField: TextFieldPatternFormat {
         set {
             if let newValue = newValue {
                 presenter.setCountry(source: NKVSource(country: newValue))
+            } else {
+                presenter.setCountry(source: nil)
             }
         }
     }
@@ -91,6 +97,22 @@ open class NKVPhonePickerTextField: TextFieldPatternFormat {
     
     public func setFlag(source: NKVSource) {
         presenter.setFlag(source: source)
+    }
+    
+    /// If you want to fill the number initially, use this method.
+    ///
+    /// - Parameters:
+    ///   - source: source country for formatting
+    ///   - number: number (only digits)
+    public func preFillText(source: NKVSource,
+                            number: Int) {
+        guard let c = Country.country(for: source) else {
+            print("⚠️ NKVPhonePickerTextField -> Can't prefill text with selected source.")
+            return
+        }
+        presenter.setFlag(source: source)
+        presenter.enablePhoneFormat(for: c)
+        text = "\(number)"
     }
     
     // MARK: - Customizing
@@ -159,8 +181,8 @@ open class NKVPhonePickerTextField: TextFieldPatternFormat {
         
         presenter.isRightToLeftMode(on: false)
         
-        if let countryForCurrentPhoneLocalization = Country.currentCountry {
-            country = countryForCurrentPhoneLocalization
+        if setCurrentCountryInitially {
+            country = Country.currentCountry
         }
     }
    

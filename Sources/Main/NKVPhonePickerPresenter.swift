@@ -12,7 +12,8 @@ import UIKit
 class NKVPhonePickerPresenter {
     
     /// Country setter
-    public func setCountry(source: NKVSource) {
+    public func setCountry(source: NKVSource?) {
+        let source = source ?? NKVSource(countryCode: "EMPTY")
         setFlag(source: source)
         setCode(source: source)
     }
@@ -28,7 +29,7 @@ class NKVPhonePickerPresenter {
             pe = PhoneExtension(source: source)?.phoneExtension ?? "?"
         case .phoneExtension(let phoneExtension):
             pe = phoneExtension.phoneExtension
-    }
+        }
         
         textField.text = ""
         textField.text = "\(pe)"

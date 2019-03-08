@@ -6,6 +6,7 @@
 //
 
 import UIKit
+//import NKVPhonePicker (import if needed)
 
 class ExampleViewController: UIViewController {
     @IBOutlet weak var scrollView: UIScrollView!
@@ -80,8 +81,14 @@ class ExampleViewController: UIViewController {
         bottomTextField.font = UIFont.boldSystemFont(ofSize: 25)
         bottomTextField.textColor = UIColor.white
         bottomTextField.textFieldTextInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0)
+        
+        // prefilling
+        let source = NKVSource(countryCode: "ru")
+        bottomTextField.setCurrentCountryInitially = false
+        bottomTextField.preFillText(source: source, number: 7999432423)
+        
         bottomTextField.translatesAutoresizingMaskIntoConstraints = false
-        self.scrollView.addSubview(bottomTextField)
+        scrollView.addSubview(bottomTextField)
         
         let views: [String : Any] = ["bottomTextField": self.bottomTextField]
         let horizontalConstraints = NSLayoutConstraint.constraints(withVisualFormat:

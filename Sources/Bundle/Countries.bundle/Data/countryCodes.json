@@ -1,8 +1,8 @@
 [
     {
-        "name": "DummyPlaceholder",
-        "dial_code": "?",
-        "code": "DP",
+        "name": "emptyCountry",
+        "dial_code": "",
+        "code": "EMPTY",
         "format": "################"
     },
     {
