@@ -22,7 +22,6 @@ open class Country: NSObject {
     }
     /// Ex: "### ## ######"
     @objc public var formatPattern: String
-    public var formatPatternPlaceholder: String
     /// A flag image for this country. May be nil.
     public var flag: UIImage? {
         return NKVSourcesHelper.flag(for: NKVSource(country: self))
@@ -32,14 +31,10 @@ open class Country: NSObject {
 
     public init(countryCode: String,
                 phoneExtension: String,
-                formatPattern: String = "###################",
-                formatPatternPlaceholder: String) {
+                formatPattern: String = "###################") {
         self.countryCode = countryCode
         self.phoneExtension = phoneExtension
         self.formatPattern = formatPattern
-        
-        let phone = formatPatternPlaceholder
-        self.formatPatternPlaceholder = phone.replacingOccurrences(of: "[0123456789]", with: "x", options: .regularExpression)
     }
     
     // MARK: - Country entities
@@ -56,7 +51,7 @@ open class Country: NSObject {
     /// An empty country entity for test or other purposes.
     /// "_unknown" country code returns a "question" flag.
     public static var empty: Country {
-        return Country(countryCode: "_unknown", phoneExtension: "", formatPatternPlaceholder: "")
+        return Country(countryCode: "_unknown", phoneExtension: "")
     }
     
     // MARK: - Methods
