@@ -17,6 +17,7 @@ class ExampleViewController: UIViewController {
         super.viewDidLoad()
         
         topTextField.phonePickerDelegate = self
+        topTextField.countryPickerDelegate = self
         topTextField.favoriteCountriesLocaleIdentifiers = ["RU", "ER", "JM"]
         
         /// Uncomment next line to try different settings
@@ -114,5 +115,16 @@ class ExampleViewController: UIViewController {
     @objc func keyboardWillHide(notification: NSNotification) {
         scrollView.contentInset = .zero
         scrollView.scrollIndicatorInsets = .zero
+    }
+}
+
+/// The methods are optional.
+extension ExampleViewController: CountriesViewControllerDelegate {
+    func countriesViewController(_ sender: CountriesViewController, didSelectCountry country: Country) {
+        print("✳️ Did select country: \(country)")
+    }
+    
+    func countriesViewControllerDidCancel(_ sender: CountriesViewController) {
+        print("😕")
     }
 }
