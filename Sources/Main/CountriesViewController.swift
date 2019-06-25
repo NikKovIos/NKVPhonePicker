@@ -84,7 +84,7 @@ public final class CountriesViewController: UITableViewController {
         
         if let selectedCountry = selectedCountry, shouldScrollToSelectedCountry {
             for (index, countries) in unfilteredCountries.enumerated() {
-                if let countryIndex = countries.index(of: selectedCountry) {
+                if let countryIndex = countries.firstIndex(of: selectedCountry) {
                     let indexPath = NSIndexPath(row: countryIndex, section: index) as IndexPath
                     tableView.scrollToRow(at: indexPath, at: .middle, animated: true)
                     break
