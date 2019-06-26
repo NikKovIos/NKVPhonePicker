@@ -7,7 +7,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'NKVPhonePicker'
-  s.version          = '2.4.0'
+  s.version          = '2.1.0'
   s.summary          = 'A UITextField subclass to simplify the selection of country codes.'
   s.description      = <<-DESC
     With this pod you can easily select country codes with just making your textFields class - the NKVPhonePickerTextField. 
@@ -15,7 +15,7 @@ Pod::Spec.new do |s|
                        DESC
 
   s.homepage         = 'https://github.com/NikKovIos/NKVPhonePicker'
-  s.ios.deployment_target = '9.0'
+  s.ios.deployment_target = '10.0'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'Nik Kov' => 'nikkovios@gmail.com' }
   s.source           = {

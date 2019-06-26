@@ -4,7 +4,7 @@
 <br />
 
 ![Platform](https://img.shields.io/badge/platform-ios-blue.svg?style=flat)
-![Swift version](https://img.shields.io/badge/Swift-4.2-orange.svg?style=flat)
+![Swift version](https://img.shields.io/badge/Swift-5-orange.svg?style=flat)
 ![License](https://img.shields.io/badge/license-MIT-lightgrey.svg?style=flat)  
 [![CocoaPods](https://img.shields.io/cocoapods/v/NKVPhonePicker.svg)](https://cocoapods.org/pods/NKVPhonePicker)
 [![CocoaPods](https://img.shields.io/cocoapods/dm/NKVPhonePicker.svg)](https://cocoapods.org/pods/NKVPhonePicker)
@@ -27,6 +27,8 @@ Also you can try an example project with
 pod try NKVPhonePicker
 ```
 *(don't forget to update your cocoapods master repo)*
+
+For swift 4.2 version use `011f7090e69a8446aadd21531e4b83da745cd2d4` in `master` branch.
 
 If you're still using Swift 2.x - you can set (The development for swift_2.x is deprecated. Stale version still exists.)
 ```ruby
@@ -72,25 +74,11 @@ bottomTextField.font = UIFont.boldSystemFont(ofSize: 25)
 bottomTextField.textColor = UIColor.white
 bottomTextField.textFieldTextInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0)
 bottomTextField.translatesAutoresizingMaskIntoConstraints = false
-self.view.addSubview(bottomTextField)
-        
-let views: [String : Any] = ["bottomTextField": self.bottomTextField]
-let horizontalConstraints = NSLayoutConstraint.constraints(withVisualFormat:
-            "H:|-15-[bottomTextField]-15-|",
-                                                          options: [],
-                                                          metrics: nil,
-                                                          views: views)
-        
-let verticalConstraints = NSLayoutConstraint.constraints(withVisualFormat:
-            "V:|-(>=0)-[bottomTextField(30)]-15-|",
-                                                          options: [],
-                                                          metrics: nil,
-                                                          views: views)
-        
-view.addConstraints(horizontalConstraints)
-view.addConstraints(verticalConstraints)
-view.addConstraints(horizontalConstraints)
-view.addConstraints(verticalConstraints)
+
+// prefilling
+let source = NKVSource(countryCode: "ru")
+bottomTextField.setCurrentCountryInitially = false
+bottomTextField.preFillText(source: source, number: 7999432423)
 }
 ```
 

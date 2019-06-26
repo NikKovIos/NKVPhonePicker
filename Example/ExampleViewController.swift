@@ -90,7 +90,7 @@ class ExampleViewController: UIViewController {
         bottomTextField.translatesAutoresizingMaskIntoConstraints = false
         scrollView.addSubview(bottomTextField)
         
-        let views: [String : Any] = ["bottomTextField": self.bottomTextField]
+        let views: [String : Any] = ["bottomTextField": bottomTextField!]
         let horizontalConstraints = NSLayoutConstraint.constraints(withVisualFormat:
             "H:|-15-[bottomTextField]-15-|",
                                                                    options: [],
