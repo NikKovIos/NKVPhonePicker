@@ -209,7 +209,7 @@ open class NKVPhonePickerTextField: TextFieldPatternFormat {
     }
     
     /// Presents a view controller to choose a country code.
-    @objc private func presentCountriesViewController() {
+    @objc public func presentCountriesViewController() {
         if let delegate = phonePickerDelegate {
             let countriesVC = CountriesViewController.standardController()
             countriesVC.delegate = self as CountriesViewControllerDelegate
