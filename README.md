@@ -79,7 +79,6 @@ bottomTextField.translatesAutoresizingMaskIntoConstraints = false
 let source = NKVSource(countryCode: "ru")
 bottomTextField.setCurrentCountryInitially = false
 bottomTextField.preFillText(source: source, number: 7999432423)
-}
 ```
 
 **Note:** 'In this library used the `TextFieldPatternFormat` lib by Vojta Stavik'
