@@ -44,6 +44,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		824019BC233129550041C9BE /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		EB12473A21C9448300915043 /* .swift-version */ = {isa = PBXFileReference; lastKnownFileType = text; path = ".swift-version"; sourceTree = SOURCE_ROOT; };
 		EB1D35E52045F3B900DC9560 /* NKVPhonePickerPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NKVPhonePickerPresenter.swift; sourceTree = "<group>"; };
 		EB1D35E72045F74400DC9560 /* CountryCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryCode.swift; sourceTree = "<group>"; };
@@ -103,6 +104,7 @@
 		EB8491281ED435260069CD20 = {
 			isa = PBXGroup;
 			children = (
+				824019BC233129550041C9BE /* Package.swift */,
 				EB8491481ED435920069CD20 /* Info */,
 				EB8491471ED4358B0069CD20 /* Sources */,
 				EB8491461ED4357C0069CD20 /* Example */,

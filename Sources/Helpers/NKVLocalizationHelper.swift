@@ -5,7 +5,9 @@
 // nik-kov.com
 //
 
+#if os(iOS)
 import Foundation
+import UIKit
 
 struct NKVLocalizationHelper {
     /// Returns the code of the country (region) of the current localization.
@@ -22,3 +24,4 @@ struct NKVLocalizationHelper {
         return (Locale.current as NSLocale).displayName(forKey: .countryCode, value: countryCode)
     }
 }
+#endif

@@ -6,6 +6,9 @@
 //  Copyright © 2018 nik.kov. All rights reserved.
 //
 
+#if os(iOS)
+import Foundation
+
 public enum NKVSource {
     case country(Country)
     case code(CountryCode)
@@ -23,3 +26,4 @@ public enum NKVSource {
         self = .phoneExtension(PhoneExtension(phoneExtension))
     }
 }
+#endif

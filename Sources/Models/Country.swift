@@ -5,6 +5,7 @@
 // nik-kov.com
 //
 
+#if os(iOS)
 import Foundation
 import UIKit
 
@@ -171,3 +172,4 @@ extension Country {
         return lhs.countryCode == rhs.countryCode
     }
 }
+#endif

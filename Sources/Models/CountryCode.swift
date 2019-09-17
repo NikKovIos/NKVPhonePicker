@@ -6,6 +6,9 @@
 //  Copyright © 2018 nik.kov. All rights reserved.
 //
 
+#if os(iOS)
+import Foundation
+
 public struct CountryCode {
     public var code: String
     
@@ -28,3 +31,4 @@ public struct CountryCode {
         self.code = countryCode
     }
 }
+#endif
