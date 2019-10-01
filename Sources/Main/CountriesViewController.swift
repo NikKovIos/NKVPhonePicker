@@ -5,6 +5,8 @@
 // nik-kov.com
 //
 
+#if os(iOS)
+import Foundation
 import UIKit
 
 @objc public protocol CountriesViewControllerDelegate {
@@ -250,3 +252,4 @@ extension CountriesViewController: UISearchResultsUpdating {
         tableView.reloadData()
     }
 }
+#endif

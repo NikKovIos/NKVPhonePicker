@@ -5,6 +5,8 @@
 // nik-kov.com
 //
 
+#if os(iOS)
+import Foundation
 import UIKit
 
 open class NKVFlagView: UIView {
@@ -70,3 +72,4 @@ open class NKVFlagView: UIView {
     
     required public init?(coder aDecoder: NSCoder) { fatalError("init(coder:) not supported"); }
 }
+#endif

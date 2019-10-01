@@ -5,6 +5,8 @@
 // nik-kov.com
 //
 
+#if os(iOS)
+import Foundation
 import UIKit
 
 struct NKVSourcesHelper {
@@ -71,3 +73,4 @@ struct NKVSourcesHelper {
         return countries
     }()
 }
+#endif

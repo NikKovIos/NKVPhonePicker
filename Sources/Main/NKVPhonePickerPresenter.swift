@@ -6,8 +6,9 @@
 //  Copyright © 2018 nik.kov. All rights reserved.
 //
 
+#if os(iOS)
+import Foundation
 import UIKit
-
 /// Logic container for TextField
 class NKVPhonePickerPresenter {
     
@@ -95,3 +96,4 @@ class NKVPhonePickerPresenter {
         self.textField = textField
     }
 }
+#endif
