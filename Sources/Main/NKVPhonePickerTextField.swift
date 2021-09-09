@@ -296,7 +296,7 @@ extension NKVPhonePickerTextField: UITextFieldDelegate {
                 self.setFlag(source: NKVSource(country: Country.empty))
             }
             
-            let firstFourLetters = String(newString.prefix(5))
+            let firstFourLetters = String(newString.prefix(7))
             self.setFlag(source: NKVSource(phoneExtension: firstFourLetters))
         }
     }
